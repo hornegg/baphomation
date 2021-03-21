@@ -59,7 +59,7 @@
     "react-dom": "^17.0.1",
     "react-three-fiber": "^5.3.10",
     "rimraf": "^3.0.2",
-    "three": "^0.123.0",
+    "three": "^0.125.0",
     "three-js-csg": "https://github.com/hornegg/three-js-csg.git",
     "ts-node": "^9.1.1",
     "typescript": "^4.1.3"
