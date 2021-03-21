@@ -4,6 +4,7 @@ import * as bspConstructor from 'three-js-csg';
 
 import { createEllipsoid } from './commonGeometry';
 import { HALF_PI } from '../src/common';
+import { ExtrudeGeometry } from 'three';
 
 const ThreeBSP = bspConstructor(THREE);
 
@@ -35,6 +36,23 @@ const createCylinder = (params: CylinderParams) => {
   cylinder.translate(params.sign * params.x, params.y, params.z);
 
   return new ThreeBSP(cylinder);
+};
+
+const createWingBlade = (sign: 1 | -1, xStart: number, yStart: number, xEnd: number, yEnd: number) => {
+  const shape = new THREE.Shape();
+  shape.moveTo(sign * xStart, yStart);
+  shape.lineTo(sign * 1.1, 1.4);
+  shape.lineTo(sign * 2, 1.4);
+  shape.lineTo(sign * xEnd, yEnd);
+  shape.lineTo(sign * xStart, yStart);
+
+  const extrudeSettings = {
+    steps: 1,
+    depth: 0.05,
+    bevelEnabled: false,
+  };
+  const geom = new THREE.ExtrudeGeometry(shape, extrudeSettings);
+  return new ThreeBSP(geom);
 };
 
 const createWing = (sign: 1 | -1) => {
@@ -72,7 +90,8 @@ const createWing = (sign: 1 | -1) => {
     ...size,
   });
 
-  return c1.union(c2).union(c3);
+  const blade = createWingBlade(sign, 1.1, 2, 2, 2);
+  return c1.union(c2).union(c3).union(blade);
 };
 
 const bodyEllipsoid = createEllipsoid(0.75, 1.8, 0.5, scalar);
