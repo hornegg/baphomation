@@ -23,20 +23,6 @@ const exec = async (cmd) => {
 };
 
 const defaultTask = (callback: () => void): void => {
-  // fire hues
-
-  watchRunScriptNewer({
-    displayName: 'changeHues',
-    src: 'processing/changeHues.ts',
-    extra: ['src/THREE.Fire/Fire.png', 'processing/p5Headless.ts'],
-    dests: [
-      'dist/blueFire.png',
-      'dist/greenFire.png',
-      'dist/yellowFire.png',
-      'dist/redFire.png',
-    ],
-    args: [],
-  });
 
   // head
 
