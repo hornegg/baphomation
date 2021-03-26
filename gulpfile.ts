@@ -23,7 +23,6 @@ const exec = async (cmd) => {
 };
 
 const defaultTask = (callback: () => void): void => {
-
   // head
 
   watchRunScriptNewer({

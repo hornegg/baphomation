@@ -37,19 +37,37 @@ const createCylinder = (params: CylinderParams) => {
   return new ThreeBSP(cylinder);
 };
 
-const createWingBlade = (sign: 1 | -1, xStart: number, yStart: number, xEnd: number, yEnd: number) => {
+const createWingBlade = (
+  sign: 1 | -1,
+  bladeEndX: number,
+  bladeEndY: number,
+  drop: number
+) => {
+  const bladeStartX = 0.75;
+  const bladeStartY = -1;
+
   const shape = new THREE.Shape();
-  shape.moveTo(sign * xStart, yStart);
-  shape.lineTo(sign * 0.75, -1);
-  shape.lineTo(sign * 2.35, -0.5);
-  shape.lineTo(sign * xEnd, yEnd);
-  shape.lineTo(sign * xStart, yStart);
+  shape.moveTo(sign * bladeStartX, bladeStartY - drop);
+  shape.lineTo(sign * bladeStartX, bladeStartY);
+
+  shape.bezierCurveTo(
+    sign * bladeStartX,
+    bladeStartY,
+    sign * bladeEndX,
+    bladeEndY,
+    sign * bladeEndX,
+    bladeEndY
+  );
+
+  shape.lineTo(sign * bladeEndX, bladeEndY - drop);
+  shape.lineTo(sign * bladeStartX, bladeStartY - drop);
 
   const extrudeSettings = {
     steps: 1,
     depth: 0.05,
     bevelEnabled: false,
   };
+
   const geom = new THREE.ExtrudeGeometry(shape, extrudeSettings);
   return new ThreeBSP(geom);
 };
@@ -57,7 +75,7 @@ const createWingBlade = (sign: 1 | -1, xStart: number, yStart: number, xEnd: num
 const createWing = (sign: 1 | -1) => {
   const size = { width: 0.35, height: 0.35, depth: 0.05 };
 
-  const pos1 = { x: 1.1, y: -1.4, z: -0.25/*0*/ };
+  const pos1 = { x: 1.1, y: -1.4, z: -0.25 /*0*/ };
 
   const pos2 = {
     x: pos1.x + (1.4 * size.width),
@@ -89,7 +107,7 @@ const createWing = (sign: 1 | -1) => {
     ...size,
   });
 
-  const blade = createWingBlade(sign, 0.75, -2, 2, -2);
+  const blade = createWingBlade(sign, pos3.x, pos3.y + size.height, 0.5);
   return c1.union(c2).union(c3).union(blade);
 };
 
