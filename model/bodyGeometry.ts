@@ -23,7 +23,7 @@ const createWing = (sign: 1 | -1) => {
     return [sign * c[0], c[1], sign * p2[0], p2[1]];
   };
 
-  const bladeStartX = 0.75;
+  const bladeStartX = 0.83 - scalar;
   const bladeStartY = -1 + scalar;
   const bladeEndX = 1.94;
   const bladeEndY = -0.28 + scalar;
