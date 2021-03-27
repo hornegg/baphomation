@@ -28,6 +28,7 @@ const settings: SettingsInterface = {
   fps: 30, // Frames per second
   frameCapture: false,
   invertPentagrams: false,
+  nsfw: false,
   watchTowers: watchTowersBlank,
 };
 

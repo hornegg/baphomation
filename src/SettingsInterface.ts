@@ -10,5 +10,6 @@ export interface SettingsInterface {
   fps: number; // Frames per second
   frameCapture: boolean;
   invertPentagrams: boolean;
+  nsfw: boolean;
   watchTowers: WatchTowers;
 }
