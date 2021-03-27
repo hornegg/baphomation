@@ -16,7 +16,7 @@ const createWing = (sign: 1 | -1) => {
     p1: [number, number],
     p2: [number, number]
   ): [number, number, number, number] => {
-    const perp = [p1[1] - p2[1], p2[0] - p1[0]];
+    const perp = [p1[1] - p2[1], p2[0] - p1[0]].map(n => 0.7 * n);
     const mid = [0.5 * (p1[0] + p2[0]), 0.5 * (p1[1] + p2[1])];
     const c: [number, number] = [mid[0] + perp[0], mid[1] + perp[1]];
 
@@ -24,7 +24,7 @@ const createWing = (sign: 1 | -1) => {
   };
 
   const bladeStartX = 0.83 - scalar;
-  const bladeStartY = -1 + scalar;
+  const bladeStartY = -1.2 + scalar;
   const bladeEndX = 1.94;
   const bladeEndY = -0.28 + scalar;
   const drop = 0.5 + scalar + scalar;
@@ -35,17 +35,17 @@ const createWing = (sign: 1 | -1) => {
 
   shape.bezierCurveTo(
     sign * bladeStartX,
-    bladeStartY,
+    bladeStartY + 0.4,
     sign * bladeEndX,
-    bladeEndY,
+    bladeEndY - 0.4,
     sign * bladeEndX,
     bladeEndY
   );
 
   // Define the four points along the bottom of the wing (outside to inside: a, b, c, d)
   const a: [number, number] = [bladeEndX, bladeEndY];
-  const b: [number, number] = [1.57, -1.12 - scalar];
-  const c: [number, number] = [1.1, -1.4 - scalar];
+  const b: [number, number] = [bladeEndX, -0.9 - scalar];
+  const c: [number, number] = [1.4, -1.4 - scalar];
   const d: [number, number] = [bladeStartX, bladeStartY - drop];
 
   shape.quadraticCurveTo(...quadParams(a, b));
