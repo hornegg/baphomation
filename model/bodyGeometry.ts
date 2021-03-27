@@ -1,6 +1,7 @@
 import * as fs from 'fs';
 import * as THREE from 'three';
 import * as bspConstructor from 'three-js-csg';
+import settings from '../src/settings';
 
 import { createEllipsoid } from './commonGeometry';
 
@@ -62,13 +63,7 @@ const createWing = (sign: 1 | -1) => {
   return new ThreeBSP(geom);
 };
 
-const bodyEllipsoid = createEllipsoid(0.75, 1.8, 0.5, scalar);
-bodyEllipsoid.translate(0, -1.3, 0);
-const bodyEllipsoidBsp = new ThreeBSP(bodyEllipsoid);
-
-const headBox = new THREE.BoxGeometry(2, 2, 2);
-headBox.translate(0, 1.5, 0);
-const headBoxBsp = new ThreeBSP(headBox);
+// Head
 
 const loader = new THREE.BufferGeometryLoader();
 
@@ -84,7 +79,35 @@ head.fromBufferGeometry(
   )
 );
 
+const headBox = new THREE.BoxGeometry(2, 2, 2);
+headBox.translate(0, 1.5, 0);
+
+// Body
+
+const bodyEllipsoid = createEllipsoid(0.75, 1.8, 0.5, scalar);
+bodyEllipsoid.translate(0, -1.3, 0);
+
+// eslint-disable-next-line immutable/no-let
+let bodyEllipsoidBsp = new ThreeBSP(bodyEllipsoid);
+
+// Breasts
+
+if (settings.nsfw) {
+  const left = createEllipsoid(0.25, 0.25, 0.25, scalar);
+  const right = createEllipsoid(0.25, 0.25, 0.25, scalar);
+  const params: [number, number, number] = [0.35, -1.4, 0.5];
+  left.translate(-params[0], params[1], params[2]);
+  right.translate(params[0], params[1], params[2]);
+
+  const leftBsp = new ThreeBSP(left);
+  const rightBsp = new ThreeBSP(right);
+  bodyEllipsoidBsp = bodyEllipsoidBsp.union(leftBsp).union(rightBsp);
+}
+
+// Combine
+
 const headBsp = new ThreeBSP(head);
+const headBoxBsp = new ThreeBSP(headBox);
 
 const body: THREE.Geometry = bodyEllipsoidBsp
   .subtract(headBoxBsp)

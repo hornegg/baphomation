@@ -94,7 +94,7 @@ class ArmProps {
 }
 
 const Arm = (props: ArmProps): JSX.Element => {
-  const start = new THREE.Vector3(props.sign * 0.6, -1.3, 0.5);
+  const start = new THREE.Vector3(props.sign * 0.8, -1.3, 0.4);
 
   const end: THREE.Vector3 = props.pointAt
     .clone()
