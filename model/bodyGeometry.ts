@@ -47,7 +47,7 @@ const createWingBlade = (
     p1: [number, number],
     p2: [number, number]
   ): [number, number, number, number] => {
-    const perp = [p2[0] - p1[0], p1[1] - p2[1]].reverse();
+    const perp = [p1[1] - p2[1], p2[0] - p1[0]];
     const mid = [0.5 * (p1[0] + p2[0]), 0.5 * (p1[1] + p2[1])];
     const c: [number, number] = [mid[0] + perp[0], mid[1] + perp[1]];
 
@@ -72,12 +72,12 @@ const createWingBlade = (
 
   const a: [number, number] = [bladeEndX, bladeEndY];
   const b: [number, number] = [1.57, -1.12];
-  const c: [number, number] = [sign * 1.1, -1.4];
-  const d: [number, number] = [sign * bladeStartX, bladeStartY - drop];
+  const c: [number, number] = [1.1, -1.4];
+  const d: [number, number] = [bladeStartX, bladeStartY - drop];
 
   shape.quadraticCurveTo(...quadParams(a, b));
-  shape.lineTo(...c);
-  shape.lineTo(...d);
+  shape.quadraticCurveTo(...quadParams(b, c));
+  shape.quadraticCurveTo(...quadParams(c, d));
 
   const extrudeSettings = {
     steps: 1,
