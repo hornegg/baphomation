@@ -12,10 +12,6 @@ const outline = process.argv[3] === 'true';
 const scalar = outline ? 0.07 : 0;
 
 const createWing = (sign: 1 | -1) => {
-  const bladeEndX = 1.94;
-  const bladeEndY = -0.28;
-  const drop = 0.5;
-
   const quadParams = (
     p1: [number, number],
     p2: [number, number]
@@ -28,7 +24,10 @@ const createWing = (sign: 1 | -1) => {
   };
 
   const bladeStartX = 0.75;
-  const bladeStartY = -1;
+  const bladeStartY = -1 + scalar;
+  const bladeEndX = 1.94;
+  const bladeEndY = -0.28 + scalar;
+  const drop = 0.5 + scalar + scalar;
 
   const shape = new THREE.Shape();
   shape.moveTo(sign * bladeStartX, bladeStartY - drop);
@@ -43,9 +42,10 @@ const createWing = (sign: 1 | -1) => {
     bladeEndY
   );
 
+  // Define the four points along the bottom of the wing (outside to inside: a, b, c, d)
   const a: [number, number] = [bladeEndX, bladeEndY];
-  const b: [number, number] = [1.57, -1.12];
-  const c: [number, number] = [1.1, -1.4];
+  const b: [number, number] = [1.57, -1.12 - scalar];
+  const c: [number, number] = [1.1, -1.4 - scalar];
   const d: [number, number] = [bladeStartX, bladeStartY - drop];
 
   shape.quadraticCurveTo(...quadParams(a, b));
