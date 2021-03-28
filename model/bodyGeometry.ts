@@ -1,9 +1,10 @@
 import * as fs from 'fs';
 import * as THREE from 'three';
 import * as bspConstructor from 'three-js-csg';
+import { QUARTER_PI } from '../src/common';
 import settings from '../src/settings';
 
-import { createEllipsoid } from './commonGeometry';
+import { createCylinder, createEllipsoid } from './commonGeometry';
 
 const ThreeBSP = bspConstructor(THREE);
 
@@ -17,7 +18,7 @@ const createWing = (sign: 1 | -1) => {
     p1: [number, number],
     p2: [number, number]
   ): [number, number, number, number] => {
-    const perp = [p1[1] - p2[1], p2[0] - p1[0]].map(n => 0.7 * n);
+    const perp = [p1[1] - p2[1], p2[0] - p1[0]].map((n) => 0.7 * n);
     const mid = [0.5 * (p1[0] + p2[0]), 0.5 * (p1[1] + p2[1])];
     const c: [number, number] = [mid[0] + perp[0], mid[1] + perp[1]];
 
@@ -102,6 +103,25 @@ if (settings.nsfw) {
   const leftBsp = new ThreeBSP(left);
   const rightBsp = new ThreeBSP(right);
   bodyEllipsoidBsp = bodyEllipsoidBsp.union(leftBsp).union(rightBsp);
+}
+
+if (settings.nsfw) {
+  const height = 1;
+  const cylinder = createCylinder(0.1, height, scalar);
+  const sphere = createEllipsoid(0.13, 0.13, 0.13, scalar);
+  cylinder.translate(0, -height / 2, 0);
+  //  sphere.translate(0, height / 2, 0);
+
+  const rotation = QUARTER_PI;
+  const translation: [number, number, number] = [0, -1.9, 1.05];
+  cylinder.rotateX(rotation);
+  sphere.rotateX(rotation);
+  cylinder.translate(...translation);
+  sphere.translate(...translation);
+
+  const cylinderBsp = new ThreeBSP(cylinder);
+  const sphereBsp = new ThreeBSP(sphere);
+  bodyEllipsoidBsp = bodyEllipsoidBsp.union(cylinderBsp).union(sphereBsp);
 }
 
 // Combine

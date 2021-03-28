@@ -15,3 +15,17 @@ export const createEllipsoid = (
     new THREE.Matrix4().makeScale(x + scalar, y + scalar, z + scalar)
   );
 };
+
+export const createCylinder = (
+  radius: number,
+  height: number,
+  scalar: number
+): THREE.Geometry => {
+  const radialSegments = 24;
+  return new THREE.CylinderGeometry(
+    radius + scalar,
+    radius + scalar,
+    height + scalar,
+    radialSegments
+  );
+};
