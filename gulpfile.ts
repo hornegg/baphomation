@@ -46,7 +46,7 @@ const defaultTask = (callback: () => void): void => {
   watchRunScriptNewer({
     displayName: 'bodyGeometry',
     src: 'model/bodyGeometry.ts',
-    extra: ['model/commonGeometry.ts', 'dist/outlineHeadGeometry.json'],
+    extra: ['model/commonGeometry.ts', 'dist/outlineHeadGeometry.json', 'src/settings.ts'],
     dests: ['dist/bodyGeometry.json'],
     args: ['false'],
   });
@@ -54,7 +54,7 @@ const defaultTask = (callback: () => void): void => {
   watchRunScriptNewer({
     displayName: 'outlineBodyGeometry',
     src: 'model/bodyGeometry.ts',
-    extra: ['model/commonGeometry.ts', 'dist/outlineHeadGeometry.json'],
+    extra: ['model/commonGeometry.ts', 'dist/outlineHeadGeometry.json', 'src/settings.ts'],
     dests: ['dist/outlineBodyGeometry.json'],
     args: ['true'],
   });
