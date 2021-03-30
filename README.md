@@ -31,7 +31,7 @@ All the most important configuration settings are in [src/settings.ts](src/setti
 
 When running the web-application in frameCapture mode, we only see one of the three layers of animation at a time.  Once the third cycle is complete, it might appear to start again, but in the background a zip file containing frames of animation is being generated.  When this is ready, the browser will "download" a file called `frames.zip`.
 
-`frame.zip` must be placed in the `dist` directory in order to complete the post-processing steps.  This is the only part of the animation generation process which is not automated.
+`frame.zip` must be placed in the `dist` directory in order to trigger the post-processing steps.  This is the only part of the animation generation process which is not automated.
 
 # Post-processing
 
