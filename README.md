@@ -1,6 +1,6 @@
 # Baphomation
 
-A short animation featuring [Baphomet](https://en.wikipedia.org/wiki/Baphomet) and a segment of a well known ritual.  Baphomation is a portmanteau of Baphomet and Animation.
+A short animation featuring [Baphomet](https://en.wikipedia.org/wiki/Baphomet) and a segment of a well known ritual.  Primarily made with [ThreeJS](https://threejs.org/).  Programming language is TypeScript.  Baphomation is a portmanteau of Baphomet and Animation.
 
 # Getting started
 
@@ -21,7 +21,7 @@ http://localhost:1234/index.html
 
 # Web application
 
-In the web-application we see an approximation to the finished animation.  The difference is that the flames are normal flame colored because post-processing has not been performed, and they have been thinned out for the performance to get close to the correct animation speed.
+In the web-application we see an approximation to the finished animation.  The difference is that the flames are normal flame colored because post-processing has not been performed, and they have been thinned out to help the performance get closer to the correct animation speed.
 
 # src/settings.ts
 
