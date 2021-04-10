@@ -31,28 +31,26 @@ const createWing = (sign: 1 | -1) => {
   const bladeEndY = -0.28 + scalar;
   const drop = 0.5 + scalar + scalar;
 
-  const shape = new THREE.Shape();
-  shape.moveTo(sign * bladeStartX, bladeStartY - drop);
-  shape.lineTo(sign * bladeStartX, bladeStartY);
-
-  shape.bezierCurveTo(
-    sign * bladeStartX,
-    bladeStartY + 0.4,
-    sign * bladeEndX,
-    bladeEndY - 0.4,
-    sign * bladeEndX,
-    bladeEndY
-  );
-
   // Define the four points along the bottom of the wing (outside to inside: a, b, c, d)
   const a: [number, number] = [bladeEndX, bladeEndY];
   const b: [number, number] = [bladeEndX, -0.9 - scalar];
   const c: [number, number] = [1.4, -1.4 - scalar];
   const d: [number, number] = [bladeStartX, bladeStartY - drop];
 
-  shape.quadraticCurveTo(...quadParams(a, b));
-  shape.quadraticCurveTo(...quadParams(b, c));
-  shape.quadraticCurveTo(...quadParams(c, d));
+  const shape = new THREE.Shape()
+    .moveTo(sign * bladeStartX, bladeStartY - drop)
+    .lineTo(sign * bladeStartX, bladeStartY)
+    .bezierCurveTo(
+      sign * bladeStartX,
+      bladeStartY + 0.4,
+      sign * bladeEndX,
+      bladeEndY - 0.4,
+      sign * bladeEndX,
+      bladeEndY
+    )
+    .quadraticCurveTo(...quadParams(a, b))
+    .quadraticCurveTo(...quadParams(b, c))
+    .quadraticCurveTo(...quadParams(c, d));
 
   const extrudeSettings = {
     steps: 1,
@@ -68,9 +66,7 @@ const createWing = (sign: 1 | -1) => {
 
 const loader = new THREE.BufferGeometryLoader();
 
-const head = new THREE.Geometry();
-
-head.fromBufferGeometry(
+const head = new THREE.Geometry().fromBufferGeometry(
   loader.parse(
     JSON.parse(
       fs.readFileSync(`${__dirname}/../dist/outlineHeadGeometry.json`, {
@@ -80,32 +76,31 @@ head.fromBufferGeometry(
   )
 );
 
-const headBox = new THREE.BoxGeometry(2, 2, 2);
-headBox.translate(0, 1.5, 0);
+const headBox = new THREE.BoxGeometry(2, 2, 2).translate(0, 1.5, 0);
 
 // Body
 
-const bodyEllipsoid = createEllipsoid(0.75, 1.8, 0.5, scalar);
-bodyEllipsoid.translate(0, -1.3, 0);
+const bodyEllipsoid = createEllipsoid(0.75, 1.8, 0.5, scalar).translate(
+  0,
+  -1.3,
+  0
+);
 
-// eslint-disable-next-line immutable/no-let
-let bodyEllipsoidBsp = new ThreeBSP(bodyEllipsoid);
-
-// Breasts
-
-if (settings.nsfw) {
-  const left = createEllipsoid(0.25, 0.25, 0.25, scalar);
-  const right = createEllipsoid(0.25, 0.25, 0.25, scalar);
+const nsfw = (bsp) => {
   const params: [number, number, number] = [0.35, -1.4, 0.5];
-  left.translate(-params[0], params[1], params[2]);
-  right.translate(params[0], params[1], params[2]);
 
-  const leftBsp = new ThreeBSP(left);
-  const rightBsp = new ThreeBSP(right);
-  bodyEllipsoidBsp = bodyEllipsoidBsp.union(leftBsp).union(rightBsp);
-}
+  const leftBreast = createEllipsoid(0.25, 0.25, 0.25, scalar).translate(
+    -params[0],
+    params[1],
+    params[2]
+  );
 
-if (settings.nsfw) {
+  const rightBreast = createEllipsoid(0.25, 0.25, 0.25, scalar).translate(
+    params[0],
+    params[1],
+    params[2]
+  );
+
   const height = 1;
   const rotation = QUARTER_PI;
   const translation: [number, number, number] = [0, -1.9, 1.05];
@@ -119,10 +114,18 @@ if (settings.nsfw) {
     .rotateX(rotation)
     .translate(...translation);
 
-  const cylinderBsp = new ThreeBSP(cylinder);
-  const sphereBsp = new ThreeBSP(sphere);
-  bodyEllipsoidBsp = bodyEllipsoidBsp.union(cylinderBsp).union(sphereBsp);
-}
+  return bsp
+    .union(new ThreeBSP(leftBreast))
+    .union(new ThreeBSP(rightBreast))
+    .union(new ThreeBSP(cylinder))
+    .union(new ThreeBSP(sphere));
+};
+
+const bodyEllipsoidRegularBsp = new ThreeBSP(bodyEllipsoid);
+
+const bodyEllipsoidBsp = settings.nsfw
+  ? nsfw(bodyEllipsoidRegularBsp)
+  : bodyEllipsoidRegularBsp;
 
 // Combine
 
@@ -136,6 +139,7 @@ const body: THREE.Geometry = bodyEllipsoidBsp
   .union(createWing(-1))
   .toGeometry();
 
+// eslint-disable-next-line functional/no-expression-statement
 fs.writeFileSync(
   outfilename,
   JSON.stringify(
