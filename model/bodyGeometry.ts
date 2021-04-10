@@ -107,17 +107,17 @@ if (settings.nsfw) {
 
 if (settings.nsfw) {
   const height = 1;
-  const cylinder = createCylinder(0.1, height, scalar);
-  const sphere = createEllipsoid(0.13, 0.13, 0.13, scalar);
-  cylinder.translate(0, -height / 2, 0);
-  //  sphere.translate(0, height / 2, 0);
-
   const rotation = QUARTER_PI;
   const translation: [number, number, number] = [0, -1.9, 1.05];
-  cylinder.rotateX(rotation);
-  sphere.rotateX(rotation);
-  cylinder.translate(...translation);
-  sphere.translate(...translation);
+
+  const cylinder = createCylinder(0.1, height, scalar)
+    .translate(0, -height / 2, 0)
+    .rotateX(rotation)
+    .translate(...translation);
+
+  const sphere = createEllipsoid(0.13, 0.13, 0.13, scalar)
+    .rotateX(rotation)
+    .translate(...translation);
 
   const cylinderBsp = new ThreeBSP(cylinder);
   const sphereBsp = new ThreeBSP(sphere);
