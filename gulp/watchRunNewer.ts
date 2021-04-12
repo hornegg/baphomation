@@ -1,3 +1,4 @@
+/* eslint-disable functional/no-expression-statement */
 import * as path from 'path';
 
 import * as gulp from 'gulp';
