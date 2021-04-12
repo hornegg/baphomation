@@ -1,3 +1,4 @@
+/* eslint-disable functional/no-expression-statement */
 import * as path from 'path';
 import { performance } from 'perf_hooks';
 
@@ -92,7 +93,6 @@ new p5((p: p5) => {
     img.updatePixels();
   };
 
-  // eslint-disable-next-line immutable/no-mutation
   p.setup = async () => {
     const framePromises = times(frameCount, (index) =>
       limit(() => {
@@ -198,6 +198,6 @@ new p5((p: p5) => {
       ).toFixed(1)} seconds`
     );
 
-    process.exit(0);
+   process.exit(0);
   };
 });

@@ -71,7 +71,9 @@ export const Pentagram = (props: PentagramProps): JSX.Element => {
     fires: Array.from(Array(flameCount)).map(() => createFire()),
   });
 
+  // eslint-disable-next-line functional/no-expression-statement
   useFrame(() => {
+    // eslint-disable-next-line functional/no-expression-statement
     state.fires.forEach((fire, index) => {
       const allFlamesCompleteFrame = linearMap(
         0.5,
@@ -126,8 +128,7 @@ export const Pentagram = (props: PentagramProps): JSX.Element => {
 
       const maps = [powerMap(2), linearMap, linearMap, powerMap(5)];
 
-      /* eslint-disable immutable/no-mutation */
-
+      // eslint-disable-next-line functional/no-expression-statement
       fire.material.uniforms.magnitude.value = segmentedMap(
         state.frame,
         frameSegments,
@@ -141,6 +142,7 @@ export const Pentagram = (props: PentagramProps): JSX.Element => {
         maps
       );
 
+      // eslint-disable-next-line functional/no-expression-statement
       fire.material.uniforms.gain.value = segmentedMap(
         state.frame,
         frameSegments,
@@ -148,13 +150,13 @@ export const Pentagram = (props: PentagramProps): JSX.Element => {
         maps
       );
 
-      /* eslint-enable immutable/no-mutation */
-
       if (state.frame >= props.startFrame && state.frame <= props.endFrame) {
+        // eslint-disable-next-line functional/no-expression-statement
         fire.update(state.frame / 25);
       }
     });
 
+    // eslint-disable-next-line functional/no-expression-statement
     setState({ ...state, frame: (state.frame + 1) % settings.cycleLength });
   });
 

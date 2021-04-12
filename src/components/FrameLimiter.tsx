@@ -1,4 +1,4 @@
-/* eslint-disable immutable/no-mutation */
+/* eslint-disable functional/no-expression-statement */
 import * as React from 'react';
 import * as THREE from 'three';
 import { CanvasContext, useFrame } from 'react-three-fiber';

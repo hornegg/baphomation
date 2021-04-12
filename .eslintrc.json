@@ -26,7 +26,6 @@
         "functional/no-expression-statement": ["error"],
         "immutable/no-let": ["error"],
         "immutable/no-this": ["error"],
-        "immutable/no-mutation": ["error"],
         "no-mixed-operators/no-mixed-operators": ["error"]
       }
     }

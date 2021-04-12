@@ -1,3 +1,4 @@
+/* eslint-disable functional/no-expression-statement */
 import * as React from 'react';
 import JSZip from 'jszip';
 import { saveAs } from 'file-saver';
@@ -38,7 +39,6 @@ const FrameCapture = (props: FrameCaptureProps): JSX.Element => {
 
           // The requested capture is complete.  Stop the animation to free up resources for processing the zip file
 
-          // eslint-disable-next-line immutable/no-mutation
           canvasContext.ready = false;
         }
       });
