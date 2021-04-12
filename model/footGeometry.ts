@@ -16,26 +16,29 @@ const scalar = outline ? 0.07 : 0;
 const radius = 0.5;
 
 const footRatio = 1.75;
+const footCenterX = left ? -0.85 : 0.85;
+
 const footEllipsoid = createEllipsoid(
   radius,
   radius,
   radius * footRatio,
   scalar
-);
-const footCenterX = left ? -0.85 : 0.85;
-
-footEllipsoid.translate(footCenterX, floorLevel, radius);
+).translate(footCenterX, floorLevel, radius);
 
 const footEllipsoidBsp = new ThreeBSP(footEllipsoid);
 
-const floorBox = new THREE.BoxGeometry(2, radius, 3);
-floorBox.translate(footCenterX, floorLevel - (0.5 * radius) - scalar, 0);
+const floorBox = new THREE.BoxGeometry(2, radius, 3).translate(
+  footCenterX,
+  floorLevel - (0.5 * radius) - scalar,
+  0
+);
 const floorBoxBsp = new ThreeBSP(floorBox);
 
 const foot: THREE.Geometry = footEllipsoidBsp
   .subtract(floorBoxBsp)
   .toGeometry();
 
+// eslint-disable-next-line functional/no-expression-statement
 fs.writeFileSync(
   outfilename,
   JSON.stringify(

@@ -17,11 +17,9 @@ const x = 1.44;
 const y = 0.6;
 const z = -0.3;
 
-const leftEar = createEllipsoid(0.4, 0.4, 0.25, scalar);
-const rightEar = leftEar.clone();
-
-leftEar.translate(x, y, z);
-rightEar.translate(-x, y, z);
+const earParams: [number, number, number, number] = [0.4, 0.4, 0.25, scalar];
+const leftEar = createEllipsoid(...earParams).translate(x, y, z);
+const rightEar = createEllipsoid(...earParams).translate(-x, y, z);
 
 const headBsp = new ThreeBSP(head);
 const leftEarBsp = new ThreeBSP(leftEar);
@@ -37,6 +35,7 @@ const geometry: THREE.Geometry = headBsp
   .subtract(rightIntersect)
   .toGeometry();
 
+// eslint-disable-next-line functional/no-expression-statement
 fs.writeFileSync(
   outfilename,
   JSON.stringify(
