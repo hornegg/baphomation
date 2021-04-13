@@ -1,3 +1,4 @@
+/* eslint-disable functional/no-expression-statement */
 import ReactDOM from 'react-dom';
 import * as React from 'react';
 import { Canvas, CanvasContext, useFrame } from 'react-three-fiber';

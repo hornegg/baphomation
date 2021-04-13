@@ -198,6 +198,6 @@ new p5((p: p5) => {
       ).toFixed(1)} seconds`
     );
 
-   process.exit(0);
+    process.exit(0);
   };
 });
