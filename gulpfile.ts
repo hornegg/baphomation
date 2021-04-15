@@ -1,3 +1,4 @@
+/* eslint-disable functional/no-expression-statement */
 import * as path from 'path';
 import { promisify } from 'util';
 import { exec as execOrig } from 'child_process';
