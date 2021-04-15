@@ -15,38 +15,33 @@ const HALF_PI = 0.5 * PI;
 const FIFTH_TAU = TWO_PI / 5;
 
 export const createFace = (): THREE.Group => {
-  const face = new THREE.Group();
-
   //
   // Forehead pentagram
   //
-
-  const foreheadGroup = new THREE.Group();
 
   const vertices = settings.invertPentagrams
     ? [0, 1, 2, 3, 4]
     : [0.5, 1.5, 2.5, 3.4, 4.5];
 
-  vertices
-    .map((v) => {
-      const theta = 0.75;
-      const phi = HALF_PI;
-      const r = 0.3;
-      v = v + 0.5;
-      const u = v + 2;
+  const foreheadGroup = new THREE.Group().add(
+    ...vertices
+      .map((_v) => {
+        const theta = 0.75;
+        const phi = HALF_PI;
+        const r = 0.3;
+        const v = _v + 0.5;
+        const u = v + 2;
 
-      return createTube({
-        thetaStart: theta + (r * Math.cos(v * FIFTH_TAU)),
-        phiStart: phi + (r * Math.sin(v * FIFTH_TAU)),
-        thetaEnd: theta + (r * Math.cos(u * FIFTH_TAU)),
-        phiEnd: phi + (r * Math.sin(u * FIFTH_TAU)),
-        radius: 0.02,
-      });
-    })
-    .map((geom) => new THREE.Mesh(geom, outlineMaterialDouble))
-    .forEach((mesh) => foreheadGroup.add(mesh));
-
-  face.add(foreheadGroup);
+        return createTube({
+          thetaStart: theta + (r * Math.cos(v * FIFTH_TAU)),
+          phiStart: phi + (r * Math.sin(v * FIFTH_TAU)),
+          thetaEnd: theta + (r * Math.cos(u * FIFTH_TAU)),
+          phiEnd: phi + (r * Math.sin(u * FIFTH_TAU)),
+          radius: 0.02,
+        });
+      })
+      .map((geom) => new THREE.Mesh(geom, outlineMaterialDouble))
+  );
 
   //
   // Eyes
@@ -87,23 +82,21 @@ export const createFace = (): THREE.Group => {
   const bottomLidLeft = bottomLidRight.clone().scale(-1, 1, 1);
   const eyeballLeft = eyeballRight.clone().scale(-1, 1, 1);
 
-  const eyesGroup = new THREE.Group();
-
-  [topLidLeft, topLidRight, bottomLidLeft, bottomLidRight]
-    .map((geom) => new THREE.Mesh(geom, outlineMaterialDouble))
-    .forEach((mesh) => eyesGroup.add(mesh));
-
-  [eyeballLeft, eyeballRight]
-    .map((geom) => new THREE.Mesh(geom, redMaterial))
-    .forEach((mesh) => eyesGroup.add(mesh));
-
-  face.add(eyesGroup);
+  const eyesGroup = new THREE.Group()
+    .add(
+      ...[topLidLeft, topLidRight, bottomLidLeft, bottomLidRight].map(
+        (geom) => new THREE.Mesh(geom, outlineMaterialDouble)
+      )
+    )
+    .add(
+      ...[eyeballLeft, eyeballRight].map(
+        (geom) => new THREE.Mesh(geom, redMaterial)
+      )
+    );
 
   //
   // Nose
   //
-
-  const nose = new THREE.Group();
 
   const thetaRadius = 0.2;
   const phiRadius = 0.5;
@@ -121,11 +114,11 @@ export const createFace = (): THREE.Group => {
   const noseLeft = createArc(noseParams);
   const noseRight = noseLeft.clone().scale(-1, 1, 1);
 
-  [noseLeft, noseRight]
-    .map((geom) => new THREE.Mesh(geom, outlineMaterialDouble))
-    .forEach((mesh) => nose.add(mesh));
-
-  face.add(nose);
+  const nose = new THREE.Group().add(
+    ...[noseLeft, noseRight].map(
+      (geom) => new THREE.Mesh(geom, outlineMaterialDouble)
+    )
+  );
 
   //
   // Mouth
@@ -144,7 +137,11 @@ export const createFace = (): THREE.Group => {
     outlineMaterialDouble
   );
 
-  face.add(mouth);
+  const face = new THREE.Group()
+    .add(foreheadGroup)
+    .add(eyesGroup)
+    .add(nose)
+    .add(mouth);
 
   return face;
 };
