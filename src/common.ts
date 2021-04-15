@@ -48,13 +48,13 @@ export const segmentedMap = (
   value: number,
   range1: number[],
   range2: number[],
-  maps?: IMap[]
+  _maps?: IMap[]
 ): number => {
   if (range1.length !== range2.length) {
     throw new Error('segmentedMap range arrays not equal');
   }
 
-  maps = maps ? maps : Array(range1.length - 1).fill(linearMap);
+  const maps = _maps ? _maps : Array(range1.length - 1).fill(linearMap);
 
   if (maps.length !== range1.length - 1) {
     throw new Error(
@@ -130,9 +130,9 @@ export const ellipticalToCartesian = (
   r: number,
   theta: number,
   phi: number,
-  vec?: THREE.Vector3
+  _vec?: THREE.Vector3
 ): THREE.Vector3 => {
-  vec = vec ? vec : new THREE.Vector3();
+  const vec = _vec ? _vec : new THREE.Vector3();
 
   return vec.set(
     r * headWidth * Math.sin(theta) * Math.cos(phi),
@@ -220,6 +220,7 @@ export const createArc = (param: ArcParameters): THREE.TubeGeometry => {
 
 export const loadGeometry = (filename: string): Promise<BufferGeometry> => {
   return new Promise((resolve, reject) => {
+    // eslint-disable-next-line functional/no-expression-statement
     new THREE.BufferGeometryLoader().load(
       filename,
       (geometry) => resolve(geometry),
