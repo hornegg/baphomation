@@ -1,3 +1,4 @@
+/* eslint-disable functional/no-expression-statement */
 import * as React from 'react';
 import { useFrame } from 'react-three-fiber';
 
