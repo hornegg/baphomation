@@ -16,7 +16,9 @@ import {
 
 import { createFace } from './face';
 
-export const createHead = async (skin: THREE.Material): Promise<THREE.Group> => {
+export const createHead = async (
+  skin: THREE.Material
+): Promise<THREE.Group> => {
   //
   // Horns
   //

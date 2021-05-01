@@ -18,7 +18,7 @@ import {
   watchTowerLength,
 } from './common';
 
-import Arm from './Arm';
+import { arm } from './arm';
 import { createHead } from './head';
 import FrameCapture from './components/FrameCapture';
 import FrameLimiter from './components/FrameLimiter';
@@ -72,8 +72,14 @@ Promise.all([
           <primitive object={head} />
           <mesh geometry={bodyGeometry} material={skin} />
           <mesh geometry={outlineBodyGeometry} material={outlineMaterial} />
-          <Arm sign={1} pointAt={stillArm} skin={skin} />
-          <Arm sign={-1} pointAt={choreographArm(watchTowerFrame)} skin={skin} />
+          <primitive object={arm({ sign: 1, pointAt: stillArm, skin })} />
+          <primitive
+            object={arm({
+              sign: -1,
+              pointAt: choreographArm(watchTowerFrame),
+              skin,
+            })}
+          />
         </group>
       );
 

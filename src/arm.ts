@@ -1,14 +1,6 @@
-import 'react-three-fiber';
-
-import * as React from 'react';
 import * as THREE from 'three';
 
-import {
-  linearMap,
-  outlineMaterial,
-  segmentedMap,
-  TWO_PI,
-} from './common';
+import { linearMap, outlineMaterial, segmentedMap, TWO_PI } from './common';
 
 const parametricEllipsoid = (
   start: THREE.Vector3,
@@ -56,7 +48,7 @@ const outlinedParametricEllipsoid = (
   const scalar = 0.07;
   const adjustment = end.clone().sub(start).normalize().multiplyScalar(scalar);
 
-  const arm = new THREE.Group()
+  const group = new THREE.Group()
     .add(
       new THREE.Mesh(
         new THREE.ParametricGeometry(
@@ -82,7 +74,7 @@ const outlinedParametricEllipsoid = (
       )
     );
 
-  return arm;
+  return group;
 };
 
 const girth = 0.25;
@@ -94,7 +86,7 @@ class ArmProps {
   skin: THREE.Material;
 }
 
-const Arm = (props: ArmProps): JSX.Element => {
+export const arm = (props: ArmProps): THREE.Object3D => {
   const start = new THREE.Vector3(props.sign * 0.8, -1.3, 0.4);
 
   const end: THREE.Vector3 = props.pointAt
@@ -104,9 +96,5 @@ const Arm = (props: ArmProps): JSX.Element => {
     .multiplyScalar(length)
     .add(start);
 
-  const arm = outlinedParametricEllipsoid(start, end, girth, props.skin);
-
-  return <primitive object={arm} />;
+  return outlinedParametricEllipsoid(start, end, girth, props.skin);
 };
-
-export default Arm;
