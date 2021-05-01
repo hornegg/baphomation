@@ -26,7 +26,7 @@ import FrameRate from './components/FrameRate';
 import getCameraPosition from './getCameraPosition';
 import { Pentagram } from './pentagram';
 import ReactDOM from 'react-dom';
-import Room from './Room';
+import { room } from './room';
 import settings from './settings';
 
 const skin = new THREE.MeshBasicMaterial({
@@ -142,7 +142,7 @@ Promise.all([
         <group>
           {state.layerInfo.baphomet ? baphomet : <></>}
           {Pentagrams}
-          {state.layerInfo.baphomet ? <Room /> : <></>}
+          {state.layerInfo.baphomet ? <primitive object={room()} /> : <></>}
         </group>
       );
     };

@@ -1,6 +1,3 @@
-import 'react-three-fiber';
-
-import * as React from 'react';
 import * as THREE from 'three';
 
 import { floorLevel, outlineMaterial } from './common';
@@ -44,11 +41,4 @@ const altar = createOutlinedBox(0.7, altarHeight, 1.25, 0.15, altarMaterial);
 // eslint-disable-next-line functional/no-expression-statement
 altar.position.set(-2.2, floorLevel + (0.5 * altarHeight) + floorThickness, 0);
 
-const Room = (): JSX.Element => (
-  <group>
-    <primitive object={floor} />
-    <primitive object={altar} />
-  </group>
-);
-
-export default Room;
+export const room = (): THREE.Group => new THREE.Group().add(floor).add(altar);
