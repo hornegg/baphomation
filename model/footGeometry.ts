@@ -1,6 +1,6 @@
+import * as bspConstructor from 'three-js-csg';
 import * as fs from 'fs';
 import * as THREE from 'three';
-import * as bspConstructor from 'three-js-csg';
 
 import { createEllipsoid } from './commonGeometry';
 import { floorLevel } from '../src/common';

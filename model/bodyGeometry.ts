@@ -1,10 +1,11 @@
+import * as bspConstructor from 'three-js-csg';
 import * as fs from 'fs';
 import * as THREE from 'three';
-import * as bspConstructor from 'three-js-csg';
-import { QUARTER_PI } from '../src/common';
-import settings from '../src/settings';
 
 import { createCylinder, createEllipsoid } from './commonGeometry';
+import { QUARTER_PI } from '../src/common';
+
+import settings from '../src/settings';
 
 const ThreeBSP = bspConstructor(THREE);
 

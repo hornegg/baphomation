@@ -1,8 +1,8 @@
 /* eslint-disable functional/no-expression-statement */
 import * as React from 'react';
+import { CanvasContext, useFrame } from 'react-three-fiber';
 import JSZip from 'jszip';
 import { saveAs } from 'file-saver';
-import { CanvasContext, useFrame } from 'react-three-fiber';
 
 interface FrameCaptureProps {
   startFrame: number;

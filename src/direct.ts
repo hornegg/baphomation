@@ -1,17 +1,17 @@
 /* eslint-disable functional/no-expression-statement */
 import * as THREE from 'three';
 
-import { createHead } from './head';
 import {
-  skin,
+  HALF_PI,
+  linearMap,
   loadGeometry,
   outlineMaterial,
-  linearMap,
-  segmentedMap,
   QUARTER_PI,
-  HALF_PI,
-  //  PI,
+  segmentedMap,
+  skin,
 } from './common';
+
+import { createHead } from './head';
 
 const cycleLength = 1200; // The number of frames before the animation repeats itself
 //const captureOffset = cycleLength; // The number of frames to wait before commencing with any capture

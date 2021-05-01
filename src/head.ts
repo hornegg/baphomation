@@ -1,18 +1,18 @@
 import * as THREE from 'three';
 
 import {
-  ellipticalToCartesian,
-  TWO_PI,
-  HALF_PI,
-  PI,
   createArc,
-  linearMap,
+  ellipticalToCartesian,
+  HALF_PI,
   headHeight,
-  skin,
+  linearMap,
+  loadGeometry,
   outlineMaterial,
   outlineMaterialDouble,
+  PI,
   redMaterial,
-  loadGeometry,
+  skin,
+  TWO_PI,
 } from './common';
 
 import { createFace } from './face';

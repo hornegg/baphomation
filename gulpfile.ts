@@ -1,17 +1,18 @@
 /* eslint-disable functional/no-expression-statement */
-import * as path from 'path';
-import { promisify } from 'util';
-import { exec as execOrig } from 'child_process';
+
 import * as fs from 'fs/promises';
-import * as os from 'os';
-
 import * as gulp from 'gulp';
+import * as os from 'os';
+import * as path from 'path';
 import * as pLimit from 'p-limit';
-import { times } from 'lodash';
 
+import { exec as execOrig } from 'child_process';
 import { newer } from './gulp/newer';
-import { watchRunScriptNewer } from './gulp/watchRunNewer';
+import { promisify } from 'util';
 import settings from './src/settings';
+import { times } from 'lodash';
+import { watchRunScriptNewer } from './gulp/watchRunNewer';
+
 
 const execNoLog = promisify(execOrig);
 

@@ -1,13 +1,12 @@
 /* eslint-disable functional/no-expression-statement */
 import * as path from 'path';
-import { performance } from 'perf_hooks';
-
-import { times } from 'lodash';
 import * as pLimit from 'p-limit';
 
-import { p5, readPng, writePng } from './p5Headless';
-import settings from '../src/settings';
 import { linearMap, segmentedMap, watchTowerLength } from '../src/common';
+import { p5, readPng, writePng } from './p5Headless';
+import { performance } from 'perf_hooks';
+import settings from '../src/settings';
+import { times } from 'lodash';
 
 const usage = 'usage: ts-node postProcessing.ts [offset] [frameCount]';
 

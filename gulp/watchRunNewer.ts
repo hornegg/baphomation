@@ -1,9 +1,8 @@
 /* eslint-disable functional/no-expression-statement */
-import * as path from 'path';
-
 import * as gulp from 'gulp';
-import * as run from 'gulp-run';
 import * as noop from 'gulp-noop';
+import * as path from 'path';
+import * as run from 'gulp-run';
 
 import { newer } from './newer';
 

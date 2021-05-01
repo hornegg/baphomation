@@ -26,7 +26,8 @@
         "functional/no-expression-statement": ["error"],
         "immutable/no-let": ["error"],
         "immutable/no-this": ["error"],
-        "no-mixed-operators/no-mixed-operators": ["error"]
+        "no-mixed-operators/no-mixed-operators": ["error"],
+        "sort-imports": ["warn", {"ignoreCase": true}]
       }
     }
   ]

@@ -1,10 +1,10 @@
 import * as THREE from 'three';
 
 import {
-  createTube,
-  outlineMaterialDouble,
-  linearMap,
   createArc,
+  createTube,
+  linearMap,
+  outlineMaterialDouble,
   redMaterial,
 } from './common';
 import settings from './settings';

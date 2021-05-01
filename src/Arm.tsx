@@ -1,6 +1,7 @@
-import * as THREE from 'three';
-import * as React from 'react';
 import 'react-three-fiber';
+
+import * as React from 'react';
+import * as THREE from 'three';
 
 import {
   linearMap,

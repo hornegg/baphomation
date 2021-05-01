@@ -1,8 +1,15 @@
 /* eslint-disable functional/no-expression-statement */
-import ReactDOM from 'react-dom';
 import * as React from 'react';
-import { Canvas, CanvasContext, useFrame } from 'react-three-fiber';
 import * as THREE from 'three';
+
+import { Canvas, CanvasContext, useFrame } from 'react-three-fiber';
+
+import {
+  choreographArm,
+  choreographBody,
+  pentagramLength,
+  stillArm,
+} from './choreograph';
 
 import {
   HALF_PI,
@@ -12,21 +19,16 @@ import {
   watchTowerLength,
 } from './common';
 
+import Arm from './Arm';
 import { createHead } from './head';
-import { Pentagram } from './pentagram';
+import FrameCapture from './components/FrameCapture';
 import FrameLimiter from './components/FrameLimiter';
 import FrameRate from './components/FrameRate';
-import settings from './settings';
-import FrameCapture from './components/FrameCapture';
 import getCameraPosition from './getCameraPosition';
+import { Pentagram } from './pentagram';
+import ReactDOM from 'react-dom';
 import Room from './Room';
-import Arm from './Arm';
-import {
-  choreographBody,
-  choreographArm,
-  pentagramLength,
-  stillArm,
-} from './choreograph';
+import settings from './settings';
 
 Promise.all([
   createHead(),

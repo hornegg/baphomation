@@ -1,8 +1,8 @@
-import * as THREE from 'three';
-import * as React from 'react';
-import { useFrame } from 'react-three-fiber';
 import './THREE.Fire/Fire';
 import './THREE.Fire/FireShader';
+
+import * as React from 'react';
+import * as THREE from 'three';
 
 import {
   HALF_PI,
@@ -12,7 +12,9 @@ import {
   powerMap,
   segmentedMap,
 } from './common';
+
 import settings from './settings';
+import { useFrame } from 'react-three-fiber';
 
 export const pentagramCentre = new THREE.Vector3(-2, 0, 0);
 

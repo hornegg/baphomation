@@ -1,10 +1,10 @@
 import * as THREE from 'three';
 
 import {
-  HALF_PI,
-  QUARTER_PI,
-  PI,
   EIGHTH_PI,
+  HALF_PI,
+  PI,
+  QUARTER_PI,
   segmentedMap,
   watchTowerLength,
 } from './common';
