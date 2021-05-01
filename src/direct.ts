@@ -154,16 +154,11 @@ pentagrams[3].add(scene);
 
     camera.position.setFromSphericalCoords(5, HALF_PI, QUARTER_PI);
 
-    const nextAnimateFunction = (frame: number) => {
-      return () => {
-        animate(frame + 1);
-      };
-    };
+    // eslint-disable-next-line immutable/no-let
+    let frame = 0;
 
-    const animate = (frame): void => {
-      setTimeout(() => {
-        requestAnimationFrame(nextAnimateFunction(frame));
-      });
+    renderer.setAnimationLoop(() => {
+      ++frame;
 
       choreograph(frame);
 
@@ -181,8 +176,7 @@ pentagrams[3].add(scene);
       }
 
       ++frame;
-    };
+    });
 
-    nextAnimateFunction(0)();
   }
 );
