@@ -13,7 +13,6 @@ import settings from './src/settings';
 import { times } from 'lodash';
 import { watchRunScriptNewer } from './gulp/watchRunNewer';
 
-
 const execNoLog = promisify(execOrig);
 
 const exec = async (cmd) => {
