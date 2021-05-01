@@ -15,7 +15,6 @@ import {
   HALF_PI,
   loadGeometry,
   outlineMaterial,
-  skin,
   watchTowerLength,
 } from './common';
 
@@ -30,8 +29,13 @@ import ReactDOM from 'react-dom';
 import Room from './Room';
 import settings from './settings';
 
+const skin = new THREE.MeshBasicMaterial({
+  color: 0x111111,
+  side: THREE.DoubleSide,
+});
+
 Promise.all([
-  createHead(),
+  createHead(skin),
   loadGeometry('bodyGeometry.json'),
   loadGeometry('outlineBodyGeometry.json'),
   loadGeometry('leftFootGeometry.json'),
@@ -68,8 +72,8 @@ Promise.all([
           <primitive object={head} />
           <mesh geometry={bodyGeometry} material={skin} />
           <mesh geometry={outlineBodyGeometry} material={outlineMaterial} />
-          <Arm sign={1} pointAt={stillArm} />
-          <Arm sign={-1} pointAt={choreographArm(watchTowerFrame)} />
+          <Arm sign={1} pointAt={stillArm} skin={skin} />
+          <Arm sign={-1} pointAt={choreographArm(watchTowerFrame)} skin={skin} />
         </group>
       );
 

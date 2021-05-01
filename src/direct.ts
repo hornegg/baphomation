@@ -8,13 +8,17 @@ import {
   outlineMaterial,
   QUARTER_PI,
   segmentedMap,
-  skin,
 } from './common';
 
 import { createHead } from './head';
 
+const skin = new THREE.MeshBasicMaterial({
+  color: 0x333333,
+  side: THREE.DoubleSide,
+});
+
 Promise.all([
-  createHead(),
+  createHead(skin),
   loadGeometry('bodyGeometry.json'),
   loadGeometry('outlineBodyGeometry.json'),
   loadGeometry('leftFootGeometry.json'),

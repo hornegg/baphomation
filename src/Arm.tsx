@@ -7,7 +7,6 @@ import {
   linearMap,
   outlineMaterial,
   segmentedMap,
-  skin,
   TWO_PI,
 } from './common';
 
@@ -51,7 +50,8 @@ const parametricEllipsoid = (
 const outlinedParametricEllipsoid = (
   start: THREE.Vector3,
   end: THREE.Vector3,
-  maxGirth: number
+  maxGirth: number,
+  material: THREE.Material
 ) => {
   const scalar = 0.07;
   const adjustment = end.clone().sub(start).normalize().multiplyScalar(scalar);
@@ -64,7 +64,7 @@ const outlinedParametricEllipsoid = (
           20,
           20
         ),
-        skin
+        material
       )
     )
     .add(
@@ -91,6 +91,7 @@ const length = 1.2;
 class ArmProps {
   pointAt: THREE.Vector3;
   sign: 1 | -1;
+  skin: THREE.Material;
 }
 
 const Arm = (props: ArmProps): JSX.Element => {
@@ -103,7 +104,7 @@ const Arm = (props: ArmProps): JSX.Element => {
     .multiplyScalar(length)
     .add(start);
 
-  const arm = outlinedParametricEllipsoid(start, end, girth);
+  const arm = outlinedParametricEllipsoid(start, end, girth, props.skin);
 
   return <primitive object={arm} />;
 };
