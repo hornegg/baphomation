@@ -1,8 +1,7 @@
-import './THREE.Fire/Fire';
-import './THREE.Fire/FireShader';
-
 import * as React from 'react';
 import * as THREE from 'three';
+
+import { createFire, Fire } from './fire';
 
 import {
   HALF_PI,
@@ -41,18 +40,6 @@ export const getPointOnPentagram = (v: number): THREE.Vector3 => {
 
   return linearMap3(v, sideStart, sideEnd, start, end);
 };
-
-const textureLoader = new THREE.TextureLoader();
-const tex = textureLoader.load('./THREE.Fire/Fire.png');
-
-interface Fire extends THREE.Object3D {
-  update(time: number): void;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  material: any;
-}
-
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const createFire = () => new (THREE as any).Fire(tex);
 
 interface PentagramState {
   frame: number;
