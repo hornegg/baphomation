@@ -12,16 +12,11 @@ import {
 
 import { Canvas, CanvasContext, useFrame } from 'react-three-fiber';
 
-import {
-  choreographArm,
-  choreographBody,
-  pentagramLength,
-  stillArm,
-} from './choreograph';
+import { choreographBody, pentagramLength } from './choreograph';
 
 import { createPentagram, PentagramProps } from './pentagram';
 
-import { arm } from './arm';
+import { createBodyComponent } from './body';
 import { createHead } from './head';
 import getCameraPosition from './getCameraPosition';
 import ReactDOM from 'react-dom';
@@ -58,6 +53,8 @@ Promise.all([
       createPentagram(),
     ];
 
+    const body = createBodyComponent();
+
     const Main = () => {
       const [state, setState] = React.useState(choreographBody(0));
 
@@ -72,22 +69,6 @@ Promise.all([
       });
 
       const watchTowerFrame = state.frame % watchTowerLength;
-
-      const Body = () => (
-        <group rotation={new THREE.Euler(0, state.bodyAngle, 0)}>
-          <primitive object={head} />
-          <mesh geometry={bodyGeometry} material={skin} />
-          <mesh geometry={outlineBodyGeometry} material={outlineMaterial} />
-          <primitive object={arm({ sign: 1, pointAt: stillArm, skin })} />
-          <primitive
-            object={arm({
-              sign: -1,
-              pointAt: choreographArm(watchTowerFrame),
-              skin,
-            })}
-          />
-        </group>
-      );
 
       const LeftFoot = () => (
         <group rotation={new THREE.Euler(0, state.leftFootAngle, 0)}>
@@ -139,7 +120,16 @@ Promise.all([
 
       const baphomet = (
         <group>
-          <Body />
+          <primitive
+            object={body({
+              bodyAngle: state.bodyAngle,
+              head,
+              bodyGeometry,
+              outlineBodyGeometry,
+              skin,
+              watchTowerFrame,
+            })}
+          />
           <LeftFoot />
           <RightFoot />
         </group>
