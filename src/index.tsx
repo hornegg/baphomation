@@ -26,9 +26,8 @@ import {
 
 import { arm } from './arm';
 import { createHead } from './head';
-import FrameCapture from './components/FrameCapture';
-import FrameLimiter from './components/FrameLimiter';
-import FrameRate from './components/FrameRate';
+import FrameCapture from './FrameCapture';
+import FrameRate from './FrameRate';
 import getCameraPosition from './getCameraPosition';
 import ReactDOM from 'react-dom';
 import { room } from './room';
@@ -169,7 +168,6 @@ Promise.all([
         }}
       >
         <Canvas>
-          <FrameLimiter fps={settings.fps} />
           <FrameRate logger={console.log} />
           {settings.frameCapture ? (
             <FrameCapture
