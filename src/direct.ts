@@ -177,6 +177,5 @@ pentagrams[3].add(scene);
 
       ++frame;
     });
-
   }
 );

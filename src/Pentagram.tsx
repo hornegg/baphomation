@@ -1,4 +1,4 @@
-import * as React from 'react';
+/* eslint-disable functional/no-expression-statement */
 import * as THREE from 'three';
 
 import { createFire, Fire } from './fire';
@@ -13,7 +13,6 @@ import {
 } from './common';
 
 import settings from './settings';
-import { useFrame } from 'react-three-fiber';
 
 export const pentagramCentre = new THREE.Vector3(-2, 0, 0);
 
@@ -46,22 +45,24 @@ interface PentagramState {
   fires: Fire[];
 }
 
-interface PentagramProps {
+export interface PentagramProps {
   angle: number;
   startFrame: number;
   endFrame: number;
 }
 
-export const Pentagram = (props: PentagramProps): JSX.Element => {
+export type AnimationLoopComponent<Props> = (props: Props) => THREE.Object3D;
+
+export const createPentagram = (): AnimationLoopComponent<PentagramProps> => {
   const flameCount = settings.frameCapture ? 99 : 31;
 
-  const [state, setState] = React.useState<PentagramState>({
+  // eslint-disable-next-line immutable/no-let
+  let state: PentagramState = {
     frame: 0,
     fires: Array.from(Array(flameCount)).map(() => createFire()),
-  });
+  };
 
-  // eslint-disable-next-line functional/no-expression-statement
-  useFrame(() => {
+  return (props: PentagramProps): THREE.Object3D => {
     // eslint-disable-next-line functional/no-expression-statement
     state.fires.forEach((fire, index) => {
       const allFlamesCompleteFrame = linearMap(
@@ -117,7 +118,6 @@ export const Pentagram = (props: PentagramProps): JSX.Element => {
 
       const maps = [powerMap(2), linearMap, linearMap, powerMap(5)];
 
-      // eslint-disable-next-line functional/no-expression-statement
       fire.material.uniforms.magnitude.value = segmentedMap(
         state.frame,
         frameSegments,
@@ -131,7 +131,6 @@ export const Pentagram = (props: PentagramProps): JSX.Element => {
         maps
       );
 
-      // eslint-disable-next-line functional/no-expression-statement
       fire.material.uniforms.gain.value = segmentedMap(
         state.frame,
         frameSegments,
@@ -140,32 +139,29 @@ export const Pentagram = (props: PentagramProps): JSX.Element => {
       );
 
       if (state.frame >= props.startFrame && state.frame <= props.endFrame) {
-        // eslint-disable-next-line functional/no-expression-statement
         fire.update(state.frame / 25);
       }
     });
 
-    // eslint-disable-next-line functional/no-expression-statement
-    setState({ ...state, frame: (state.frame + 1) % settings.cycleLength });
-  });
+    state = { ...state, frame: (state.frame + 1) % settings.cycleLength };
 
-  if (props.startFrame <= state.frame && state.frame <= props.endFrame) {
-    const scale = 0.4;
+    const group = new THREE.Group();
 
-    return (
-      <group rotation={new THREE.Euler(0, props.angle, 0)}>
-        {state.fires.map((fire, index) => (
-          <group
-            key={index}
-            position={getPointOnPentagram((5 * index) / state.fires.length)}
-            scale={new THREE.Vector3(scale, scale, scale)}
-          >
-            <primitive object={fire} />
-          </group>
-        ))}
-      </group>
-    );
-  } else {
-    return <></>;
-  }
+    if (props.startFrame <= state.frame && state.frame <= props.endFrame) {
+      const scale = 0.4;
+
+      group.setRotationFromEuler(new THREE.Euler(0, props.angle, 0));
+
+      state.fires.forEach((fire, index) => {
+        const subGroup = new THREE.Group();
+        subGroup.add(fire);
+        subGroup.position.set(
+          ...getPointOnPentagram((5 * index) / state.fires.length).toArray()
+        );
+        subGroup.scale.set(scale, scale, scale);
+        group.add(subGroup);
+      });
+    }
+    return group;
+  };
 };

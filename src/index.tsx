@@ -2,6 +2,12 @@
 import * as React from 'react';
 import * as THREE from 'three';
 
+import {
+  AnimationLoopComponent,
+  createPentagram,
+  PentagramProps,
+} from './pentagram';
+
 import { Canvas, CanvasContext, useFrame } from 'react-three-fiber';
 
 import {
@@ -24,7 +30,6 @@ import FrameCapture from './components/FrameCapture';
 import FrameLimiter from './components/FrameLimiter';
 import FrameRate from './components/FrameRate';
 import getCameraPosition from './getCameraPosition';
-import { Pentagram } from './pentagram';
 import ReactDOM from 'react-dom';
 import { room } from './room';
 import settings from './settings';
@@ -52,6 +57,13 @@ Promise.all([
     rightFootGeometry,
     outlineRightFootGeometry,
   ]) => {
+    const pentagrams = [
+      createPentagram(),
+      createPentagram(),
+      createPentagram(),
+      createPentagram(),
+    ];
+
     const Main = () => {
       const [state, setState] = React.useState(choreographBody(0));
 
@@ -117,12 +129,13 @@ Promise.all([
             const startFrame = watchTowerIndex * watchTowerLength;
             const endFrame = startFrame + pentagramLength;
 
+            const pentagram: AnimationLoopComponent<PentagramProps> =
+              pentagrams[watchTowerIndex];
+
             return (
               <group key={watchTowerIndex} position={position}>
-                <Pentagram
-                  angle={angle}
-                  startFrame={startFrame}
-                  endFrame={endFrame}
+                <primitive
+                  object={pentagram({ angle, startFrame, endFrame })}
                 />
               </group>
             );
