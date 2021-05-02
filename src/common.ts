@@ -224,3 +224,9 @@ export const loadGeometry = (filename: string): Promise<BufferGeometry> => {
     );
   });
 };
+
+//
+// AnimationLoopComponent
+//
+
+export type AnimationLoopComponent<Props> = (props: Props) => THREE.Object3D;

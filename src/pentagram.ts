@@ -1,9 +1,8 @@
 /* eslint-disable functional/no-expression-statement */
 import * as THREE from 'three';
 
-import { createFire, Fire } from './fire';
-
 import {
+  AnimationLoopComponent,
   HALF_PI,
   linearMap,
   linearMap3,
@@ -11,6 +10,8 @@ import {
   powerMap,
   segmentedMap,
 } from './common';
+
+import { createFire, Fire } from './fire';
 
 import settings from './settings';
 
@@ -50,8 +51,6 @@ export interface PentagramProps {
   startFrame: number;
   endFrame: number;
 }
-
-export type AnimationLoopComponent<Props> = (props: Props) => THREE.Object3D;
 
 export const createPentagram = (): AnimationLoopComponent<PentagramProps> => {
   const flameCount = settings.frameCapture ? 99 : 31;

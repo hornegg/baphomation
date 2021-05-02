@@ -4,9 +4,11 @@ import * as THREE from 'three';
 
 import {
   AnimationLoopComponent,
-  createPentagram,
-  PentagramProps,
-} from './pentagram';
+  HALF_PI,
+  loadGeometry,
+  outlineMaterial,
+  watchTowerLength,
+} from './common';
 
 import { Canvas, CanvasContext, useFrame } from 'react-three-fiber';
 
@@ -17,17 +19,11 @@ import {
   stillArm,
 } from './choreograph';
 
-import {
-  HALF_PI,
-  loadGeometry,
-  outlineMaterial,
-  watchTowerLength,
-} from './common';
+import { createPentagram, PentagramProps } from './pentagram';
 
 import { arm } from './arm';
 import { createHead } from './head';
 import FrameCapture from './FrameCapture';
-import FrameRate from './FrameRate';
 import getCameraPosition from './getCameraPosition';
 import ReactDOM from 'react-dom';
 import { room } from './room';
@@ -168,7 +164,6 @@ Promise.all([
         }}
       >
         <Canvas>
-          <FrameRate logger={console.log} />
           {settings.frameCapture ? (
             <FrameCapture
               startFrame={0}
