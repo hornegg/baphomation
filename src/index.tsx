@@ -23,7 +23,6 @@ import { createPentagram, PentagramProps } from './pentagram';
 
 import { arm } from './arm';
 import { createHead } from './head';
-import FrameCapture from './FrameCapture';
 import getCameraPosition from './getCameraPosition';
 import ReactDOM from 'react-dom';
 import { room } from './room';
@@ -164,16 +163,6 @@ Promise.all([
         }}
       >
         <Canvas>
-          {settings.frameCapture ? (
-            <FrameCapture
-              startFrame={0}
-              endFrame={settings.cycleLength * 3}
-              filename="frames.zip"
-              getCanvas={() => document.getElementsByTagName('canvas')[0]}
-            />
-          ) : (
-            <></>
-          )}
           <Main />
         </Canvas>
       </div>,

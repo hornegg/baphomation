@@ -1,6 +1,8 @@
+/* eslint-disable immutable/no-let */
 /* eslint-disable functional/no-expression-statement */
-import * as React from 'react';
-import { CanvasContext, useFrame } from 'react-three-fiber';
+import * as THREE from 'three';
+
+import { AnimationLoopComponent } from './common';
 import JSZip from 'jszip';
 import { saveAs } from 'file-saver';
 
@@ -16,15 +18,13 @@ interface FrameCaptureState {
   zip: JSZip;
 }
 
-const FrameCapture = (props: FrameCaptureProps): JSX.Element => {
-  const [state, setState] = React.useState<FrameCaptureState>({
+export const createFrameCaptureComponent = (): AnimationLoopComponent<FrameCaptureProps> => {
+  let state: FrameCaptureState = {
     frame: 0,
     zip: new JSZip(),
-  });
+  };
 
-  useFrame((canvasContext: CanvasContext) => {
-    canvasContext.gl.render(canvasContext.scene, canvasContext.camera);
-
+  return (props: FrameCaptureProps) => {
     if (state.frame >= props.startFrame && state.frame < props.endFrame) {
       const frameString = state.frame.toString().padStart(6, '0');
 
@@ -36,18 +36,11 @@ const FrameCapture = (props: FrameCaptureProps): JSX.Element => {
           state.zip.generateAsync({ type: 'blob' }).then((content) => {
             saveAs(content, props.filename);
           });
-
-          // The requested capture is complete.  Stop the animation to free up resources for processing the zip file
-
-          canvasContext.ready = false;
         }
       });
     }
 
-    setState({ ...state, frame: state.frame + 1 });
-  }, 1);
-
-  return <></>;
+    state = { ...state, frame: state.frame + 1 };
+    return new THREE.Group();
+  };
 };
-
-export default FrameCapture;
