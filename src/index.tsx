@@ -74,31 +74,25 @@ Promise.all([
         ...(state.layerInfo.bottomFlames ? [2, 3] : []),
       ];
 
-      const Pentagrams = (
-        <group>
-          {watchtowers.map((watchTowerIndex) => {
-            const angle = -watchTowerIndex * HALF_PI;
-            const position = new THREE.Vector3().setFromCylindricalCoords(
-              0.5,
-              angle - HALF_PI,
-              0
-            );
-            const startFrame = watchTowerIndex * watchTowerLength;
-            const endFrame = startFrame + pentagramLength;
+      const positionedPentagrams = watchtowers.map((watchTowerIndex) => {
+        const angle = -watchTowerIndex * HALF_PI;
+        const position = new THREE.Vector3().setFromCylindricalCoords(
+          0.5,
+          angle - HALF_PI,
+          0
+        );
+        const startFrame = watchTowerIndex * watchTowerLength;
+        const endFrame = startFrame + pentagramLength;
 
-            const pentagram: AnimationLoopComponent<PentagramProps> =
-              pentagrams[watchTowerIndex];
+        const pentagram: AnimationLoopComponent<PentagramProps> =
+          pentagrams[watchTowerIndex];
 
-            return (
-              <group key={watchTowerIndex} position={position}>
-                <primitive
-                  object={pentagram({ angle, startFrame, endFrame })}
-                />
-              </group>
-            );
-          })}
-        </group>
-      );
+        const group = new THREE.Group();
+        group.position.set(...position.toArray());
+        group.add(pentagram({ angle, startFrame, endFrame }));
+
+        return group;
+      });
 
       return (
         <group>
@@ -122,7 +116,10 @@ Promise.all([
           ) : (
             <></>
           )}
-          {Pentagrams}
+          <primitive object={positionedPentagrams[0]} />
+          <primitive object={positionedPentagrams[1]} />
+          <primitive object={positionedPentagrams[2]} />
+          <primitive object={positionedPentagrams[3]} />
           {state.layerInfo.baphomet ? <primitive object={room()} /> : <></>}
         </group>
       );
