@@ -15,8 +15,7 @@ import { choreographBody, pentagramLength } from './choreograph';
 
 import { createPentagram, PentagramProps } from './pentagram';
 
-import { createBodyComponent } from './body';
-import { createFootComponent } from './foot';
+import { createBaphometComponent } from './baphomet';
 import { createHead } from './head';
 import getCameraPosition from './getCameraPosition';
 import ReactDOM from 'react-dom';
@@ -53,9 +52,7 @@ Promise.all([
       createPentagram(),
     ];
 
-    const body = createBodyComponent();
-    const leftFoot = createFootComponent();
-    const rightFoot = createFootComponent();
+    const baphomet = createBaphometComponent();
 
     const Main = () => {
       const [state, setState] = React.useState(choreographBody(0));
@@ -103,40 +100,28 @@ Promise.all([
         </group>
       );
 
-      const baphomet = (
-        <group>
-          <primitive
-            object={body({
-              bodyAngle: state.bodyAngle,
-              head,
-              bodyGeometry,
-              outlineBodyGeometry,
-              skin,
-              watchTowerFrame,
-            })}
-          />
-          <primitive
-            object={leftFoot({
-              footAngle: state.leftFootAngle,
-              footGeometry: leftFootGeometry,
-              outlineFootGeometry: outlineLeftFootGeometry,
-              skin,
-            })}
-          />
-          <primitive
-            object={rightFoot({
-              footAngle: state.rightFootAngle,
-              footGeometry: rightFootGeometry,
-              outlineFootGeometry: outlineRightFootGeometry,
-              skin,
-            })}
-          />
-        </group>
-      );
-
       return (
         <group>
-          {state.layerInfo.baphomet ? baphomet : <></>}
+          {state.layerInfo.baphomet ? (
+            <primitive
+              object={baphomet({
+                watchTowerFrame,
+                bodyAngle: state.bodyAngle,
+                head,
+                bodyGeometry,
+                outlineBodyGeometry,
+                leftFootGeometry,
+                outlineLeftFootGeometry,
+                leftFootAngle: state.leftFootAngle,
+                rightFootGeometry,
+                outlineRightFootGeometry,
+                rightFootAngle: state.rightFootAngle,
+                skin,
+              })}
+            />
+          ) : (
+            <></>
+          )}
           {Pentagrams}
           {state.layerInfo.baphomet ? <primitive object={room()} /> : <></>}
         </group>
