@@ -1,5 +1,5 @@
+/* eslint-disable immutable/no-let */
 /* eslint-disable functional/no-expression-statement */
-import * as React from 'react';
 import * as THREE from 'three';
 
 import {
@@ -9,8 +9,6 @@ import {
   watchTowerLength,
 } from './common';
 
-import { Canvas, CanvasContext, useFrame } from 'react-three-fiber';
-
 import { choreographBody, pentagramLength } from './choreograph';
 
 import { createPentagram, PentagramProps } from './pentagram';
@@ -18,12 +16,12 @@ import { createPentagram, PentagramProps } from './pentagram';
 import { createBaphometComponent } from './baphomet';
 import { createHead } from './head';
 import getCameraPosition from './getCameraPosition';
-import ReactDOM from 'react-dom';
+import { MainState } from './mainState';
 import { room } from './room';
 import settings from './settings';
 
 const skin = new THREE.MeshBasicMaterial({
-  color: 0x111111,
+  color: 0x444444,
   side: THREE.DoubleSide,
 });
 
@@ -54,19 +52,7 @@ Promise.all([
 
     const baphomet = createBaphometComponent();
 
-    const Main = () => {
-      const [state, setState] = React.useState(choreographBody(0));
-
-      useFrame((canvasContext: CanvasContext) => {
-        const [x, y, z] = getCameraPosition(state.frame).toArray();
-        const yAdjust = 0.4;
-        canvasContext.camera.position.set(x, y + yAdjust, z);
-        canvasContext.camera.lookAt(0, -0.6 + yAdjust, 0);
-
-        // Now update the body position based on what frame number this is
-        setState(choreographBody(state.frame + 1));
-      });
-
+    const main = (state: MainState) => {
       const watchTowerFrame = state.frame % watchTowerLength;
 
       const watchtowers = [
@@ -94,50 +80,59 @@ Promise.all([
         return group;
       });
 
-      return (
-        <group>
-          {state.layerInfo.baphomet ? (
-            <primitive
-              object={baphomet({
-                watchTowerFrame,
-                bodyAngle: state.bodyAngle,
-                head,
-                bodyGeometry,
-                outlineBodyGeometry,
-                leftFootGeometry,
-                outlineLeftFootGeometry,
-                leftFootAngle: state.leftFootAngle,
-                rightFootGeometry,
-                outlineRightFootGeometry,
-                rightFootAngle: state.rightFootAngle,
-                skin,
-              })}
-            />
-          ) : (
-            <></>
-          )}
-          <primitive object={positionedPentagrams[0]} />
-          <primitive object={positionedPentagrams[1]} />
-          <primitive object={positionedPentagrams[2]} />
-          <primitive object={positionedPentagrams[3]} />
-          {state.layerInfo.baphomet ? <primitive object={room()} /> : <></>}
-        </group>
-      );
+      const mainGroup = new THREE.Group();
+      if (state.layerInfo.baphomet) {
+        mainGroup.add(
+          baphomet({
+            watchTowerFrame,
+            bodyAngle: state.bodyAngle,
+            head,
+            bodyGeometry,
+            outlineBodyGeometry,
+            leftFootGeometry,
+            outlineLeftFootGeometry,
+            leftFootAngle: state.leftFootAngle,
+            rightFootGeometry,
+            outlineRightFootGeometry,
+            rightFootAngle: state.rightFootAngle,
+            skin,
+          })
+        );
+      }
+
+      positionedPentagrams.forEach((pp) => mainGroup.add(pp));
+
+      if (state.layerInfo.baphomet) {
+        mainGroup.add(room());
+      }
+
+      return mainGroup;
     };
 
-    ReactDOM.render(
-      <div
-        style={{
-          width: settings.width,
-          height: settings.height,
-          border: 'solid 1px black',
-        }}
-      >
-        <Canvas>
-          <Main />
-        </Canvas>
-      </div>,
-      document.getElementById('root')
-    );
+    const scene = new THREE.Scene();
+    scene.background = new THREE.Color('white');
+
+    const camera = new THREE.PerspectiveCamera(75, 1.2, 0.1, 1000);
+
+    const renderer = new THREE.WebGLRenderer({ antialias: true });
+    renderer.setSize(settings.width, settings.height);
+
+    document.body.appendChild(renderer.domElement);
+
+    let state = choreographBody(0);
+
+    renderer.setAnimationLoop(() => {
+      const [x, y, z] = getCameraPosition(state.frame).toArray();
+      const yAdjust = 0.4;
+      camera.position.set(x, y + yAdjust, z);
+      camera.lookAt(0, -0.6 + yAdjust, 0);
+
+      scene.clear();
+      scene.add(main(state));
+
+      renderer.render(scene, camera);
+
+      state = choreographBody(state.frame + 1);
+    });
   }
 );

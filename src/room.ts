@@ -22,12 +22,12 @@ const createOutlinedBox = (
 };
 
 const floorMaterial = new THREE.MeshBasicMaterial({
-  color: 0x999999,
+  color: 0xCCCCCC,
   side: THREE.DoubleSide,
 });
 
 const altarMaterial = new THREE.MeshBasicMaterial({
-  color: 0x444444,
+  color: 0x888888,
   side: THREE.DoubleSide,
 });
 
