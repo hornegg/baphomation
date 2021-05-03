@@ -6,7 +6,6 @@ import {
   AnimationLoopComponent,
   HALF_PI,
   loadGeometry,
-  outlineMaterial,
   watchTowerLength,
 } from './common';
 
@@ -17,6 +16,7 @@ import { choreographBody, pentagramLength } from './choreograph';
 import { createPentagram, PentagramProps } from './pentagram';
 
 import { createBodyComponent } from './body';
+import { createFootComponent } from './foot';
 import { createHead } from './head';
 import getCameraPosition from './getCameraPosition';
 import ReactDOM from 'react-dom';
@@ -54,6 +54,8 @@ Promise.all([
     ];
 
     const body = createBodyComponent();
+    const leftFoot = createFootComponent();
+    const rightFoot = createFootComponent();
 
     const Main = () => {
       const [state, setState] = React.useState(choreographBody(0));
@@ -69,23 +71,6 @@ Promise.all([
       });
 
       const watchTowerFrame = state.frame % watchTowerLength;
-
-      const LeftFoot = () => (
-        <group rotation={new THREE.Euler(0, state.leftFootAngle, 0)}>
-          <mesh geometry={leftFootGeometry} material={skin} />
-          <mesh geometry={outlineLeftFootGeometry} material={outlineMaterial} />
-        </group>
-      );
-
-      const RightFoot = () => (
-        <group rotation={new THREE.Euler(0, state.rightFootAngle, 0)}>
-          <mesh geometry={rightFootGeometry} material={skin} />
-          <mesh
-            geometry={outlineRightFootGeometry}
-            material={outlineMaterial}
-          />
-        </group>
-      );
 
       const watchtowers = [
         ...(state.layerInfo.topFlames ? [0, 1] : []),
@@ -130,8 +115,22 @@ Promise.all([
               watchTowerFrame,
             })}
           />
-          <LeftFoot />
-          <RightFoot />
+          <primitive
+            object={leftFoot({
+              footAngle: state.leftFootAngle,
+              footGeometry: leftFootGeometry,
+              outlineFootGeometry: outlineLeftFootGeometry,
+              skin,
+            })}
+          />
+          <primitive
+            object={rightFoot({
+              footAngle: state.rightFootAngle,
+              footGeometry: rightFootGeometry,
+              outlineFootGeometry: outlineRightFootGeometry,
+              skin,
+            })}
+          />
         </group>
       );
 
