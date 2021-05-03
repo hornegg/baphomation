@@ -22,7 +22,7 @@ const createOutlinedBox = (
 };
 
 const floorMaterial = new THREE.MeshBasicMaterial({
-  color: 0xCCCCCC,
+  color: 0xcccccc,
   side: THREE.DoubleSide,
 });
 

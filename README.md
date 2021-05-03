@@ -54,13 +54,10 @@ The contents of the root directory of this repository are as follows
 
 In the hope of making them slightly easier to understand, the package dependencies in [package.json](./package.json) are listed here by category.
 
-## Web frameworks
+## 3D Graphics
 
 * three
 * three-js-csg 
-* react
-* react-dom
-* react-three-fiber
 
 ## Serving web content
 
@@ -93,8 +90,6 @@ In the hope of making them slightly easier to understand, the package dependenci
 * @types/p-limit
 * @types/p5
 * @types/pngjs
-* @types/react
-* @types/react-dom
 * ts-node
 * typescript
 
