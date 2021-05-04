@@ -60,7 +60,7 @@ const createWing = (sign: 1 | -1) => {
   };
 
   const geom = new THREE.ExtrudeGeometry(shape, extrudeSettings);
-  return new ThreeBSP(geom);
+  return new ThreeBSP(new THREE.BufferGeometry().fromGeometry(geom));
 };
 
 // Head
@@ -116,13 +116,15 @@ const nsfw = (bsp) => {
     .translate(...translation);
 
   return bsp
-    .union(new ThreeBSP(leftBreast))
-    .union(new ThreeBSP(rightBreast))
-    .union(new ThreeBSP(cylinder))
-    .union(new ThreeBSP(sphere));
+    .union(new ThreeBSP(new THREE.BufferGeometry().fromGeometry(leftBreast)))
+    .union(new ThreeBSP(new THREE.BufferGeometry().fromGeometry(rightBreast)))
+    .union(new ThreeBSP(new THREE.BufferGeometry().fromGeometry(cylinder)))
+    .union(new ThreeBSP(new THREE.BufferGeometry().fromGeometry(sphere)));
 };
 
-const bodyEllipsoidRegularBsp = new ThreeBSP(bodyEllipsoid);
+const bodyEllipsoidRegularBsp = new ThreeBSP(
+  new THREE.BufferGeometry().fromGeometry(bodyEllipsoid)
+);
 
 const bodyEllipsoidBsp = settings.nsfw
   ? nsfw(bodyEllipsoidRegularBsp)
@@ -130,8 +132,10 @@ const bodyEllipsoidBsp = settings.nsfw
 
 // Combine
 
-const headBsp = new ThreeBSP(head);
-const headBoxBsp = new ThreeBSP(headBox);
+const headBsp = new ThreeBSP(new THREE.BufferGeometry().fromGeometry(head));
+const headBoxBsp = new ThreeBSP(
+  new THREE.BufferGeometry().fromGeometry(headBox)
+);
 
 const body: THREE.Geometry = bodyEllipsoidBsp
   .subtract(headBoxBsp)

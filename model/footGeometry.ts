@@ -25,14 +25,18 @@ const footEllipsoid = createEllipsoid(
   scalar
 ).translate(footCenterX, floorLevel, radius);
 
-const footEllipsoidBsp = new ThreeBSP(footEllipsoid);
+const footEllipsoidBsp = new ThreeBSP(
+  new THREE.BufferGeometry().fromGeometry(footEllipsoid)
+);
 
 const floorBox = new THREE.BoxGeometry(2, radius, 3).translate(
   footCenterX,
   floorLevel - (0.5 * radius) - scalar,
   0
 );
-const floorBoxBsp = new ThreeBSP(floorBox);
+const floorBoxBsp = new ThreeBSP(
+  new THREE.BufferGeometry().fromGeometry(floorBox)
+);
 
 const foot: THREE.Geometry = footEllipsoidBsp
   .subtract(floorBoxBsp)

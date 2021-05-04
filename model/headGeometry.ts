@@ -21,9 +21,13 @@ const earParams: [number, number, number, number] = [0.4, 0.4, 0.25, scalar];
 const leftEar = createEllipsoid(...earParams).translate(x, y, z);
 const rightEar = createEllipsoid(...earParams).translate(-x, y, z);
 
-const headBsp = new ThreeBSP(head);
-const leftEarBsp = new ThreeBSP(leftEar);
-const rightEarBsp = new ThreeBSP(rightEar);
+const headBsp = new ThreeBSP(new THREE.BufferGeometry().fromGeometry(head));
+const leftEarBsp = new ThreeBSP(
+  new THREE.BufferGeometry().fromGeometry(leftEar)
+);
+const rightEarBsp = new ThreeBSP(
+  new THREE.BufferGeometry().fromGeometry(rightEar)
+);
 
 const leftIntersect = headBsp.intersect(leftEarBsp);
 const rightIntersect = headBsp.intersect(rightEarBsp);
