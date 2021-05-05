@@ -4,7 +4,8 @@ import * as THREE from 'three';
 
 import { createEllipsoid } from './commonGeometry';
 
-const ThreeBSP = bspConstructor(THREE);
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const ThreeBSP: any = bspConstructor(THREE);
 
 const outfilename = process.argv[2];
 const outline = process.argv[3] === 'true';
@@ -32,18 +33,18 @@ const rightEarBsp = new ThreeBSP(
 const leftIntersect = headBsp.intersect(leftEarBsp);
 const rightIntersect = headBsp.intersect(rightEarBsp);
 
-const geometry: THREE.Geometry = headBsp
+const geometry: THREE.BufferGeometry = headBsp
   .union(leftEarBsp)
   .union(rightEarBsp)
   .subtract(leftIntersect)
   .subtract(rightIntersect)
-  .toGeometry();
+  .toBufferGeometry();
 
 // eslint-disable-next-line functional/no-expression-statement
 fs.writeFileSync(
   outfilename,
   JSON.stringify(
-    new THREE.BufferGeometry().fromGeometry(geometry).toJSON(),
+    geometry.toJSON(),
     null,
     2
   )

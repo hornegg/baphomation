@@ -1,3 +1,4 @@
+/* eslint-disable functional/no-expression-statement */
 import * as bspConstructor from 'three-js-csg';
 import * as fs from 'fs';
 import * as THREE from 'three';
@@ -5,7 +6,8 @@ import * as THREE from 'three';
 import { createEllipsoid } from './commonGeometry';
 import { floorLevel } from '../src/common';
 
-const ThreeBSP = bspConstructor(THREE);
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const ThreeBSP: any = bspConstructor(THREE);
 
 const outfilename = process.argv[2];
 const outline = process.argv[3] === 'true';
@@ -38,16 +40,9 @@ const floorBoxBsp = new ThreeBSP(
   new THREE.BufferGeometry().fromGeometry(floorBox)
 );
 
-const foot: THREE.Geometry = footEllipsoidBsp
+const foot: THREE.BufferGeometry = footEllipsoidBsp
   .subtract(floorBoxBsp)
-  .toGeometry();
+  .toBufferGeometry();
 
 // eslint-disable-next-line functional/no-expression-statement
-fs.writeFileSync(
-  outfilename,
-  JSON.stringify(
-    new THREE.BufferGeometry().fromGeometry(foot).toJSON(),
-    null,
-    2
-  )
-);
+fs.writeFileSync(outfilename, JSON.stringify(foot.toJSON(), null, 2));

@@ -7,7 +7,8 @@ import { QUARTER_PI } from '../src/common';
 
 import settings from '../src/settings';
 
-const ThreeBSP = bspConstructor(THREE);
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const ThreeBSP: any = bspConstructor(THREE);
 
 const outfilename = process.argv[2];
 const outline = process.argv[3] === 'true';
@@ -67,14 +68,12 @@ const createWing = (sign: 1 | -1) => {
 
 const loader = new THREE.BufferGeometryLoader();
 
-const head = new THREE.Geometry().fromBufferGeometry(
-  loader.parse(
+const head = loader.parse(
     JSON.parse(
       fs.readFileSync(`${__dirname}/../dist/outlineHeadGeometry.json`, {
         encoding: 'utf8',
       })
     )
-  )
 );
 
 const headBox = new THREE.BoxGeometry(2, 2, 2).translate(0, 1.5, 0);
@@ -132,23 +131,23 @@ const bodyEllipsoidBsp = settings.nsfw
 
 // Combine
 
-const headBsp = new ThreeBSP(new THREE.BufferGeometry().fromGeometry(head));
+const headBsp = new ThreeBSP(head);
 const headBoxBsp = new ThreeBSP(
   new THREE.BufferGeometry().fromGeometry(headBox)
 );
 
-const body: THREE.Geometry = bodyEllipsoidBsp
+const body: THREE.BufferGeometry = bodyEllipsoidBsp
   .subtract(headBoxBsp)
   .subtract(headBsp)
   .union(createWing(1))
   .union(createWing(-1))
-  .toGeometry();
+  .toBufferGeometry();
 
 // eslint-disable-next-line functional/no-expression-statement
 fs.writeFileSync(
   outfilename,
   JSON.stringify(
-    new THREE.BufferGeometry().fromGeometry(body).toJSON(),
+    body.toJSON(),
     null,
     2
   )
