@@ -69,11 +69,11 @@ const createWing = (sign: 1 | -1) => {
 const loader = new THREE.BufferGeometryLoader();
 
 const head = loader.parse(
-    JSON.parse(
-      fs.readFileSync(`${__dirname}/../dist/outlineHeadGeometry.json`, {
-        encoding: 'utf8',
-      })
-    )
+  JSON.parse(
+    fs.readFileSync(`${__dirname}/../dist/outlineHeadGeometry.json`, {
+      encoding: 'utf8',
+    })
+  )
 );
 
 const headBox = new THREE.BoxGeometry(2, 2, 2).translate(0, 1.5, 0);
@@ -144,11 +144,4 @@ const body: THREE.BufferGeometry = bodyEllipsoidBsp
   .toBufferGeometry();
 
 // eslint-disable-next-line functional/no-expression-statement
-fs.writeFileSync(
-  outfilename,
-  JSON.stringify(
-    body.toJSON(),
-    null,
-    2
-  )
-);
+fs.writeFileSync(outfilename, JSON.stringify(body.toJSON(), null, 2));

@@ -112,11 +112,10 @@ Promise.all([
     };
 
     const scene = new THREE.Scene();
-    scene.background = new THREE.Color('white');
 
     const camera = new THREE.PerspectiveCamera(75, 1.2, 0.1, 1000);
 
-    const renderer = new THREE.WebGLRenderer({ antialias: true });
+    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
     renderer.setSize(settings.width, settings.height);
 
     document.body.appendChild(renderer.domElement);
@@ -130,6 +129,13 @@ Promise.all([
       camera.lookAt(0, -0.6 + yAdjust, 0);
 
       scene.clear();
+
+      if (state.layerInfo.bottomFlames) {
+        scene.background = new THREE.Color('white');
+      } else {
+        scene.background = null;
+      }
+
       scene.add(main(state));
 
       renderer.render(scene, camera);

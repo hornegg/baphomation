@@ -41,11 +41,4 @@ const geometry: THREE.BufferGeometry = headBsp
   .toBufferGeometry();
 
 // eslint-disable-next-line functional/no-expression-statement
-fs.writeFileSync(
-  outfilename,
-  JSON.stringify(
-    geometry.toJSON(),
-    null,
-    2
-  )
-);
+fs.writeFileSync(outfilename, JSON.stringify(geometry.toJSON(), null, 2));
