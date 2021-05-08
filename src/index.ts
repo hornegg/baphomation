@@ -14,6 +14,7 @@ import { choreographBody, pentagramLength } from './choreograph';
 import { createPentagram, PentagramProps } from './pentagram';
 
 import { createBaphometComponent } from './baphomet';
+import { createFrameCaptureComponent } from './frameCapture';
 import { createHead } from './head';
 import getCameraPosition from './getCameraPosition';
 import { MainState } from './mainState';
@@ -51,6 +52,7 @@ Promise.all([
     ];
 
     const baphomet = createBaphometComponent();
+    const frameCapture = createFrameCaptureComponent();
 
     const main = (state: MainState) => {
       const watchTowerFrame = state.frame % watchTowerLength;
@@ -131,6 +133,15 @@ Promise.all([
       scene.add(main(state));
 
       renderer.render(scene, camera);
+
+      if (settings.frameCapture) {
+        frameCapture({
+          startFrame: 0,
+          endFrame: settings.cycleLength * 3,
+          filename: 'frames.zip',
+          getCanvas: () => document.getElementsByTagName('canvas')[0],
+        });
+      }
 
       state = choreographBody(state.frame + 1);
     });
