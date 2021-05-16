@@ -5,7 +5,6 @@
   "ignorePatterns": ["node_modules/", "dist/"],
   "rules": {
     "eqeqeq": ["error"],
-    "no-shadow": ["error"],
     "max-len": ["error", { "code": 140 }],
     "quotes": ["error", "single"],
     "no-tabs": ["error"]
@@ -22,6 +21,7 @@
         "@typescript-eslint/semi": ["error"],
         "@typescript-eslint/camelcase": ["off"],
         "@typescript-eslint/no-empty-function": ["off"],
+        "@typescript-eslint/no-shadow": ["error"],
         "@typescript-eslint/interface-name-prefix": ["off"],
         "functional/no-expression-statement": ["error"],
         "immutable/no-let": ["error"],
