@@ -3,24 +3,13 @@
 import * as PostProcessing from 'postprocessing';
 import * as THREE from 'three';
 
-import {
-  AnimationLoopComponent,
-  HALF_PI,
-  Layer,
-  loadGeometry,
-  watchTowerLength,
-} from './common';
+import { Layer, loadGeometry } from './common';
 
-import { choreographBody, pentagramLength } from './choreograph';
-
-import { createPentagram, PentagramProps } from './pentagram';
-
-import { createBaphometComponent } from './baphomet';
+import { choreographBody } from './choreograph';
 import { createFrameCaptureComponent } from './frameCapture';
 import { createHead } from './head';
+import { createMainComponent } from './main';
 import getCameraPosition from './getCameraPosition';
-import { MainState } from './mainState';
-import { room } from './room';
 import settings from './settings';
 
 const skin = new THREE.MeshBasicMaterial({
@@ -46,64 +35,18 @@ Promise.all([
     rightFootGeometry,
     outlineRightFootGeometry,
   ]) => {
-    const pentagrams = [
-      createPentagram(),
-      createPentagram(),
-      createPentagram(),
-      createPentagram(),
-    ];
+    const main = createMainComponent({
+      head,
+      bodyGeometry,
+      outlineBodyGeometry,
+      leftFootGeometry,
+      outlineLeftFootGeometry,
+      rightFootGeometry,
+      outlineRightFootGeometry,
+      skin,
+    });
 
-    const baphomet = createBaphometComponent();
     const frameCapture = createFrameCaptureComponent();
-
-    const main = (state: MainState) => {
-      const watchTowerFrame = state.frame % watchTowerLength;
-
-      const positionedPentagrams = [0, 1, 2, 3].map((watchTowerIndex) => {
-        const angle = -watchTowerIndex * HALF_PI;
-        const position = new THREE.Vector3().setFromCylindricalCoords(
-          0.5,
-          angle - HALF_PI,
-          0
-        );
-        const startFrame = watchTowerIndex * watchTowerLength;
-        const endFrame = startFrame + pentagramLength;
-
-        const pentagram: AnimationLoopComponent<PentagramProps> =
-          pentagrams[watchTowerIndex];
-
-        const group = new THREE.Group();
-        group.position.set(...position.toArray());
-        group.add(pentagram({ angle, startFrame, endFrame }));
-
-        return group;
-      });
-
-      const mainGroup = new THREE.Group();
-
-      mainGroup.add(
-          baphomet({
-            watchTowerFrame,
-            bodyAngle: state.bodyAngle,
-            head,
-            bodyGeometry,
-            outlineBodyGeometry,
-            leftFootGeometry,
-            outlineLeftFootGeometry,
-            leftFootAngle: state.leftFootAngle,
-            rightFootGeometry,
-            outlineRightFootGeometry,
-            rightFootAngle: state.rightFootAngle,
-            skin,
-          })
-        );
-
-      positionedPentagrams.forEach((pp) => mainGroup.add(pp));
-
-      mainGroup.add(room());
-
-      return mainGroup;
-    };
 
     const scene = new THREE.Scene();
 
@@ -126,7 +69,6 @@ Promise.all([
       camera.lookAt(0, -0.6 + yAdjust, 0);
 
       scene.clear();
-
 
       scene.add(main(state));
 

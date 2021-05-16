@@ -245,6 +245,5 @@ export enum Layer {
 
 export const setLayerRecursive = (obj: THREE.Object3D, layer: Layer): void => {
   obj.layers.set(layer);
-  obj.children.forEach(child => setLayerRecursive(child, layer));
+  obj.children.forEach((child) => setLayerRecursive(child, layer));
 };
-
