@@ -59,12 +59,7 @@ Promise.all([
     const main = (state: MainState) => {
       const watchTowerFrame = state.frame % watchTowerLength;
 
-      const watchtowers = [
-        ...(state.layerInfo.topFlames ? [0, 1] : []),
-        ...(state.layerInfo.bottomFlames ? [2, 3] : []),
-      ];
-
-      const positionedPentagrams = watchtowers.map((watchTowerIndex) => {
+      const positionedPentagrams = [0, 1, 2, 3].map((watchTowerIndex) => {
         const angle = -watchTowerIndex * HALF_PI;
         const position = new THREE.Vector3().setFromCylindricalCoords(
           0.5,
@@ -85,8 +80,8 @@ Promise.all([
       });
 
       const mainGroup = new THREE.Group();
-      if (state.layerInfo.baphomet) {
-        mainGroup.add(
+
+      mainGroup.add(
           baphomet({
             watchTowerFrame,
             bodyAngle: state.bodyAngle,
@@ -102,13 +97,10 @@ Promise.all([
             skin,
           })
         );
-      }
 
       positionedPentagrams.forEach((pp) => mainGroup.add(pp));
 
-      if (state.layerInfo.baphomet) {
-        mainGroup.add(room());
-      }
+      mainGroup.add(room());
 
       return mainGroup;
     };
@@ -135,14 +127,10 @@ Promise.all([
 
       scene.clear();
 
-      if (state.layerInfo.bottomFlames) {
-        scene.background = new THREE.Color('white');
-      } else {
-        scene.background = null;
-      }
 
       scene.add(main(state));
 
+      scene.background = new THREE.Color('white');
       camera.layers.set(0);
       renderer.render(scene, camera);
 
@@ -150,12 +138,10 @@ Promise.all([
       camera.layers.set(Layer.face);
       renderer.render(scene, camera);
 
-
-
       if (settings.frameCapture) {
         frameCapture({
           startFrame: 0,
-          endFrame: settings.cycleLength * 3,
+          endFrame: settings.cycleLength,
           filename: 'frames.zip',
           getCanvas: () => document.getElementsByTagName('canvas')[0],
         });
