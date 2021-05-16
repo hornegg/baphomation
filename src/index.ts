@@ -12,6 +12,7 @@ import {
 import { choreographBody, pentagramLength } from './choreograph';
 
 import { createPentagram, PentagramProps } from './pentagram';
+import { EffectComposer, RenderPass } from 'postprocessing';
 
 import { createBaphometComponent } from './baphomet';
 import { createFrameCaptureComponent } from './frameCapture';
@@ -118,6 +119,9 @@ Promise.all([
     const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
     renderer.setSize(settings.width, settings.height);
 
+    const composer = new EffectComposer(renderer);
+    composer.addPass(new RenderPass(scene, camera));
+
     document.body.appendChild(renderer.domElement);
 
     let state = choreographBody(0);
@@ -138,7 +142,7 @@ Promise.all([
 
       scene.add(main(state));
 
-      renderer.render(scene, camera);
+      composer.render();
 
       if (settings.frameCapture) {
         frameCapture({
