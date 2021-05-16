@@ -1,3 +1,4 @@
+/* eslint-disable functional/no-expression-statement */
 import * as THREE from 'three';
 import { BufferGeometry } from 'three';
 import settings from './settings';
@@ -230,3 +231,20 @@ export const loadGeometry = (filename: string): Promise<BufferGeometry> => {
 //
 
 export type AnimationLoopComponent<Props> = (props: Props) => THREE.Object3D;
+
+//
+// Layer
+//
+
+export enum Layer {
+  flamesBehind = 1,
+  body,
+  face,
+  flamesInfront,
+}
+
+export const setLayerRecursive = (obj: THREE.Object3D, layer: Layer): void => {
+  obj.layers.set(layer);
+  obj.children.forEach(child => setLayerRecursive(child, layer));
+};
+

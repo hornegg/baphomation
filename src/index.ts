@@ -1,10 +1,12 @@
 /* eslint-disable immutable/no-let */
 /* eslint-disable functional/no-expression-statement */
+import * as PostProcessing from 'postprocessing';
 import * as THREE from 'three';
 
 import {
   AnimationLoopComponent,
   HALF_PI,
+  Layer,
   loadGeometry,
   watchTowerLength,
 } from './common';
@@ -12,7 +14,6 @@ import {
 import { choreographBody, pentagramLength } from './choreograph';
 
 import { createPentagram, PentagramProps } from './pentagram';
-import { EffectComposer, RenderPass } from 'postprocessing';
 
 import { createBaphometComponent } from './baphomet';
 import { createFrameCaptureComponent } from './frameCapture';
@@ -119,8 +120,8 @@ Promise.all([
     const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
     renderer.setSize(settings.width, settings.height);
 
-    const composer = new EffectComposer(renderer);
-    composer.addPass(new RenderPass(scene, camera));
+    const composer = new PostProcessing.EffectComposer(renderer);
+    composer.addPass(new PostProcessing.RenderPass(scene, camera));
 
     document.body.appendChild(renderer.domElement);
 
@@ -142,7 +143,14 @@ Promise.all([
 
       scene.add(main(state));
 
-      composer.render();
+      camera.layers.set(0);
+      renderer.render(scene, camera);
+
+      scene.background = null;
+      camera.layers.set(Layer.face);
+      renderer.render(scene, camera);
+
+
 
       if (settings.frameCapture) {
         frameCapture({

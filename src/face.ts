@@ -1,11 +1,14 @@
+/* eslint-disable functional/no-expression-statement */
 import * as THREE from 'three';
 
 import {
   createArc,
   createTube,
+  Layer,
   linearMap,
   outlineMaterialDouble,
   redMaterial,
+  setLayerRecursive,
 } from './common';
 import settings from './settings';
 
@@ -142,6 +145,8 @@ export const createFace = (): THREE.Group => {
     .add(eyesGroup)
     .add(nose)
     .add(mouth);
+
+  setLayerRecursive(face, Layer.face);
 
   return face;
 };
