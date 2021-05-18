@@ -73,13 +73,19 @@ Promise.all([
       scene.add(main(state));
 
       scene.background = new THREE.Color('white');
-      camera.layers.set(0);
+      camera.layers.set(Layer.flamesBehind);
       renderer.render(scene, camera);
 
       scene.background = null;
+      camera.layers.set(Layer.shapes);
+      renderer.render(scene, camera);
+
       camera.layers.set(Layer.face);
       renderer.render(scene, camera);
 
+      camera.layers.set(Layer.flamesInfront);
+      renderer.render(scene, camera);
+      
       if (settings.frameCapture) {
         frameCapture({
           startFrame: 0,
