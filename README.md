@@ -17,7 +17,7 @@ The `npm start` command runs a gulp workflow.  This causes some pre-processing t
 
 The `npm start` command also runs the parcel web-application bundler.  The web application can be reached by opening a web browser at this address:
 
-http://localhost:1234/index.html
+http://localhost:8080
 
 # Web application
 
