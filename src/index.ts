@@ -1,6 +1,5 @@
 /* eslint-disable immutable/no-let */
 /* eslint-disable functional/no-expression-statement */
-import * as PostProcessing from 'postprocessing';
 import * as THREE from 'three';
 
 import { Layer, loadGeometry } from './common';
@@ -54,9 +53,7 @@ Promise.all([
 
     const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
     renderer.setSize(settings.width, settings.height);
-
-    const composer = new PostProcessing.EffectComposer(renderer);
-    composer.addPass(new PostProcessing.RenderPass(scene, camera));
+    renderer.autoClear = false;
 
     document.body.appendChild(renderer.domElement);
 
