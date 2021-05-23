@@ -1,6 +1,12 @@
 /* eslint-disable functional/no-expression-statement */
 import * as THREE from 'three';
-import { AnimationLoopComponent, HALF_PI, Layer, setLayerRecursive, watchTowerLength } from './common';
+import {
+  AnimationLoopComponent,
+  HALF_PI,
+  Layer,
+  setLayerRecursive,
+  watchTowerLength,
+} from './common';
 import { createPentagram, PentagramProps } from './pentagram';
 import { createBaphometComponent } from './baphomet';
 import { pentagramLength } from './choreograph';
@@ -54,11 +60,11 @@ export const createMainComponent = (props: MainProps) => {
       group.position.set(...position.toArray());
       group.add(pentagram({ angle, startFrame, endFrame }));
 
-        if (watchTowerIndex > 1) {
-          setLayerRecursive(group, Layer.flamesBehind);
-        } else {
-          setLayerRecursive(group, Layer.flamesInfront);
-        }
+      if (watchTowerIndex > 1) {
+        setLayerRecursive(group, Layer.flamesBehind);
+      } else {
+        setLayerRecursive(group, Layer.flamesInfront);
+      }
 
       return group;
     });

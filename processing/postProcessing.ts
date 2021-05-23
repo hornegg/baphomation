@@ -141,23 +141,21 @@ new p5((p: p5) => {
             textHeight
           );
 
-          const alpha = segmentedMap(watchTowerFrame, frameSegments, [
-            0,
-            255,
-            255,
-            0,
-          ]);
+          const alpha = segmentedMap(
+            watchTowerFrame,
+            frameSegments,
+            [0, 255, 255, 0]
+          );
 
           const color: [number, number, number] = colors[watchTowerColor];
           gText.textFont('Impact', textHeight);
           gText.fill(...color, alpha);
 
-          const textSize = segmentedMap(watchTowerFrame, frameSegments, [
-            0,
-            1,
-            1,
-            2,
-          ]);
+          const textSize = segmentedMap(
+            watchTowerFrame,
+            frameSegments,
+            [0, 1, 1, 2]
+          );
 
           gText.text(text, 0, gText.height);
 

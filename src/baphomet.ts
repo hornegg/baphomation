@@ -22,46 +22,47 @@ interface BaphometProps {
   skin: THREE.Material;
 }
 
-export const createBaphometComponent = (): AnimationLoopComponent<BaphometProps> => {
-  return ({
-    watchTowerFrame,
-    bodyAngle,
-    head,
-    bodyGeometry,
-    outlineBodyGeometry,
-    leftFootGeometry,
-    outlineLeftFootGeometry,
-    leftFootAngle,
-    rightFootGeometry,
-    outlineRightFootGeometry,
-    rightFootAngle,
-    skin,
-  }: BaphometProps) =>
-    new THREE.Group()
-      .add(
-        body({
-          bodyAngle,
-          head,
-          bodyGeometry,
-          outlineBodyGeometry,
-          skin,
-          watchTowerFrame,
-        })
-      )
-      .add(
-        leftFoot({
-          footAngle: leftFootAngle,
-          footGeometry: leftFootGeometry,
-          outlineFootGeometry: outlineLeftFootGeometry,
-          skin,
-        })
-      )
-      .add(
-        rightFoot({
-          footAngle: rightFootAngle,
-          footGeometry: rightFootGeometry,
-          outlineFootGeometry: outlineRightFootGeometry,
-          skin,
-        })
-      );
-};
+export const createBaphometComponent =
+  (): AnimationLoopComponent<BaphometProps> => {
+    return ({
+      watchTowerFrame,
+      bodyAngle,
+      head,
+      bodyGeometry,
+      outlineBodyGeometry,
+      leftFootGeometry,
+      outlineLeftFootGeometry,
+      leftFootAngle,
+      rightFootGeometry,
+      outlineRightFootGeometry,
+      rightFootAngle,
+      skin,
+    }: BaphometProps) =>
+      new THREE.Group()
+        .add(
+          body({
+            bodyAngle,
+            head,
+            bodyGeometry,
+            outlineBodyGeometry,
+            skin,
+            watchTowerFrame,
+          })
+        )
+        .add(
+          leftFoot({
+            footAngle: leftFootAngle,
+            footGeometry: leftFootGeometry,
+            outlineFootGeometry: outlineLeftFootGeometry,
+            skin,
+          })
+        )
+        .add(
+          rightFoot({
+            footAngle: rightFootAngle,
+            footGeometry: rightFootGeometry,
+            outlineFootGeometry: outlineRightFootGeometry,
+            skin,
+          })
+        );
+  };

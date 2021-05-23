@@ -82,7 +82,7 @@ Promise.all([
 
       camera.layers.set(Layer.flamesInfront);
       renderer.render(scene, camera);
-      
+
       if (settings.frameCapture) {
         frameCapture({
           startFrame: 0,
