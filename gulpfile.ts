@@ -19,11 +19,14 @@ const exec = async (cmd) => {
   console.log(`\n${cmd}`);
   return execNoLog(cmd).then((result) => {
     console.log(result.stdout + result.stderr);
-    return result;
+    return result;  
   });
 };
 
 const defaultTask = (callback: () => void): void => {
+  // fire
+  fs.copyFile(path.join(__dirname, 'src/THREE.Fire/Fire.png'), 'dist/Fire.png');
+
   // head
 
   watchRunScriptNewer({

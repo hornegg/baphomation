@@ -6,7 +6,7 @@
     "pp": "ts-node processing/postProcessing.ts 0 32",
     "gulp": "gulp",
     "lint": "eslint . --ext .ts --ext .tsx",
-    "parcel": "parcel watch src/index.html src/THREE.Fire/Fire.png",
+    "parcel": "parcel watch src/index.html",
     "preinstall": "npx npm-force-resolutions",
     "prettier": "prettier --write **/*.{ts,js,tsx} && eslint . --ext .ts --ext .tsx --fix",
     "serve": "http-server dist",
@@ -23,6 +23,7 @@
   },
   "homepage": "https://github.com/hornegg/baphomation#readme",
   "dependencies": {
+    "@parcel/transformer-image": "^2.0.0-beta.2",
     "@types/file-saver": "^2.0.2",
     "@types/gulp": "^4.0.8",
     "@types/lodash": "^4.14.170",
@@ -64,6 +65,7 @@
     "gulp-cli": "2.3",
     "hosted-git-info": "2.8.9",
     "node-forge": "0.10.0",
+    "postcss": "8.2.10",
     "ini": "1.3.8",
     "y18n": "3.2.2"
   },
