@@ -3,14 +3,14 @@
   "version": "1.0.0",
   "scripts": {
     "body": "ts-node model/bodyGeometry.ts dist/outlineBodyGeometry.json true",
-    "build": "parcel build src/index.html src/THREE.Fire/Fire.png",
     "pp": "ts-node processing/postProcessing.ts 0 32",
     "gulp": "gulp",
     "lint": "eslint . --ext .ts --ext .tsx",
-    "parcel": "parcel src/index.html src/THREE.Fire/Fire.png",
+    "parcel": "parcel watch src/index.html src/THREE.Fire/Fire.png",
     "preinstall": "npx npm-force-resolutions",
     "prettier": "prettier --write **/*.{ts,js,tsx} && eslint . --ext .ts --ext .tsx --fix",
-    "start": "run-p gulp parcel"
+    "serve": "http-server dist",
+    "start": "run-p gulp parcel serve"
   },
   "repository": {
     "type": "git",
@@ -43,6 +43,7 @@
     "gulp": "^4.0.2",
     "gulp-noop": "^1.0.1",
     "gulp-run": "^1.7.1",
+    "http-server": "^0.12.3",
     "jsdom": "^16.5.3",
     "jsdom-global": "^3.0.2",
     "jszip": "^3.6.0",
@@ -50,8 +51,7 @@
     "npm-run-all": "^4.1.5",
     "p-limit": "^3.1.0",
     "p5": "^1.3.1",
-    "parcel": "^1.12.4",
-    "parcel-bundler": "^1.12.4",
+    "parcel": "^2.0.0-beta.2",
     "pngjs": "^6.0.0",
     "prettier": "^2.3.0",
     "rimraf": "^3.0.2",
