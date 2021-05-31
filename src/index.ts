@@ -1,13 +1,13 @@
 /* eslint-disable immutable/no-let */
 /* eslint-disable functional/no-expression-statement */
 
-import 'parcel';
+import './parcel';
 
 import * as THREE from 'three';
 
 import { Layer, loadGeometry } from './common';
 
-import changeHue from './shaders/changeHue.frag';
+import changeHue from 'url:./shaders/changeHue.frag';
 import { choreographBody } from './choreograph';
 import { createFrameCaptureComponent } from './frameCapture';
 import { createHead } from './head';
