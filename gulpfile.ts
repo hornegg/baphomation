@@ -19,7 +19,7 @@ const exec = async (cmd) => {
   console.log(`\n${cmd}`);
   return execNoLog(cmd).then((result) => {
     console.log(result.stdout + result.stderr);
-    return result;  
+    return result;
   });
 };
 

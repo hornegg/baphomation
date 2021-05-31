@@ -8,7 +8,9 @@ import { choreographBody } from './choreograph';
 import { createFrameCaptureComponent } from './frameCapture';
 import { createHead } from './head';
 import { createMainComponent } from './main';
+import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer';
 import getCameraPosition from './getCameraPosition';
+import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass';
 import settings from './settings';
 
 const skin = new THREE.MeshBasicMaterial({
@@ -49,7 +51,18 @@ Promise.all([
 
     const scene = new THREE.Scene();
 
-    const camera = new THREE.PerspectiveCamera(75, 1.2, 0.1, 1000);
+    const cameraTemplate = new THREE.PerspectiveCamera(75, 1.2, 0.1, 1000);
+    const cameras: THREE.Camera[] = [];
+
+    const createRenderPass = (layer: Layer): RenderPass => {
+      const camera = cameraTemplate.clone();
+      camera.layers = new THREE.Layers();
+      camera.layers.set(layer);
+      const pass = new RenderPass(scene, camera);
+      cameras.push(camera);
+      pass.clear = false;
+      return pass;
+    };
 
     const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
     renderer.setSize(settings.width, settings.height);
@@ -57,31 +70,36 @@ Promise.all([
 
     document.body.appendChild(renderer.domElement);
 
+    const flamesBehindComposer = new EffectComposer(renderer);
+    flamesBehindComposer.addPass(createRenderPass(Layer.flamesBehind));
+
+    const shapesComposer = new EffectComposer(renderer);
+    shapesComposer.addPass(createRenderPass(Layer.shapes));
+
+    const faceComposer = new EffectComposer(renderer);
+    faceComposer.addPass(createRenderPass(Layer.face));
+
+    const flamesInfrontComposer = new EffectComposer(renderer);
+    flamesInfrontComposer.addPass(createRenderPass(Layer.flamesInfront));
+
     let state = choreographBody(0);
 
     renderer.setAnimationLoop(() => {
       const [x, y, z] = getCameraPosition(state.frame).toArray();
       const yAdjust = 0.4;
-      camera.position.set(x, y + yAdjust, z);
-      camera.lookAt(0, -0.6 + yAdjust, 0);
+      cameras.forEach((camera) => {
+        camera.position.set(x, y + yAdjust, z);
+        camera.lookAt(0, -0.6 + yAdjust, 0);
+      });
 
       scene.clear();
 
       scene.add(main(state));
 
-      scene.background = new THREE.Color('white');
-      camera.layers.set(Layer.flamesBehind);
-      renderer.render(scene, camera);
-
-      scene.background = null;
-      camera.layers.set(Layer.shapes);
-      renderer.render(scene, camera);
-
-      camera.layers.set(Layer.face);
-      renderer.render(scene, camera);
-
-      camera.layers.set(Layer.flamesInfront);
-      renderer.render(scene, camera);
+      flamesBehindComposer.render();
+      shapesComposer.render();
+      faceComposer.render();
+      flamesInfrontComposer.render();
 
       if (settings.frameCapture) {
         frameCapture({
