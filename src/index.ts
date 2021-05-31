@@ -1,9 +1,13 @@
 /* eslint-disable immutable/no-let */
 /* eslint-disable functional/no-expression-statement */
+
+import 'parcel';
+
 import * as THREE from 'three';
 
 import { Layer, loadGeometry } from './common';
 
+import changeHue from './shaders/changeHue.frag';
 import { choreographBody } from './choreograph';
 import { createFrameCaptureComponent } from './frameCapture';
 import { createHead } from './head';
@@ -12,6 +16,7 @@ import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer
 import getCameraPosition from './getCameraPosition';
 import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass';
 import settings from './settings';
+import { ShaderPass } from 'three/examples/jsm/postprocessing/ShaderPass';
 
 const skin = new THREE.MeshBasicMaterial({
   color: 0x444444,
@@ -36,6 +41,35 @@ Promise.all([
     rightFootGeometry,
     outlineRightFootGeometry,
   ]) => {
+
+
+    const RGBShiftShader = {
+
+      uniforms: {
+    
+        'tDiffuse': { value: null },
+        'amount': { value: 0.005 },
+        'angle': { value: 0.0 }
+    
+      },
+    
+      vertexShader: [
+    
+        'varying vec2 vUv;',
+    
+        'void main() {',
+    
+        '  vUv = uv;',
+        '  gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );',
+    
+        '}'
+    
+      ].join( '\n' ),
+    
+      fragmentShader: changeHue
+    
+    };
+
     const main = createMainComponent({
       head,
       bodyGeometry,
@@ -81,6 +115,7 @@ Promise.all([
 
     const flamesInfrontComposer = new EffectComposer(renderer);
     flamesInfrontComposer.addPass(createRenderPass(Layer.flamesInfront));
+    flamesInfrontComposer.addPass(new ShaderPass(RGBShiftShader));
 
     let state = choreographBody(0);
 
