@@ -1,13 +1,10 @@
 /* eslint-disable immutable/no-let */
 /* eslint-disable functional/no-expression-statement */
 
-import './parcel';
-
 import * as THREE from 'three';
 
 import { Layer, loadGeometry } from './common';
 
-import changeHue from 'url:./shaders/changeHue.frag';
 import { choreographBody } from './choreograph';
 import { createFrameCaptureComponent } from './frameCapture';
 import { createHead } from './head';
@@ -17,6 +14,7 @@ import getCameraPosition from './getCameraPosition';
 import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass';
 import settings from './settings';
 import { ShaderPass } from 'three/examples/jsm/postprocessing/ShaderPass';
+import shaders from './shaders';
 
 const skin = new THREE.MeshBasicMaterial({
   color: 0x444444,
@@ -66,7 +64,7 @@ Promise.all([
     
       ].join( '\n' ),
     
-      fragmentShader: changeHue
+      fragmentShader: shaders.changeHue
     
     };
 
