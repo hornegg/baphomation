@@ -1,3 +1,4 @@
-import changeHue from './changeHue.frag';
+import basicVertexShader from './basicVertexShader.glsl';
+import changeHue from './changeHue.glsl';
 
-export default { changeHue };
+export default { basicVertexShader, changeHue };

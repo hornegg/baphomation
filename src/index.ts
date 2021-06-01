@@ -6,6 +6,7 @@ import * as THREE from 'three';
 import { Layer, loadGeometry } from './common';
 
 import { choreographBody } from './choreograph';
+import { ClearPass } from 'three/examples/jsm/postprocessing/ClearPass';
 import { createFrameCaptureComponent } from './frameCapture';
 import { createHead } from './head';
 import { createMainComponent } from './main';
@@ -39,33 +40,13 @@ Promise.all([
     rightFootGeometry,
     outlineRightFootGeometry,
   ]) => {
+    const changeHueShader = {
+      uniforms: {'tDiffuse': { value: null },
+      'side': { value: 1 }
+  },
 
-
-    const RGBShiftShader = {
-
-      uniforms: {
-    
-        'tDiffuse': { value: null },
-        'amount': { value: 0.005 },
-        'angle': { value: 0.0 }
-    
-      },
-    
-      vertexShader: [
-    
-        'varying vec2 vUv;',
-    
-        'void main() {',
-    
-        '  vUv = uv;',
-        '  gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );',
-    
-        '}'
-    
-      ].join( '\n' ),
-    
-      fragmentShader: shaders.changeHue
-    
+      vertexShader: shaders.basicVertexShader,
+      fragmentShader: shaders.changeHue,
     };
 
     const main = createMainComponent({
@@ -103,6 +84,7 @@ Promise.all([
     document.body.appendChild(renderer.domElement);
 
     const flamesBehindComposer = new EffectComposer(renderer);
+//    flamesBehindComposer.addPass(new ClearPass(new THREE.Color('red'), 1));
     flamesBehindComposer.addPass(createRenderPass(Layer.flamesBehind));
 
     const shapesComposer = new EffectComposer(renderer);
@@ -113,7 +95,7 @@ Promise.all([
 
     const flamesInfrontComposer = new EffectComposer(renderer);
     flamesInfrontComposer.addPass(createRenderPass(Layer.flamesInfront));
-    flamesInfrontComposer.addPass(new ShaderPass(RGBShiftShader));
+//    flamesInfrontComposer.addPass(new ShaderPass(changeHueShader));
 
     let state = choreographBody(0);
 
