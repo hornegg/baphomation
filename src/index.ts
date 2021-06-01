@@ -42,7 +42,6 @@ Promise.all([
   ]) => {
     const changeHueShader = {
       uniforms: {'tDiffuse': { value: null },
-      'side': { value: 1 }
   },
 
       vertexShader: shaders.basicVertexShader,
@@ -77,29 +76,35 @@ Promise.all([
       return pass;
     };
 
-    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-    renderer.setSize(settings.width, settings.height);
-    renderer.autoClear = false;
+    const createRenderer = (display: string): THREE.WebGLRenderer => {
+      const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+      renderer.setSize(settings.width, settings.height);
+      renderer.autoClear = false;
+      renderer.domElement.style.display = display;
+      document.body.appendChild(renderer.domElement);
+      return renderer;
+    };
 
-    document.body.appendChild(renderer.domElement);
-
-    const flamesBehindComposer = new EffectComposer(renderer);
-//    flamesBehindComposer.addPass(new ClearPass(new THREE.Color('red'), 1));
+    const flamesBehindRenderer = createRenderer('initial');
+    const flamesBehindComposer = new EffectComposer(flamesBehindRenderer);
     flamesBehindComposer.addPass(createRenderPass(Layer.flamesBehind));
 
-    const shapesComposer = new EffectComposer(renderer);
+    const shapesRenderer = createRenderer('initial');
+    const shapesComposer = new EffectComposer(shapesRenderer);
     shapesComposer.addPass(createRenderPass(Layer.shapes));
 
-    const faceComposer = new EffectComposer(renderer);
+    const faceRenderer = createRenderer('initial');
+    const faceComposer = new EffectComposer(faceRenderer);
     faceComposer.addPass(createRenderPass(Layer.face));
 
-    const flamesInfrontComposer = new EffectComposer(renderer);
+    const flamesInfrontRenderer = createRenderer('initial');
+    const flamesInfrontComposer = new EffectComposer(flamesInfrontRenderer);
     flamesInfrontComposer.addPass(createRenderPass(Layer.flamesInfront));
 //    flamesInfrontComposer.addPass(new ShaderPass(changeHueShader));
 
     let state = choreographBody(0);
 
-    renderer.setAnimationLoop(() => {
+    flamesBehindRenderer.setAnimationLoop(() => {
       const [x, y, z] = getCameraPosition(state.frame).toArray();
       const yAdjust = 0.4;
       cameras.forEach((camera) => {
@@ -111,9 +116,12 @@ Promise.all([
 
       scene.add(main(state));
 
+      scene.background = new THREE.Color('white');
       flamesBehindComposer.render();
+      scene.background = null;
       shapesComposer.render();
       faceComposer.render();
+//      scene.background = new THREE.Color('white');
       flamesInfrontComposer.render();
 
       if (settings.frameCapture) {
@@ -121,7 +129,7 @@ Promise.all([
           startFrame: 0,
           endFrame: settings.cycleLength,
           filename: 'frames.zip',
-          getCanvas: () => document.getElementsByTagName('canvas')[0],
+          getCanvas: () => document.getElementsByTagName('canvas')[0], // FIX ME
         });
       }
 
