@@ -6,6 +6,7 @@ import * as THREE from 'three';
 import { Layer, loadGeometry } from './common';
 
 import { choreographBody } from './choreograph';
+import { ClearPass } from 'three/examples/jsm/postprocessing/ClearPass';
 import { createFrameCaptureComponent } from './frameCapture';
 import { createHead } from './head';
 import { createMainComponent } from './main';
@@ -13,6 +14,8 @@ import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer
 import getCameraPosition from './getCameraPosition';
 import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass';
 import settings from './settings';
+import { ShaderPass } from 'three/examples/jsm/postprocessing/ShaderPass';
+import shaders from './shaders';
 
 const skin = new THREE.MeshBasicMaterial({
   color: 0x444444,
@@ -37,7 +40,6 @@ Promise.all([
     rightFootGeometry,
     outlineRightFootGeometry,
   ]) => {
-
     const main = createMainComponent({
       head,
       bodyGeometry,
@@ -92,8 +94,21 @@ Promise.all([
 
     const flamesInfrontRenderer = createRenderer('initial');
     const flamesInfrontComposer = new EffectComposer(flamesInfrontRenderer);
+    flamesInfrontComposer.addPass(new ClearPass());
     flamesInfrontComposer.addPass(createRenderPass(Layer.flamesInfront));
-    //    flamesInfrontComposer.addPass(new ShaderPass(changeHueShader));
+
+    flamesInfrontComposer.addPass(
+      new ShaderPass(
+        new THREE.ShaderMaterial({
+          vertexShader: shaders.basicVertexShader,
+          fragmentShader: shaders.changeHue,
+          side: THREE.DoubleSide,
+          uniforms: {
+            tDiffuse: { value: null },
+          },
+        })
+      )
+    );
 
     let state = choreographBody(0);
 
@@ -114,7 +129,6 @@ Promise.all([
       scene.background = null;
       shapesComposer.render();
       faceComposer.render();
-      //      scene.background = new THREE.Color('white');
       flamesInfrontComposer.render();
 
       if (settings.frameCapture) {
