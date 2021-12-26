@@ -34,7 +34,9 @@ export const createFrameCaptureComponent =
           const captureCount = props.endFrame - props.startFrame;
 
           if (Object.keys(state.zip.files).length >= captureCount) {
+            console.log(`Generating ${props.filename}`);
             state.zip.generateAsync({ type: 'blob' }).then((content) => {
+              console.log('Frame capture complete');
               saveAs(content, props.filename);
             });
           }

@@ -148,7 +148,7 @@ Promise.all([
           startFrame: 0,
           endFrame: settings.cycleLength,
           filename: 'frames.zip',
-          getCanvas: () => document.getElementsByTagName('canvas')[0], // FIX ME
+          getCanvas: () => canvas
         });
       }
 
