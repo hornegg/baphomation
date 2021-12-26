@@ -6,7 +6,6 @@ import * as THREE from 'three';
 import { Layer, loadGeometry } from './common';
 
 import { choreographBody } from './choreograph';
-import { ClearPass } from 'three/examples/jsm/postprocessing/ClearPass';
 import { createFrameCaptureComponent } from './frameCapture';
 import { createHead } from './head';
 import { createMainComponent } from './main';
@@ -14,8 +13,6 @@ import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer
 import getCameraPosition from './getCameraPosition';
 import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass';
 import settings from './settings';
-import { ShaderPass } from 'three/examples/jsm/postprocessing/ShaderPass';
-import shaders from './shaders';
 
 const skin = new THREE.MeshBasicMaterial({
   color: 0x444444,
@@ -40,12 +37,6 @@ Promise.all([
     rightFootGeometry,
     outlineRightFootGeometry,
   ]) => {
-    const changeHueShader = {
-      uniforms: { tDiffuse: { value: null } },
-
-      vertexShader: shaders.basicVertexShader,
-      fragmentShader: shaders.changeHue,
-    };
 
     const main = createMainComponent({
       head,
