@@ -58,6 +58,8 @@ Promise.all([
     const cameraTemplate = new THREE.PerspectiveCamera(75, 1.2, 0.1, 1000);
     const cameras: THREE.Camera[] = [];
 
+    const parentDiv = document.createElement('div');
+
     const createRenderPass = (layer: Layer): RenderPass => {
       const camera = cameraTemplate.clone();
       camera.layers = new THREE.Layers();
@@ -68,15 +70,14 @@ Promise.all([
       return pass;
     };
 
-    const createRenderer = (display: string): THREE.WebGLRenderer => {
+    const createRenderer = (): THREE.WebGLRenderer => {
       const renderer = new THREE.WebGLRenderer({
         antialias: true,
         alpha: true,
       });
       renderer.setSize(settings.width, settings.height);
       renderer.autoClear = false;
-      renderer.domElement.style.display = display;
-      document.body.appendChild(renderer.domElement);
+      parentDiv.appendChild(renderer.domElement);
       return renderer;
     };
 
@@ -93,19 +94,19 @@ Promise.all([
         })
       );
 
-    const flamesBehindRenderer = createRenderer('initial');
+    const flamesBehindRenderer = createRenderer();
     const flamesBehindComposer = new EffectComposer(flamesBehindRenderer);
     flamesBehindComposer.addPass(createRenderPass(Layer.flamesBehind));
 
-    const shapesRenderer = createRenderer('initial');
+    const shapesRenderer = createRenderer();
     const shapesComposer = new EffectComposer(shapesRenderer);
     shapesComposer.addPass(createRenderPass(Layer.shapes));
 
-    const faceRenderer = createRenderer('initial');
+    const faceRenderer = createRenderer();
     const faceComposer = new EffectComposer(faceRenderer);
     faceComposer.addPass(createRenderPass(Layer.face));
 
-    const flamesInfrontRenderer = createRenderer('initial');
+    const flamesInfrontRenderer = createRenderer();
     const flamesInfrontComposer = new EffectComposer(flamesInfrontRenderer);
     flamesInfrontComposer.addPass(new ClearPass());
     flamesInfrontComposer.addPass(createRenderPass(Layer.flamesInfront));
@@ -115,6 +116,7 @@ Promise.all([
     canvas.width = settings.width;
     canvas.height = settings.height;
     document.body.appendChild(canvas);
+    document.body.append(parentDiv);
 
     let state = choreographBody(0);
 
