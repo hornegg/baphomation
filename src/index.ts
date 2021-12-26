@@ -6,7 +6,6 @@ import * as THREE from 'three';
 import { Layer, loadGeometry } from './common';
 
 import { choreographBody } from './choreograph';
-import { ClearPass } from 'three/examples/jsm/postprocessing/ClearPass';
 import { createFrameCaptureComponent } from './frameCapture';
 import { createHead } from './head';
 import { createMainComponent } from './main';
@@ -66,7 +65,6 @@ Promise.all([
       camera.layers.set(layer);
       const pass = new RenderPass(scene, camera);
       cameras.push(camera);
-      pass.clear = false;
       return pass;
     };
 
@@ -76,7 +74,6 @@ Promise.all([
         alpha: true,
       });
       renderer.setSize(settings.width, settings.height);
-      renderer.autoClear = false;
       parentDiv.appendChild(renderer.domElement);
       return renderer;
     };
@@ -108,7 +105,6 @@ Promise.all([
 
     const flamesInfrontRenderer = createRenderer();
     const flamesInfrontComposer = new EffectComposer(flamesInfrontRenderer);
-    flamesInfrontComposer.addPass(new ClearPass());
     flamesInfrontComposer.addPass(createRenderPass(Layer.flamesInfront));
     flamesInfrontComposer.addPass(createShaderPass(shaders.changeHue, {}));
 
@@ -117,6 +113,7 @@ Promise.all([
     canvas.height = settings.height;
     document.body.appendChild(canvas);
     document.body.append(parentDiv);
+    parentDiv.style.display = 'none';
 
     let state = choreographBody(0);
 
