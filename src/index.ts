@@ -111,6 +111,11 @@ Promise.all([
     flamesInfrontComposer.addPass(createRenderPass(Layer.flamesInfront));
     flamesInfrontComposer.addPass(createShaderPass(shaders.changeHue, {}));
 
+    const canvas = document.createElement('canvas');
+    canvas.width = settings.width;
+    canvas.height = settings.height;
+    document.body.appendChild(canvas);
+
     let state = choreographBody(0);
 
     flamesBehindRenderer.setAnimationLoop(() => {
@@ -131,6 +136,13 @@ Promise.all([
       shapesComposer.render();
       faceComposer.render();
       flamesInfrontComposer.render();
+
+      const context = canvas.getContext('2d');
+      context.clearRect(0, 0, canvas.width, canvas.height);
+      context.drawImage(flamesBehindRenderer.domElement, 0, 0);
+      context.drawImage(shapesRenderer.domElement, 0, 0);
+      context.drawImage(faceRenderer.domElement, 0, 0);
+      context.drawImage(flamesInfrontRenderer.domElement, 0, 0);
 
       if (settings.frameCapture) {
         frameCapture({
