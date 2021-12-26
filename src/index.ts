@@ -41,8 +41,7 @@ Promise.all([
     outlineRightFootGeometry,
   ]) => {
     const changeHueShader = {
-      uniforms: {'tDiffuse': { value: null },
-  },
+      uniforms: { tDiffuse: { value: null } },
 
       vertexShader: shaders.basicVertexShader,
       fragmentShader: shaders.changeHue,
@@ -77,7 +76,10 @@ Promise.all([
     };
 
     const createRenderer = (display: string): THREE.WebGLRenderer => {
-      const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+      const renderer = new THREE.WebGLRenderer({
+        antialias: true,
+        alpha: true,
+      });
       renderer.setSize(settings.width, settings.height);
       renderer.autoClear = false;
       renderer.domElement.style.display = display;
@@ -100,7 +102,7 @@ Promise.all([
     const flamesInfrontRenderer = createRenderer('initial');
     const flamesInfrontComposer = new EffectComposer(flamesInfrontRenderer);
     flamesInfrontComposer.addPass(createRenderPass(Layer.flamesInfront));
-//    flamesInfrontComposer.addPass(new ShaderPass(changeHueShader));
+    //    flamesInfrontComposer.addPass(new ShaderPass(changeHueShader));
 
     let state = choreographBody(0);
 
@@ -121,7 +123,7 @@ Promise.all([
       scene.background = null;
       shapesComposer.render();
       faceComposer.render();
-//      scene.background = new THREE.Color('white');
+      //      scene.background = new THREE.Color('white');
       flamesInfrontComposer.render();
 
       if (settings.frameCapture) {
