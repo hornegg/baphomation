@@ -189,8 +189,13 @@ export const createHead = async (
   // Create the face then return the finished head
   //
 
+  const headMesh = new THREE.Mesh(
+    await loadGeometry('headGeometry.json'),
+    skin
+  );
+
   const head = new THREE.Group()
-    .add(new THREE.Mesh(await loadGeometry('headGeometry.json'), skin))
+    .add(headMesh)
     .add(
       new THREE.Mesh(
         await loadGeometry('outlineHeadGeometry.json'),
@@ -199,7 +204,7 @@ export const createHead = async (
     )
     .add(hornGroup)
     .add(antenna)
-    .add(createFace());
+    .add(createFace(headMesh));
 
   return head;
 };
