@@ -80,6 +80,19 @@ Promise.all([
       return renderer;
     };
 
+    const createShaderPass = (fragmentShader, uniforms) =>
+      new ShaderPass(
+        new THREE.ShaderMaterial({
+          vertexShader: shaders.basicVertexShader,
+          fragmentShader,
+          side: THREE.DoubleSide,
+          uniforms: {
+            ...uniforms,
+            tDiffuse: { value: null },
+          },
+        })
+      );
+
     const flamesBehindRenderer = createRenderer('initial');
     const flamesBehindComposer = new EffectComposer(flamesBehindRenderer);
     flamesBehindComposer.addPass(createRenderPass(Layer.flamesBehind));
@@ -96,19 +109,7 @@ Promise.all([
     const flamesInfrontComposer = new EffectComposer(flamesInfrontRenderer);
     flamesInfrontComposer.addPass(new ClearPass());
     flamesInfrontComposer.addPass(createRenderPass(Layer.flamesInfront));
-
-    flamesInfrontComposer.addPass(
-      new ShaderPass(
-        new THREE.ShaderMaterial({
-          vertexShader: shaders.basicVertexShader,
-          fragmentShader: shaders.changeHue,
-          side: THREE.DoubleSide,
-          uniforms: {
-            tDiffuse: { value: null },
-          },
-        })
-      )
-    );
+    flamesInfrontComposer.addPass(createShaderPass(shaders.changeHue, {}));
 
     let state = choreographBody(0);
 
