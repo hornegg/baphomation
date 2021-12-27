@@ -3,7 +3,7 @@
 
 import * as THREE from 'three';
 
-import { Layer, loadGeometry } from './common';
+import { Layer, loadGeometry, watchTowerLength } from './common';
 
 import { choreographBody } from './choreograph';
 import { createFrameCaptureComponent } from './frameCapture';
@@ -20,6 +20,13 @@ const skin = new THREE.MeshBasicMaterial({
   color: 0x444444,
   side: THREE.DoubleSide,
 });
+
+const hueAdjustments = {
+  blue: 212,
+  green: 60,
+  yellow: 20,
+  red: -30,
+};
 
 Promise.all([
   createHead(skin),
@@ -78,22 +85,26 @@ Promise.all([
       return renderer;
     };
 
-    const createShaderPass = (fragmentShader, uniforms) =>
-      new ShaderPass(
+    const createShaderPass = (fragmentShader) => {
+      const pass =  new ShaderPass(
         new THREE.ShaderMaterial({
           vertexShader: shaders.basicVertexShader,
           fragmentShader,
           side: THREE.DoubleSide,
           uniforms: {
-            ...uniforms,
             tDiffuse: { value: null },
           },
         })
       );
+      return pass;
+    };
+
+    const changeHueShader = createShaderPass(shaders.changeHue);
 
     const flamesBehindRenderer = createRenderer();
     const flamesBehindComposer = new EffectComposer(flamesBehindRenderer);
     flamesBehindComposer.addPass(createRenderPass(Layer.flamesBehind));
+    flamesBehindComposer.addPass(changeHueShader);
 
     const shapesRenderer = createRenderer();
     const shapesComposer = new EffectComposer(shapesRenderer);
@@ -106,7 +117,7 @@ Promise.all([
     const flamesInfrontRenderer = createRenderer();
     const flamesInfrontComposer = new EffectComposer(flamesInfrontRenderer);
     flamesInfrontComposer.addPass(createRenderPass(Layer.flamesInfront));
-    flamesInfrontComposer.addPass(createShaderPass(shaders.changeHue, {}));
+    flamesInfrontComposer.addPass(changeHueShader);
 
     const canvas = document.createElement('canvas');
     canvas.width = settings.width;
@@ -128,6 +139,10 @@ Promise.all([
       scene.clear();
 
       scene.add(main(state));
+
+      const watchTowerIndex = Math.floor((state.frame % settings.cycleLength) / watchTowerLength);
+      const watchTowerColor = settings.watchTowers.color[watchTowerIndex];
+      changeHueShader.uniforms.hueAdjustment = new THREE.Uniform(hueAdjustments[watchTowerColor] / 255);
 
       scene.background = new THREE.Color('white');
       flamesBehindComposer.render();

@@ -28,6 +28,7 @@ export interface MainState {
   bodyAngle: number;
   leftFootAngle: number;
   rightFootAngle: number;
+  layerInfo: { topFlames: boolean; baphomet: boolean; bottomFlames: boolean };
 }
 
 const pentagrams = [

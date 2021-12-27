@@ -10,7 +10,7 @@ import {
   watchTowerLength,
 } from './common';
 
-import { MainState } from './mainState';
+import { MainState } from './main';
 import settings from './settings';
 
 export const pentagramLength = (2 * watchTowerLength) / 3;
