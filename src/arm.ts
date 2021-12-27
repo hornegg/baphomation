@@ -11,7 +11,7 @@ const parametricEllipsoid = (
   const crossx = new THREE.Vector3(1, 0, 0).cross(vec);
   const crossy = new THREE.Vector3(0, 1, 0).cross(vec);
   // If v is zero-length, we'll end up drawing everything at a single point, which is correct.
-  // Otherwise he larger of these two cross products is guaranteed to be perpendicular.
+  // Otherwise the larger of these two cross products is guaranteed to be perpendicular.
   // The smaller one might be zero-length as a consequence of taking the cross product of two parallel vectors.
   const perp1 =
     crossx.lengthSq() > crossy.lengthSq()
