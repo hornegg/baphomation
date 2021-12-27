@@ -67,7 +67,7 @@ const run = async () => {
   const cameras: THREE.Camera[] = [];
 
   const parentDiv = document.createElement('div');
-  //    parentDiv.style.display = 'none';
+  parentDiv.style.display = 'none';
 
   const createRenderPass = (layer: Layer): RenderPass => {
     const camera = cameraTemplate.clone();
@@ -121,21 +121,18 @@ const run = async () => {
   const flamesInfrontComposer = new EffectComposer(flamesInfrontRenderer);
   flamesInfrontComposer.addPass(createRenderPass(Layer.flamesInfront));
   flamesInfrontComposer.addPass(changeHueShader);
-/*
-  const letteringCanvas = document.createElement('canvas');
-  letteringCanvas.width = settings.width;
-  letteringCanvas.height = settings.height;
-  createLetteringComponent(letteringCanvas);
-*/
+
   const canvas = document.createElement('canvas');
   canvas.width = settings.width;
   canvas.height = settings.height;
   document.body.appendChild(canvas);
   document.body.append(parentDiv);
 
+  const lettering = await createLetteringComponent();
+
   let state = choreographBody(0);
 
-  flamesBehindRenderer.setAnimationLoop(() => {
+  flamesBehindRenderer.setAnimationLoop(async () => {
     const [x, y, z] = getCameraPosition(state.frame).toArray();
     const yAdjust = 0.4;
     cameras.forEach((camera) => {
@@ -161,6 +158,7 @@ const run = async () => {
     shapesComposer.render();
     faceComposer.render();
     flamesInfrontComposer.render();
+    await lettering.render();
 
     const context = canvas.getContext('2d');
     context.clearRect(0, 0, canvas.width, canvas.height);

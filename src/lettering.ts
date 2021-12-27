@@ -1,42 +1,50 @@
 /* eslint-disable immutable/no-let */
 /* eslint-disable functional/no-expression-statement */
 import p5 from 'p5';
+import settings from './settings';
 
 const createLetteringComponentWithCallbacks = (
-  domElement: HTMLElement,
   frameRendered: () => void
-): Promise<() => void> =>
+): Promise<{ render: () => void; domElement: HTMLElement }> =>
   new Promise((resolve) => {
     new p5((p: p5) => {
-      const render = p.loop;
+      const render = () => {
+        p.loop();
+      };
 
       p.setup = () => {
+        const renderer = p.createCanvas(settings.width, settings.height);
         p.noLoop();
-        resolve(render);
+        resolve({ render, domElement: renderer.elt });
       };
 
       p.draw = () => {
-          p.background(255, 0);
-          p.text(`${p.frameCount}`, 10, 10);
-          p.noLoop();
-          frameRendered();
+        p.background(255, 0, 0);
+        p.text(`${p.frameCount}`, 10, 10);
+        p.noLoop();
+        frameRendered();
       };
-
-    }, domElement);
+    });
   });
 
-export const createLetteringComponent = async (
-  domElement: HTMLElement
-): Promise<() => Promise<void>> => {
+export const createLetteringComponent = async (): Promise<{
+  render: () => Promise<void>;
+  domElement: HTMLElement;
+}> => {
   let resolveFrame = null;
 
-  const render = await createLetteringComponentWithCallbacks(domElement, () =>
-    resolveFrame()
+  const { render, domElement } = await createLetteringComponentWithCallbacks(
+    () => {
+      resolveFrame();
+    }
   );
 
-  return () =>
-    new Promise((resolve) => {
-      resolveFrame = resolve;
-      render();
-    });
+  return {
+    render: () =>
+      new Promise((resolve) => {
+        resolveFrame = resolve;
+        render();
+      }),
+    domElement,
+  };
 };
