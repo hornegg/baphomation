@@ -22,7 +22,7 @@ const skin = new THREE.MeshBasicMaterial({
 });
 
 const hueAdjustments = {
-  blue: 212,
+  blue: 128,
   green: 60,
   yellow: 20,
   red: -30,
