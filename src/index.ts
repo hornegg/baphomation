@@ -86,7 +86,7 @@ Promise.all([
     };
 
     const createShaderPass = (fragmentShader) => {
-      const pass =  new ShaderPass(
+      const pass = new ShaderPass(
         new THREE.ShaderMaterial({
           vertexShader: shaders.basicVertexShader,
           fragmentShader,
@@ -140,9 +140,13 @@ Promise.all([
 
       scene.add(main(state));
 
-      const watchTowerIndex = Math.floor((state.frame % settings.cycleLength) / watchTowerLength);
+      const watchTowerIndex = Math.floor(
+        (state.frame % settings.cycleLength) / watchTowerLength
+      );
       const watchTowerColor = settings.watchTowers.color[watchTowerIndex];
-      changeHueShader.uniforms.hueAdjustment = new THREE.Uniform(hueAdjustments[watchTowerColor] / 255);
+      changeHueShader.uniforms.hueAdjustment = new THREE.Uniform(
+        hueAdjustments[watchTowerColor] / 255
+      );
 
       scene.background = new THREE.Color('white');
       flamesBehindComposer.render();
