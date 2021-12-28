@@ -2,11 +2,17 @@ import * as THREE from 'three';
 
 import { linearMap, segmentedMap, TWO_PI } from '../common';
 
-const parametricEllipsoid = (
-  start: THREE.Vector3,
-  end: THREE.Vector3,
-  maxGirth: number
-) => {
+const parametricEllipsoid = ({
+  start,
+  end,
+  maxGirth,
+  minZ,
+}: {
+  start: THREE.Vector3;
+  end: THREE.Vector3;
+  maxGirth: number;
+  minZ?: number;
+}) => {
   const vec = end.clone().sub(start);
   const crossx = new THREE.Vector3(1, 0, 0).cross(vec);
   const crossy = new THREE.Vector3(0, 1, 0).cross(vec);
@@ -32,7 +38,10 @@ const parametricEllipsoid = (
       .set(
         linearMap(u, 0, 1, start.x, end.x),
         linearMap(u, 0, 1, start.y, end.y),
-        linearMap(u, 0, 1, start.z, end.z)
+        Math.max(
+          linearMap(u, 0, 1, start.z, end.z),
+          minZ ?? Number.MIN_SAFE_INTEGER
+        )
       )
       .add(component1)
       .add(component2);
@@ -48,7 +57,7 @@ const createParametricEllipsoidMesh = (
   const group = new THREE.Group().add(
     new THREE.Mesh(
       new THREE.ParametricGeometry(
-        parametricEllipsoid(start, end, maxGirth),
+        parametricEllipsoid({ start, end, maxGirth }),
         20,
         20
       ),
