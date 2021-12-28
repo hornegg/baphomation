@@ -125,6 +125,7 @@ const run = async () => {
   document.body.append(parentDiv);
 
   const lettering = await createLetteringComponent();
+  lettering.domElement.style.display = 'none';
 
   let state = choreographBody(0);
 
@@ -163,7 +164,7 @@ const run = async () => {
     context.drawImage(
       lettering.domElement,
       -0.5 * settings.width,
-      -0.5 * settings.height
+      -0.1 * settings.height
     );
 
     if (settings.frameCapture) {

@@ -51,7 +51,7 @@ const createLetteringComponentWithCallbacks = (
         const watchTowerColor = settings.watchTowers.color[watchTowerIndex];
 
         const text = settings.watchTowers.name[watchTowerIndex].toUpperCase();
-        const textHeight = 120;
+        const textHeight = 60;
         p.textFont('Impact');
         p.textSize(textHeight);
         const textWidthExtra = 50;
