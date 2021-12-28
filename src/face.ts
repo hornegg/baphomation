@@ -17,7 +17,7 @@ const TWO_PI = 2 * PI;
 const HALF_PI = 0.5 * PI;
 const FIFTH_TAU = TWO_PI / 5;
 
-export const createFace = (headMesh: THREE.Mesh): THREE.Group => {
+export const createFace = (): THREE.Group => {
   //
   // Forehead pentagram
   //
@@ -141,7 +141,6 @@ export const createFace = (headMesh: THREE.Mesh): THREE.Group => {
   );
 
   const face = new THREE.Group()
-    .add(headMesh)
     .add(foreheadGroup)
     .add(eyesGroup)
     .add(nose)
