@@ -13,7 +13,7 @@ export const createFoot = (left: boolean): THREE.Mesh => {
   const z = 0;
 
   return createParametricEllipsoidMesh(
-    new THREE.Vector3(footCenterX , floorLevel, z+ (footRatio * radius)),
+    new THREE.Vector3(footCenterX, floorLevel, z + (footRatio * radius)),
     new THREE.Vector3(footCenterX, floorLevel, z - (footRatio * radius)),
     radius,
     skin

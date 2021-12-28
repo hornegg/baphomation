@@ -2,9 +2,8 @@ import * as bspConstructor from 'three-js-csg';
 import * as fs from 'fs';
 import * as THREE from 'three';
 
-import { createCylinder, createEllipsoid } from './commonGeometry';
+import { createCylinder, createEllipsoid } from '../src/common/geometry';
 import { QUARTER_PI } from '../src/common/constants';
-
 import settings from '../src/settings';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

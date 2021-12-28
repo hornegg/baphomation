@@ -47,26 +47,6 @@ const defaultTask = (callback: () => void): void => {
     args: ['false'],
   });
 
-  // left foot
-
-  watchRunScriptNewer({
-    displayName: 'leftFootGeometry',
-    src: 'model/footGeometry.ts',
-    extra: ['model/commonGeometry.ts'],
-    dests: ['dist/leftFootGeometry.json'],
-    args: ['false', 'true'],
-  });
-
-  // right foot
-
-  watchRunScriptNewer({
-    displayName: 'rightFootGeometry',
-    src: 'model/footGeometry.ts',
-    extra: ['model/commonGeometry.ts'],
-    dests: ['dist/rightFootGeometry.json'],
-    args: ['false', 'false'],
-  });
-
   // Post processing
   postProcessing();
 

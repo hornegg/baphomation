@@ -1,8 +1,7 @@
 import * as bspConstructor from 'three-js-csg';
 import * as fs from 'fs';
 import * as THREE from 'three';
-
-import { createEllipsoid } from './commonGeometry';
+import { createEllipsoid } from '../src/common/geometry';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const ThreeBSP: any = bspConstructor(THREE);
