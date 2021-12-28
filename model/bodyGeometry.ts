@@ -63,11 +63,7 @@ const createWing = (sign: 1 | -1) => {
 
 // Body
 
-const bodyEllipsoid = createEllipsoid(0.75, 1.8, 0.5).translate(
-  0,
-  -1.3,
-  0
-);
+const bodyEllipsoid = createEllipsoid(0.75, 1.8, 0.5).translate(0, -1.3, 0);
 
 const nsfw = (bsp) => {
   const params: [number, number, number] = [0.35, -1.4, 0.5];
