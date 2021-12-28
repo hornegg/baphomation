@@ -6,11 +6,11 @@ import {
   Layer,
   setLayerRecursive,
   watchTowerLength,
-} from './common';
+} from '../common';
 import { createPentagram, PentagramProps } from './pentagram';
 import { createBaphometComponent } from './baphomet';
-import { pentagramLength } from './choreograph';
-import { room } from './room';
+import { pentagramLength } from '../choreograph';
+import { room } from '../meshes/room';
 
 export interface MainProps {
   head: THREE.Group;

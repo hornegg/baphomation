@@ -9,8 +9,8 @@ import {
   linearMap,
   redMaterial,
   setLayerRecursive,
-} from './common';
-import settings from './settings';
+} from '../common';
+import settings from '../settings';
 
 const PI = Math.PI;
 const TWO_PI = 2 * PI;

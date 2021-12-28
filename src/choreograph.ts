@@ -1,6 +1,6 @@
 import * as THREE from 'three';
 
-import { getPointOnPentagon, pentagramCentre } from './pentagram';
+import { getPointOnPentagon, pentagramCentre } from './components/pentagram';
 
 import {
   HALF_PI,
@@ -10,7 +10,7 @@ import {
   watchTowerLength,
 } from './common';
 
-import { MainState } from './main';
+import { MainState } from './components/main';
 import settings from './settings';
 
 export const pentagramLength = (2 * watchTowerLength) / 3;

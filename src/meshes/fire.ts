@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import './THREE.Fire/Fire';
-import './THREE.Fire/FireShader';
+import '../THREE.Fire/Fire';
+import '../THREE.Fire/FireShader';
 
 import * as THREE from 'three';
 

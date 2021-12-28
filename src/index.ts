@@ -7,9 +7,9 @@ import { Layer, loadGeometry, watchTowerLength } from './common';
 
 import { choreographBody } from './choreograph';
 import { createFrameCaptureComponent } from './frameCapture';
-import { createHead } from './head';
+import { createHead } from './meshes/head';
 import { createLetteringComponent } from './lettering';
-import { createMainComponent } from './main';
+import { createMainComponent } from './components/main';
 import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer';
 import getCameraPosition from './getCameraPosition';
 import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass';

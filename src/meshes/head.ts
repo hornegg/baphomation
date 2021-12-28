@@ -10,7 +10,7 @@ import {
   PI,
   redMaterial,
   TWO_PI,
-} from './common';
+} from '../common';
 
 import { createFace } from './face';
 

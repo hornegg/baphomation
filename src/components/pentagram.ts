@@ -9,11 +9,11 @@ import {
   PI,
   powerMap,
   segmentedMap,
-} from './common';
+} from '../common';
 
-import { createFire, Fire } from './fire';
+import { createFire, Fire } from '../meshes/fire';
 
-import settings from './settings';
+import settings from '../settings';
 
 export const pentagramCentre = new THREE.Vector3(-2, 0, 0);
 
