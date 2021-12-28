@@ -1,10 +1,11 @@
 /* eslint-disable functional/no-expression-statement */
 import * as THREE from 'three';
 import { AnimationLoopComponent } from './AnimationLoopComponent';
+import { createFoot } from '../meshes/foot';
 
 interface FootProps {
   footAngle: number;
-  footGeometry: THREE.BufferGeometry;
+  left: boolean;
   skin: THREE.Material;
 }
 
@@ -12,7 +13,7 @@ export const createFootComponent = (): AnimationLoopComponent<FootProps> => {
   return (props: FootProps) => {
     const group = new THREE.Group();
     group.setRotationFromEuler(new THREE.Euler(0, props.footAngle, 0));
-    group.add(new THREE.Mesh(props.footGeometry, props.skin));
+    group.add(createFoot(props.left));
     return group;
   };
 };

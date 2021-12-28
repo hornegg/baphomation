@@ -12,9 +12,7 @@ interface BaphometProps {
   bodyAngle: number;
   head: THREE.Group;
   bodyGeometry: THREE.BufferGeometry;
-  leftFootGeometry: THREE.BufferGeometry;
   leftFootAngle: number;
-  rightFootGeometry: THREE.BufferGeometry;
   rightFootAngle: number;
   skin: THREE.Material;
 }
@@ -26,9 +24,7 @@ export const createBaphometComponent =
       bodyAngle,
       head,
       bodyGeometry,
-      leftFootGeometry,
       leftFootAngle,
-      rightFootGeometry,
       rightFootAngle,
       skin,
     }: BaphometProps) =>
@@ -45,14 +41,14 @@ export const createBaphometComponent =
         .add(
           leftFoot({
             footAngle: leftFootAngle,
-            footGeometry: leftFootGeometry,
+            left: true,
             skin,
           })
         )
         .add(
           rightFoot({
             footAngle: rightFootAngle,
-            footGeometry: rightFootGeometry,
+            left: false,
             skin,
           })
         );

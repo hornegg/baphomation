@@ -16,11 +16,7 @@ import { loadGeometry } from './common/deprecated';
 import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass';
 import { ShaderPass } from 'three/examples/jsm/postprocessing/ShaderPass';
 import shaders from './shaders';
-
-const skin = new THREE.MeshBasicMaterial({
-  color: 0x444444,
-  side: THREE.DoubleSide,
-});
+import { skin } from './materials';
 
 const hueAdjustments = {
   blue: 128,
@@ -30,19 +26,14 @@ const hueAdjustments = {
 };
 
 const run = async () => {
-  const [head, bodyGeometry, leftFootGeometry, rightFootGeometry] =
-    await Promise.all([
-      createHead(skin),
-      loadGeometry('bodyGeometry.json'),
-      loadGeometry('leftFootGeometry.json'),
-      loadGeometry('rightFootGeometry.json'),
-    ]);
+  const [head, bodyGeometry] = await Promise.all([
+    createHead(skin),
+    loadGeometry('bodyGeometry.json'),
+  ]);
 
   const main = createMainComponent({
     head,
     bodyGeometry,
-    leftFootGeometry,
-    rightFootGeometry,
     skin,
   });
 

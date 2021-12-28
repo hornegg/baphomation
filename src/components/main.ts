@@ -12,8 +12,6 @@ import { watchTowerLength } from '../settings';
 export interface MainProps {
   head: THREE.Group;
   bodyGeometry: THREE.BufferGeometry;
-  leftFootGeometry: THREE.BufferGeometry;
-  rightFootGeometry: THREE.BufferGeometry;
   skin: THREE.Material;
 }
 

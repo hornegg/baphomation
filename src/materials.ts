@@ -9,3 +9,8 @@ export const redMaterial = new THREE.MeshBasicMaterial({
   color: 'red',
   side: THREE.DoubleSide,
 });
+
+export const skin = new THREE.MeshBasicMaterial({
+  color: 0x444444,
+  side: THREE.DoubleSide,
+});
