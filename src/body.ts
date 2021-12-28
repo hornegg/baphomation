@@ -1,14 +1,13 @@
 /* eslint-disable functional/no-expression-statement */
 import * as THREE from 'three';
-import { AnimationLoopComponent, outlineMaterial } from './common';
 import { choreographArm, stillArm } from './choreograph';
+import { AnimationLoopComponent } from './common';
 import { arm } from './arm';
 
 interface BodyProps {
   bodyAngle: number;
   head: THREE.Group;
   bodyGeometry: THREE.BufferGeometry;
-  outlineBodyGeometry: THREE.BufferGeometry;
   skin: THREE.Material;
   watchTowerFrame: number;
 }
@@ -20,7 +19,6 @@ export const createBodyComponent = (): AnimationLoopComponent<BodyProps> => {
     group
       .add(props.head)
       .add(new THREE.Mesh(props.bodyGeometry, props.skin))
-      .add(new THREE.Mesh(props.outlineBodyGeometry, outlineMaterial))
       .add(arm({ sign: 1, pointAt: stillArm, skin: props.skin }))
       .add(
         arm({

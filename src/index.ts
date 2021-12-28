@@ -33,29 +33,20 @@ const run = async () => {
   const [
     head,
     bodyGeometry,
-    outlineBodyGeometry,
     leftFootGeometry,
-    outlineLeftFootGeometry,
     rightFootGeometry,
-    outlineRightFootGeometry,
   ] = await Promise.all([
     createHead(skin),
     loadGeometry('bodyGeometry.json'),
-    loadGeometry('outlineBodyGeometry.json'),
     loadGeometry('leftFootGeometry.json'),
-    loadGeometry('outlineLeftFootGeometry.json'),
     loadGeometry('rightFootGeometry.json'),
-    loadGeometry('outlineRightFootGeometry.json'),
   ]);
 
   const main = createMainComponent({
     head,
     bodyGeometry,
-    outlineBodyGeometry,
     leftFootGeometry,
-    outlineLeftFootGeometry,
     rightFootGeometry,
-    outlineRightFootGeometry,
     skin,
   });
 

@@ -15,11 +15,8 @@ import { room } from './room';
 export interface MainProps {
   head: THREE.Group;
   bodyGeometry: THREE.BufferGeometry;
-  outlineBodyGeometry: THREE.BufferGeometry;
   leftFootGeometry: THREE.BufferGeometry;
-  outlineLeftFootGeometry: THREE.BufferGeometry;
   rightFootGeometry: THREE.BufferGeometry;
-  outlineRightFootGeometry: THREE.BufferGeometry;
   skin: THREE.Material;
 }
 
