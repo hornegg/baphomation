@@ -39,7 +39,7 @@ const parametricEllipsoid = (
   };
 };
 
-const outlinedParametricEllipsoid = (
+const createParametricEllipsoidMesh = (
   start: THREE.Vector3,
   end: THREE.Vector3,
   maxGirth: number,
@@ -78,5 +78,5 @@ export const arm = (props: ArmProps): THREE.Object3D => {
     .multiplyScalar(length)
     .add(start);
 
-  return outlinedParametricEllipsoid(start, end, girth, props.skin);
+  return createParametricEllipsoidMesh(start, end, girth, props.skin);
 };

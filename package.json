@@ -2,7 +2,6 @@
   "name": "baphomation",
   "version": "1.0.0",
   "scripts": {
-    "body": "ts-node model/bodyGeometry.ts dist/outlineBodyGeometry.json true",
     "build": "parcel build src/index.html src/THREE.Fire/Fire.png",
     "pp": "ts-node processing/postProcessing.ts 0 32",
     "gulp": "gulp",
