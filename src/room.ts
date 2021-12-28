@@ -8,8 +8,9 @@ const createOutlinedBox = (
   depth: number,
   material: THREE.Material
 ): THREE.Group => {
-  const group = new THREE.Group()
-    .add(new THREE.Mesh(new THREE.BoxGeometry(width, height, depth), material));
+  const group = new THREE.Group().add(
+    new THREE.Mesh(new THREE.BoxGeometry(width, height, depth), material)
+  );
 
   return group;
 };

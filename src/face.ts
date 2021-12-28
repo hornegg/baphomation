@@ -118,9 +118,7 @@ export const createFace = (): THREE.Group => {
   const noseRight = noseLeft.clone().scale(-1, 1, 1);
 
   const nose = new THREE.Group().add(
-    ...[noseLeft, noseRight].map(
-      (geom) => new THREE.Mesh(geom, blackMaterial)
-    )
+    ...[noseLeft, noseRight].map((geom) => new THREE.Mesh(geom, blackMaterial))
   );
 
   //
