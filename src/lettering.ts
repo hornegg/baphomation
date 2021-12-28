@@ -23,6 +23,8 @@ const createLetteringComponentWithCallbacks = (
 ): Promise<{ render: () => void; domElement: HTMLCanvasElement }> =>
   new Promise((resolve) => {
     new p5((p: p5) => {
+      let backgroundPixels: number[] = null;
+
       const render = () => {
         p.loop();
       };
@@ -34,7 +36,13 @@ const createLetteringComponentWithCallbacks = (
       };
 
       p.draw = () => {
-        //        p.background(255);
+        if (!backgroundPixels) {
+          p.loadPixels();
+          backgroundPixels = Array(p.pixels.length).fill(0);
+        }
+
+        p.pixels = backgroundPixels;
+        p.updatePixels();
 
         const watchTowerIndex =
           Math.floor(p.frameCount / watchTowerLength) %
