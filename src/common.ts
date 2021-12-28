@@ -237,9 +237,8 @@ export type AnimationLoopComponent<Props> = (props: Props) => THREE.Object3D;
 //
 
 export enum Layer {
-  shapes, // second layer
+  main, // second (middle) layer
   flamesBehind, // first (bottom) layer
-  face, // third layer
   flamesInfront, // fourth (top) layer
 }
 

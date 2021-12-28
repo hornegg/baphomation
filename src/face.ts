@@ -146,7 +146,7 @@ export const createFace = (): THREE.Group => {
     .add(nose)
     .add(mouth);
 
-  setLayerRecursive(face, Layer.face);
+  setLayerRecursive(face, Layer.main);
 
   return face;
 };

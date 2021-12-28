@@ -109,13 +109,9 @@ const run = async () => {
   flamesBehindComposer.addPass(createRenderPass(Layer.flamesBehind));
   flamesBehindComposer.addPass(changeHueShader);
 
-  const shapesRenderer = createRenderer();
-  const shapesComposer = new EffectComposer(shapesRenderer);
-  shapesComposer.addPass(createRenderPass(Layer.shapes));
-
-  const faceRenderer = createRenderer();
-  const faceComposer = new EffectComposer(faceRenderer);
-  faceComposer.addPass(createRenderPass(Layer.face));
+  const mainRenderer = createRenderer();
+  const mainComposer = new EffectComposer(mainRenderer);
+  mainComposer.addPass(createRenderPass(Layer.main));
 
   const flamesInfrontRenderer = createRenderer();
   const flamesInfrontComposer = new EffectComposer(flamesInfrontRenderer);
@@ -155,16 +151,14 @@ const run = async () => {
     scene.background = new THREE.Color('white');
     flamesBehindComposer.render();
     scene.background = null;
-    shapesComposer.render();
-    faceComposer.render();
+    mainComposer.render();
     flamesInfrontComposer.render();
     await lettering.render();
 
     const context = canvas.getContext('2d');
     context.clearRect(0, 0, canvas.width, canvas.height);
     context.drawImage(flamesBehindRenderer.domElement, 0, 0);
-    context.drawImage(shapesRenderer.domElement, 0, 0);
-    context.drawImage(faceRenderer.domElement, 0, 0);
+    context.drawImage(mainRenderer.domElement, 0, 0);
     context.drawImage(flamesInfrontRenderer.domElement, 0, 0);
 
     if (settings.frameCapture) {
