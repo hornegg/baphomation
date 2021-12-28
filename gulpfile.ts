@@ -37,14 +37,6 @@ const defaultTask = (callback: () => void): void => {
     args: ['false'],
   });
 
-  watchRunScriptNewer({
-    displayName: 'outlineHeadGeometry',
-    src: 'model/headGeometry.ts',
-    extra: ['model/commonGeometry.ts'],
-    dests: ['dist/outlineHeadGeometry.json'],
-    args: ['true'],
-  });
-
   // body
 
   watchRunScriptNewer({
@@ -52,23 +44,10 @@ const defaultTask = (callback: () => void): void => {
     src: 'model/bodyGeometry.ts',
     extra: [
       'model/commonGeometry.ts',
-      'dist/outlineHeadGeometry.json',
       'src/settings.ts',
     ],
     dests: ['dist/bodyGeometry.json'],
     args: ['false'],
-  });
-
-  watchRunScriptNewer({
-    displayName: 'outlineBodyGeometry',
-    src: 'model/bodyGeometry.ts',
-    extra: [
-      'model/commonGeometry.ts',
-      'dist/outlineHeadGeometry.json',
-      'src/settings.ts',
-    ],
-    dests: ['dist/outlineBodyGeometry.json'],
-    args: ['true'],
   });
 
   // left foot
@@ -76,17 +55,9 @@ const defaultTask = (callback: () => void): void => {
   watchRunScriptNewer({
     displayName: 'leftFootGeometry',
     src: 'model/footGeometry.ts',
-    extra: ['model/commonGeometry.ts', 'dist/outlineBodyGeometry.json'],
+    extra: ['model/commonGeometry.ts'],
     dests: ['dist/leftFootGeometry.json'],
     args: ['false', 'true'],
-  });
-
-  watchRunScriptNewer({
-    displayName: 'outlineLeftFootGeometry',
-    src: 'model/footGeometry.ts',
-    extra: ['model/commonGeometry.ts', 'dist/outlineBodyGeometry.json'],
-    dests: ['dist/outlineLeftFootGeometry.json'],
-    args: ['true', 'true'],
   });
 
   // right foot
@@ -94,17 +65,9 @@ const defaultTask = (callback: () => void): void => {
   watchRunScriptNewer({
     displayName: 'rightFootGeometry',
     src: 'model/footGeometry.ts',
-    extra: ['model/commonGeometry.ts', 'dist/outlineBodyGeometry.json'],
+    extra: ['model/commonGeometry.ts'],
     dests: ['dist/rightFootGeometry.json'],
     args: ['false', 'false'],
-  });
-
-  watchRunScriptNewer({
-    displayName: 'outlineRightFootGeometry',
-    src: 'model/footGeometry.ts',
-    extra: ['model/commonGeometry.ts', 'dist/outlineBodyGeometry.json'],
-    dests: ['dist/outlineRightFootGeometry.json'],
-    args: ['true', 'false'],
   });
 
   // Post processing

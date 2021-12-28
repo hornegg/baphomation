@@ -64,20 +64,6 @@ const createWing = (sign: 1 | -1) => {
   return new ThreeBSP(new THREE.BufferGeometry().fromGeometry(geom));
 };
 
-// Head
-
-const loader = new THREE.BufferGeometryLoader();
-
-const head = loader.parse(
-  JSON.parse(
-    fs.readFileSync(`${__dirname}/../dist/outlineHeadGeometry.json`, {
-      encoding: 'utf8',
-    })
-  )
-);
-
-const headBox = new THREE.BoxGeometry(2, 2, 2).translate(0, 1.5, 0);
-
 // Body
 
 const bodyEllipsoid = createEllipsoid(0.75, 1.8, 0.5, scalar).translate(
@@ -131,14 +117,7 @@ const bodyEllipsoidBsp = settings.nsfw
 
 // Combine
 
-const headBsp = new ThreeBSP(head);
-const headBoxBsp = new ThreeBSP(
-  new THREE.BufferGeometry().fromGeometry(headBox)
-);
-
 const body: THREE.BufferGeometry = bodyEllipsoidBsp
-  .subtract(headBoxBsp)
-  .subtract(headBsp)
   .union(createWing(1))
   .union(createWing(-1))
   .toBufferGeometry();
