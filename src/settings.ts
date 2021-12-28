@@ -29,7 +29,7 @@ const settings: SettingsInterface = {
   frameCapture: false,
   invertPentagrams: false,
   nsfw: false,
-  watchTowers: watchTowersBlank,
+  watchTowers: watchTowersGD,
 };
 
 export default settings;
