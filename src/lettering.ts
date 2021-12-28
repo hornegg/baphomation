@@ -34,8 +34,7 @@ const createLetteringComponentWithCallbacks = (
       };
 
       p.draw = () => {
-
-//        p.background(255);
+        //        p.background(255);
 
         const watchTowerIndex =
           Math.floor(p.frameCount / watchTowerLength) %

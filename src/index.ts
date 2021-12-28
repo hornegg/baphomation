@@ -160,7 +160,11 @@ const run = async () => {
     context.drawImage(flamesBehindRenderer.domElement, 0, 0);
     context.drawImage(mainRenderer.domElement, 0, 0);
     context.drawImage(flamesInfrontRenderer.domElement, 0, 0);
-    context.drawImage(lettering.domElement, 0, 0);
+    context.drawImage(
+      lettering.domElement,
+      -0.5 * settings.width,
+      -0.5 * settings.height
+    );
 
     if (settings.frameCapture) {
       frameCapture({
