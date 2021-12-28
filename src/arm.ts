@@ -1,6 +1,6 @@
 import * as THREE from 'three';
 
-import { linearMap, outlineMaterial, segmentedMap, TWO_PI } from './common';
+import { linearMap, segmentedMap, TWO_PI } from './common';
 
 const parametricEllipsoid = (
   start: THREE.Vector3,
@@ -45,34 +45,16 @@ const outlinedParametricEllipsoid = (
   maxGirth: number,
   material: THREE.Material
 ) => {
-  const scalar = 0.07;
-  const adjustment = end.clone().sub(start).normalize().multiplyScalar(scalar);
-
-  const group = new THREE.Group()
-    .add(
-      new THREE.Mesh(
-        new THREE.ParametricGeometry(
-          parametricEllipsoid(start, end, maxGirth),
-          20,
-          20
-        ),
-        material
-      )
+  const group = new THREE.Group().add(
+    new THREE.Mesh(
+      new THREE.ParametricGeometry(
+        parametricEllipsoid(start, end, maxGirth),
+        20,
+        20
+      ),
+      material
     )
-    .add(
-      new THREE.Mesh(
-        new THREE.ParametricGeometry(
-          parametricEllipsoid(
-            start.clone().sub(adjustment),
-            end.clone().add(adjustment),
-            maxGirth + scalar
-          ),
-          20,
-          20
-        ),
-        outlineMaterial
-      )
-    );
+  );
 
   return group;
 };

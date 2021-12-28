@@ -2,11 +2,11 @@
 import * as THREE from 'three';
 
 import {
+  blackMaterial,
   createArc,
   createTube,
   Layer,
   linearMap,
-  outlineMaterialDouble,
   redMaterial,
   setLayerRecursive,
 } from './common';
@@ -43,7 +43,7 @@ export const createFace = (): THREE.Group => {
           radius: 0.02,
         });
       })
-      .map((geom) => new THREE.Mesh(geom, outlineMaterialDouble))
+      .map((geom) => new THREE.Mesh(geom, blackMaterial))
   );
 
   //
@@ -88,7 +88,7 @@ export const createFace = (): THREE.Group => {
   const eyesGroup = new THREE.Group()
     .add(
       ...[topLidLeft, topLidRight, bottomLidLeft, bottomLidRight].map(
-        (geom) => new THREE.Mesh(geom, outlineMaterialDouble)
+        (geom) => new THREE.Mesh(geom, blackMaterial)
       )
     )
     .add(
@@ -119,7 +119,7 @@ export const createFace = (): THREE.Group => {
 
   const nose = new THREE.Group().add(
     ...[noseLeft, noseRight].map(
-      (geom) => new THREE.Mesh(geom, outlineMaterialDouble)
+      (geom) => new THREE.Mesh(geom, blackMaterial)
     )
   );
 
@@ -137,7 +137,7 @@ export const createFace = (): THREE.Group => {
       startAngle: -0.9,
       finishAngle: 0.9,
     }),
-    outlineMaterialDouble
+    blackMaterial
   );
 
   const face = new THREE.Group()

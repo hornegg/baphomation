@@ -30,17 +30,13 @@ const hueAdjustments = {
 };
 
 const run = async () => {
-  const [
-    head,
-    bodyGeometry,
-    leftFootGeometry,
-    rightFootGeometry,
-  ] = await Promise.all([
-    createHead(skin),
-    loadGeometry('bodyGeometry.json'),
-    loadGeometry('leftFootGeometry.json'),
-    loadGeometry('rightFootGeometry.json'),
-  ]);
+  const [head, bodyGeometry, leftFootGeometry, rightFootGeometry] =
+    await Promise.all([
+      createHead(skin),
+      loadGeometry('bodyGeometry.json'),
+      loadGeometry('leftFootGeometry.json'),
+      loadGeometry('rightFootGeometry.json'),
+    ]);
 
   const main = createMainComponent({
     head,

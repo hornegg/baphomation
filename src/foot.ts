@@ -12,8 +12,7 @@ export const createFootComponent = (): AnimationLoopComponent<FootProps> => {
   return (props: FootProps) => {
     const group = new THREE.Group();
     group.setRotationFromEuler(new THREE.Euler(0, props.footAngle, 0));
-    group
-      .add(new THREE.Mesh(props.footGeometry, props.skin));
+    group.add(new THREE.Mesh(props.footGeometry, props.skin));
     return group;
   };
 };

@@ -146,12 +146,7 @@ export const ellipticalToCartesian = (
 // Materials
 //
 
-export const outlineMaterial = new THREE.MeshBasicMaterial({
-  color: 'black',
-  side: THREE.BackSide,
-});
-
-export const outlineMaterialDouble = new THREE.MeshBasicMaterial({
+export const blackMaterial = new THREE.MeshBasicMaterial({
   color: 'black',
   side: THREE.DoubleSide,
 });
