@@ -11,9 +11,6 @@ import settings from '../src/settings';
 const ThreeBSP: any = bspConstructor(THREE);
 
 const outfilename = process.argv[2];
-const outline = process.argv[3] === 'true';
-
-const scalar = outline ? 0.07 : 0;
 
 const createWing = (sign: 1 | -1) => {
   const quadParams = (
@@ -27,16 +24,16 @@ const createWing = (sign: 1 | -1) => {
     return [sign * c[0], c[1], sign * p2[0], p2[1]];
   };
 
-  const bladeStartX = 0.83 - scalar;
-  const bladeStartY = -1.2 + scalar;
+  const bladeStartX = 0.83;
+  const bladeStartY = -1.2;
   const bladeEndX = 1.94;
-  const bladeEndY = -0.28 + scalar;
-  const drop = 0.5 + scalar + scalar;
+  const bladeEndY = -0.28;
+  const drop = 0.5;
 
   // Define the four points along the bottom of the wing (outside to inside: a, b, c, d)
   const a: [number, number] = [bladeEndX, bladeEndY];
-  const b: [number, number] = [bladeEndX, -0.9 - scalar];
-  const c: [number, number] = [1.4, -1.4 - scalar];
+  const b: [number, number] = [bladeEndX, -0.9];
+  const c: [number, number] = [1.4, -1.4];
   const d: [number, number] = [bladeStartX, bladeStartY - drop];
 
   const shape = new THREE.Shape()
@@ -66,7 +63,7 @@ const createWing = (sign: 1 | -1) => {
 
 // Body
 
-const bodyEllipsoid = createEllipsoid(0.75, 1.8, 0.5, scalar).translate(
+const bodyEllipsoid = createEllipsoid(0.75, 1.8, 0.5).translate(
   0,
   -1.3,
   0
@@ -75,13 +72,13 @@ const bodyEllipsoid = createEllipsoid(0.75, 1.8, 0.5, scalar).translate(
 const nsfw = (bsp) => {
   const params: [number, number, number] = [0.35, -1.4, 0.5];
 
-  const leftBreast = createEllipsoid(0.25, 0.25, 0.25, scalar).translate(
+  const leftBreast = createEllipsoid(0.25, 0.25, 0.25).translate(
     -params[0],
     params[1],
     params[2]
   );
 
-  const rightBreast = createEllipsoid(0.25, 0.25, 0.25, scalar).translate(
+  const rightBreast = createEllipsoid(0.25, 0.25, 0.25).translate(
     params[0],
     params[1],
     params[2]
@@ -91,12 +88,12 @@ const nsfw = (bsp) => {
   const rotation = QUARTER_PI;
   const translation: [number, number, number] = [0, -1.9, 1.05];
 
-  const cylinder = createCylinder(0.1, height, scalar)
+  const cylinder = createCylinder(0.1, height)
     .translate(0, -height / 2, 0)
     .rotateX(rotation)
     .translate(...translation);
 
-  const sphere = createEllipsoid(0.13, 0.13, 0.13, scalar)
+  const sphere = createEllipsoid(0.13, 0.13, 0.13)
     .rotateX(rotation)
     .translate(...translation);
 

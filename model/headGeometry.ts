@@ -8,17 +8,15 @@ import { createEllipsoid } from './commonGeometry';
 const ThreeBSP: any = bspConstructor(THREE);
 
 const outfilename = process.argv[2];
-const outline = process.argv[3] === 'true';
 
-const scalar = outline ? 0.07 : 0;
-const head = createEllipsoid(1.5, 1.0, 1.0, scalar);
+const head = createEllipsoid(1.5, 1.0, 1.0);
 
 // vector between center of head and center of ear
 const x = 1.44;
 const y = 0.6;
 const z = -0.3;
 
-const earParams: [number, number, number, number] = [0.4, 0.4, 0.25, scalar];
+const earParams: [number, number, number] = [0.4, 0.4, 0.25];
 const leftEar = createEllipsoid(...earParams).translate(x, y, z);
 const rightEar = createEllipsoid(...earParams).translate(-x, y, z);
 

@@ -8,24 +8,15 @@ const createSphere = (radius: number): THREE.Geometry => {
 export const createEllipsoid = (
   x: number,
   y: number,
-  z: number,
-  scalar: number
+  z: number
 ): THREE.Geometry => {
-  return createSphere(1).applyMatrix4(
-    new THREE.Matrix4().makeScale(x + scalar, y + scalar, z + scalar)
-  );
+  return createSphere(1).applyMatrix4(new THREE.Matrix4().makeScale(x, y, z));
 };
 
 export const createCylinder = (
   radius: number,
-  height: number,
-  scalar: number
+  height: number
 ): THREE.Geometry => {
   const radialSegments = 24;
-  return new THREE.CylinderGeometry(
-    radius + scalar,
-    radius + scalar,
-    height + scalar,
-    radialSegments
-  );
+  return new THREE.CylinderGeometry(radius, radius, height, radialSegments);
 };

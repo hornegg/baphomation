@@ -10,10 +10,7 @@ import { floorLevel } from '../src/common';
 const ThreeBSP: any = bspConstructor(THREE);
 
 const outfilename = process.argv[2];
-const outline = process.argv[3] === 'true';
 const left = process.argv[4] === 'true';
-
-const scalar = outline ? 0.07 : 0;
 
 const radius = 0.5;
 
@@ -24,7 +21,6 @@ const footEllipsoid = createEllipsoid(
   radius,
   radius,
   radius * footRatio,
-  scalar
 ).translate(footCenterX, floorLevel, radius);
 
 const footEllipsoidBsp = new ThreeBSP(
@@ -33,7 +29,7 @@ const footEllipsoidBsp = new ThreeBSP(
 
 const floorBox = new THREE.BoxGeometry(2, radius, 3).translate(
   footCenterX,
-  floorLevel - (0.5 * radius) - scalar,
+  floorLevel - (0.5 * radius),
   0
 );
 const floorBoxBsp = new ThreeBSP(
