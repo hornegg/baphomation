@@ -4,7 +4,7 @@ import * as fs from 'fs';
 import * as THREE from 'three';
 
 import { createEllipsoid } from './commonGeometry';
-import { floorLevel } from '../src/common';
+import { floorLevel } from '../src/floorLevel';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const ThreeBSP: any = bspConstructor(THREE);

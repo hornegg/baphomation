@@ -1,15 +1,10 @@
 /* eslint-disable functional/no-expression-statement */
 import * as THREE from 'three';
+import { blackMaterial, redMaterial } from '../materials';
+import { createArc, createTube } from '../headHelpers';
+import { Layer, setLayerRecursive } from '../layers';
+import { linearMap } from '../common/maps';
 
-import {
-  blackMaterial,
-  createArc,
-  createTube,
-  Layer,
-  linearMap,
-  redMaterial,
-  setLayerRecursive,
-} from '../common';
 import settings from '../settings';
 
 const PI = Math.PI;

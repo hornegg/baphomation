@@ -2,7 +2,7 @@
 /* eslint-disable functional/no-expression-statement */
 import * as THREE from 'three';
 
-import { AnimationLoopComponent } from './common';
+import { AnimationLoopComponent } from './components/AnimationLoopComponent';
 import JSZip from 'jszip';
 import { saveAs } from 'file-saver';
 

@@ -1,6 +1,6 @@
 import * as THREE from 'three';
 
-import { floorLevel } from '../common';
+import { floorLevel } from '../floorLevel';
 
 const createBox = (
   width: number,

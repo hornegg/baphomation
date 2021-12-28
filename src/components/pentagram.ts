@@ -1,17 +1,9 @@
 /* eslint-disable functional/no-expression-statement */
 import * as THREE from 'three';
-
-import {
-  AnimationLoopComponent,
-  HALF_PI,
-  linearMap,
-  linearMap3,
-  PI,
-  powerMap,
-  segmentedMap,
-} from '../common';
-
 import { createFire, Fire } from '../meshes/fire';
+import { HALF_PI, PI } from '../common/constants';
+import { linearMap, linearMap3, powerMap, segmentedMap } from '../common/maps';
+import { AnimationLoopComponent } from './AnimationLoopComponent';
 
 import settings from '../settings';
 

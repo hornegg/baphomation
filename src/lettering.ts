@@ -1,8 +1,8 @@
 /* eslint-disable immutable/no-let */
 /* eslint-disable functional/no-expression-statement */
-import { linearMap, segmentedMap, watchTowerLength } from './common';
+import { linearMap, segmentedMap } from './common/maps';
+import settings, { watchTowerLength } from './settings';
 import p5 from 'p5';
-import settings from './settings';
 
 const colors = {
   blue: [0, 0, 255],

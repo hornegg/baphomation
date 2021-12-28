@@ -32,4 +32,6 @@ const settings: SettingsInterface = {
   watchTowers: watchTowersGD,
 };
 
+export const watchTowerLength = settings.cycleLength / 4;
+
 export default settings;

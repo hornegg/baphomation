@@ -1,6 +1,6 @@
 import * as THREE from 'three';
-
-import { linearMap, segmentedMap, TWO_PI } from '../common';
+import { linearMap, segmentedMap } from '../common/maps';
+import { TWO_PI } from '../common/constants';
 
 const parametricEllipsoid = ({
   start,

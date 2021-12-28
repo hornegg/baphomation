@@ -32,7 +32,7 @@ const defaultTask = (callback: () => void): void => {
   watchRunScriptNewer({
     displayName: 'headGeometry',
     src: 'model/headGeometry.ts',
-    extra: ['model/commonGeometry.ts'],
+    extra: [],
     dests: ['dist/headGeometry.json'],
     args: ['false'],
   });
@@ -42,7 +42,7 @@ const defaultTask = (callback: () => void): void => {
   watchRunScriptNewer({
     displayName: 'bodyGeometry',
     src: 'model/bodyGeometry.ts',
-    extra: ['model/commonGeometry.ts', 'src/settings.ts'],
+    extra: ['src/settings.ts'],
     dests: ['dist/bodyGeometry.json'],
     args: ['false'],
   });

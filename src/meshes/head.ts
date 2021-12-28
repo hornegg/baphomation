@@ -1,18 +1,10 @@
 import * as THREE from 'three';
-
-import {
-  blackMaterial,
-  ellipticalToCartesian,
-  HALF_PI,
-  headHeight,
-  linearMap,
-  loadGeometry,
-  PI,
-  redMaterial,
-  TWO_PI,
-} from '../common';
-
+import { blackMaterial, redMaterial } from '../materials';
+import { ellipticalToCartesian, headHeight } from '../headHelpers';
+import { HALF_PI, PI, TWO_PI } from '../common/constants';
 import { createFace } from './face';
+import { linearMap } from '../common/maps';
+import { loadGeometry } from '../common/deprecated';
 
 export const createHead = async (
   skin: THREE.Material

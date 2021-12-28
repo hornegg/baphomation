@@ -2,10 +2,10 @@
 import * as path from 'path';
 import * as pLimit from 'p-limit';
 
-import { linearMap, segmentedMap, watchTowerLength } from '../src/common';
+import { linearMap, segmentedMap } from '../src/common/maps';
 import { p5, readPng, writePng } from './p5Headless';
+import settings, { watchTowerLength } from '../src/settings';
 import { performance } from 'perf_hooks';
-import settings from '../src/settings';
 import { times } from 'lodash';
 
 const usage = 'usage: ts-node postProcessing.ts [offset] [frameCount]';

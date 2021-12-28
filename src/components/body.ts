@@ -1,7 +1,7 @@
 /* eslint-disable functional/no-expression-statement */
 import * as THREE from 'three';
 import { choreographArm, stillArm } from '../choreograph';
-import { AnimationLoopComponent } from '../common';
+import { AnimationLoopComponent } from './AnimationLoopComponent';
 import { arm } from '../meshes/arm';
 
 interface BodyProps {

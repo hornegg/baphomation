@@ -3,7 +3,7 @@ import * as fs from 'fs';
 import * as THREE from 'three';
 
 import { createCylinder, createEllipsoid } from './commonGeometry';
-import { QUARTER_PI } from '../src/common';
+import { QUARTER_PI } from '../src/common/constants';
 
 import settings from '../src/settings';
 

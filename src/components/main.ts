@@ -1,16 +1,13 @@
 /* eslint-disable functional/no-expression-statement */
 import * as THREE from 'three';
-import {
-  AnimationLoopComponent,
-  HALF_PI,
-  Layer,
-  setLayerRecursive,
-  watchTowerLength,
-} from '../common';
 import { createPentagram, PentagramProps } from './pentagram';
+import { Layer, setLayerRecursive } from '../layers';
+import { AnimationLoopComponent } from './AnimationLoopComponent';
 import { createBaphometComponent } from './baphomet';
+import { HALF_PI } from '../common/constants';
 import { pentagramLength } from '../choreograph';
 import { room } from '../meshes/room';
+import { watchTowerLength } from '../settings';
 
 export interface MainProps {
   head: THREE.Group;

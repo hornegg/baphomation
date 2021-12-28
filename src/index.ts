@@ -3,8 +3,7 @@
 
 import * as THREE from 'three';
 
-import { Layer, loadGeometry, watchTowerLength } from './common';
-
+import settings, { watchTowerLength } from './settings';
 import { choreographBody } from './choreograph';
 import { createFrameCaptureComponent } from './frameCapture';
 import { createHead } from './meshes/head';
@@ -12,8 +11,9 @@ import { createLetteringComponent } from './lettering';
 import { createMainComponent } from './components/main';
 import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer';
 import getCameraPosition from './getCameraPosition';
+import { Layer } from './layers';
+import { loadGeometry } from './common/deprecated';
 import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass';
-import settings from './settings';
 import { ShaderPass } from 'three/examples/jsm/postprocessing/ShaderPass';
 import shaders from './shaders';
 

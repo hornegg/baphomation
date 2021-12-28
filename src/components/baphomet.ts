@@ -1,5 +1,5 @@
 import * as THREE from 'three';
-import { AnimationLoopComponent } from '../common';
+import { AnimationLoopComponent } from './AnimationLoopComponent';
 import { createBodyComponent } from './body';
 import { createFootComponent } from './foot';
 

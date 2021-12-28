@@ -1,6 +1,6 @@
 /* eslint-disable functional/no-expression-statement */
 import * as THREE from 'three';
-import { AnimationLoopComponent } from '../common';
+import { AnimationLoopComponent } from './AnimationLoopComponent';
 
 interface FootProps {
   footAngle: number;
