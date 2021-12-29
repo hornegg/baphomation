@@ -6,13 +6,13 @@ import * as THREE from 'three';
 import settings, { watchTowerLength } from './settings';
 import { choreographBody } from './choreograph';
 import { createAdornedHead } from './meshes/adornedHead';
+import { createBody } from './meshes/body';
 import { createFrameCaptureComponent } from './frameCapture';
 import { createLetteringComponent } from './lettering';
 import { createMainComponent } from './components/main';
 import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer';
 import getCameraPosition from './getCameraPosition';
 import { Layer } from './layers';
-import { loadGeometry } from './common/deprecated';
 import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass';
 import { ShaderPass } from 'three/examples/jsm/postprocessing/ShaderPass';
 import shaders from './shaders';
@@ -26,14 +26,10 @@ const hueAdjustments = {
 };
 
 const run = async () => {
-  const [head, bodyGeometry] = await Promise.all([
-    createAdornedHead(skin),
-    loadGeometry('bodyGeometry.json'),
-  ]);
 
   const main = createMainComponent({
-    head,
-    bodyGeometry,
+    head: createAdornedHead(skin),
+    body: createBody(),
     skin,
   });
 

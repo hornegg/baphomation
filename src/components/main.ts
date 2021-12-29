@@ -11,7 +11,7 @@ import { watchTowerLength } from '../settings';
 
 export interface MainProps {
   head: THREE.Group;
-  bodyGeometry: THREE.BufferGeometry;
+  body: THREE.Group;
   skin: THREE.Material;
 }
 
@@ -69,8 +69,6 @@ export const createMainComponent = (props: MainProps) => {
         ...props,
         watchTowerFrame,
         bodyAngle: state.bodyAngle,
-        head: props.head,
-        bodyGeometry: props.bodyGeometry,
         leftFootAngle: state.leftFootAngle,
         rightFootAngle: state.rightFootAngle,
       })

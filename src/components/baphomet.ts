@@ -3,7 +3,7 @@ import { AnimationLoopComponent } from './AnimationLoopComponent';
 import { createBodyComponent } from './body';
 import { createFootComponent } from './foot';
 
-const body = createBodyComponent();
+const bodyComponent = createBodyComponent();
 const leftFoot = createFootComponent();
 const rightFoot = createFootComponent();
 
@@ -11,7 +11,7 @@ interface BaphometProps {
   watchTowerFrame: number;
   bodyAngle: number;
   head: THREE.Group;
-  bodyGeometry: THREE.BufferGeometry;
+  body: THREE.Group;
   leftFootAngle: number;
   rightFootAngle: number;
   skin: THREE.Material;
@@ -23,17 +23,17 @@ export const createBaphometComponent =
       watchTowerFrame,
       bodyAngle,
       head,
-      bodyGeometry,
+      body,
       leftFootAngle,
       rightFootAngle,
       skin,
     }: BaphometProps) =>
       new THREE.Group()
         .add(
-          body({
+          bodyComponent({
             bodyAngle,
             head,
-            bodyGeometry,
+            body,
             skin,
             watchTowerFrame,
           })

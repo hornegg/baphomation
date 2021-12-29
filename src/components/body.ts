@@ -7,7 +7,7 @@ import { arm } from '../meshes/arm';
 interface BodyProps {
   bodyAngle: number;
   head: THREE.Group;
-  bodyGeometry: THREE.BufferGeometry;
+  body: THREE.Group;
   skin: THREE.Material;
   watchTowerFrame: number;
 }
@@ -18,7 +18,7 @@ export const createBodyComponent = (): AnimationLoopComponent<BodyProps> => {
     group.setRotationFromEuler(new THREE.Euler(0, props.bodyAngle, 0));
     group
       .add(props.head)
-      .add(new THREE.Mesh(props.bodyGeometry, props.skin))
+      .add(props.body)
       .add(arm({ sign: 1, pointAt: stillArm, skin: props.skin }))
       .add(
         arm({

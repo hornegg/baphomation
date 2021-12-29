@@ -3,12 +3,12 @@ import { blackMaterial, redMaterial } from '../materials';
 import { ellipticalToCartesian, headHeight } from '../headHelpers';
 import { HALF_PI, PI, TWO_PI } from '../common/constants';
 import { createFace } from './face';
+import { createHead } from './head';
 import { linearMap } from '../common/maps';
-import { loadGeometry } from '../common/deprecated';
 
-export const createAdornedHead = async (
+export const createAdornedHead = (
   skin: THREE.Material
-): Promise<THREE.Group> => {
+): THREE.Group => {
   //
   // Horns
   //
@@ -126,7 +126,7 @@ export const createAdornedHead = async (
   //
 
   const head = new THREE.Group()
-    .add(new THREE.Mesh(await loadGeometry('headGeometry.json'), skin))
+    .add(createHead())
     .add(hornGroup)
     .add(antenna)
     .add(createFace());
