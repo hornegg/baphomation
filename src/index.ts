@@ -26,7 +26,6 @@ const hueAdjustments = {
 };
 
 const run = async () => {
-
   const main = createMainComponent({
     head: createAdornedHead(skin),
     body: createBody(),

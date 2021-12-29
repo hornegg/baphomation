@@ -6,9 +6,7 @@ import { createFace } from './face';
 import { createHead } from './head';
 import { linearMap } from '../common/maps';
 
-export const createAdornedHead = (
-  skin: THREE.Material
-): THREE.Group => {
+export const createAdornedHead = (skin: THREE.Material): THREE.Group => {
   //
   // Horns
   //
