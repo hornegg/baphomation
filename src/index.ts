@@ -36,14 +36,13 @@ const run = async () => {
 
   const scene = new THREE.Scene();
 
-  const cameraTemplate = new THREE.PerspectiveCamera(75, 1.2, 0.1, 1000);
   const cameras: THREE.Camera[] = [];
 
   const parentDiv = document.createElement('div');
   parentDiv.style.display = 'none';
 
   const createRenderPass = (layer: Layer): RenderPass => {
-    const camera = cameraTemplate.clone();
+    const camera = new THREE.PerspectiveCamera(75, 1.2, 0.1, 1000);
     camera.layers = new THREE.Layers();
     camera.layers.set(layer);
     const pass = new RenderPass(scene, camera);

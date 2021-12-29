@@ -20,7 +20,7 @@ export const createAdornedHead = (skin: THREE.Material): THREE.Group => {
     bend: number;
   }
 
-  const createHorn = (param: HornParameters): THREE.Geometry => {
+  const createHorn = (param: HornParameters): THREE.BufferGeometry => {
     const openHorn = (u: number, v: number, vec: THREE.Vector3): void => {
       const width = param.maxWidth * (1 - u);
       const depth = param.maxDepth * (1 - u);
