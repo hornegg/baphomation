@@ -2,16 +2,12 @@
 
 import * as fs from 'fs/promises';
 import * as gulp from 'gulp';
-import * as os from 'os';
 import * as path from 'path';
-import * as pLimit from 'p-limit';
 
 import { exec as execOrig } from 'child_process';
 import { newer } from './gulp/newer';
 import { promisify } from 'util';
 import settings from './src/settings';
-import { times } from 'lodash';
-import { watchRunScriptNewer } from './gulp/watchRunNewer';
 
 const execNoLog = promisify(execOrig);
 
@@ -27,26 +23,6 @@ const defaultTask = (callback: () => void): void => {
   // fire
   fs.copyFile(path.join(__dirname, 'src/THREE.Fire/Fire.png'), 'dist/Fire.png');
 
-  // head
-
-  watchRunScriptNewer({
-    displayName: 'headGeometry',
-    src: 'model/headGeometry.ts',
-    extra: [],
-    dests: ['dist/headGeometry.json'],
-    args: ['false'],
-  });
-
-  // body
-
-  watchRunScriptNewer({
-    displayName: 'bodyGeometry',
-    src: 'model/bodyGeometry.ts',
-    extra: ['src/settings.ts'],
-    dests: ['dist/bodyGeometry.json'],
-    args: ['false'],
-  });
-
   // Post processing
   postProcessing();
 
@@ -55,37 +31,17 @@ const defaultTask = (callback: () => void): void => {
 
 const postProcessing = async () => {
   const zipFilename = path.resolve('dist/frames.zip');
-  const rawFramesPath = path.resolve('dist/rawFrames');
   const framesPath = path.resolve('dist/frames');
   const framesParam = path.join(framesPath, 'f%06d.png');
   const videoPath = path.resolve('dist/baphomation.mp4');
   const ffmpegPath = path.join('node_modules', 'ffmpeg-static', 'ffmpeg');
-  const tsNodePath = path.join('node_modules', '.bin', 'ts-node');
-  const batchSize = 32;
-  const limit = pLimit(os.cpus().length);
-  const batches = Math.ceil(settings.cycleLength / batchSize);
-  const lexec = (cmd) => limit(() => exec(cmd));
 
   const result: boolean = await newer([zipFilename], [videoPath]);
 
   const task = async () => {
-    await exec(`rimraf ${rawFramesPath}/*`);
     await exec(`rimraf ${framesPath}`);
     await fs.mkdir(framesPath);
-    await exec(`extract-zip ${zipFilename} ${rawFramesPath}`);
-
-    await Promise.all(
-      times(batches, (batch) => {
-        const offset = batch * batchSize;
-        const thisBatchSize = Math.min(
-          batchSize,
-          settings.cycleLength - offset - 1
-        );
-        return lexec(
-          `${tsNodePath} processing/postProcessing.ts ${offset} ${thisBatchSize}`
-        );
-      })
-    );
+    await exec(`extract-zip ${zipFilename} ${framesPath}`);
 
     await exec(
       `${ffmpegPath} -framerate ${settings.fps} -i ${framesParam} ${videoPath} -y`
