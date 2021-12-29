@@ -5,8 +5,8 @@ import * as THREE from 'three';
 
 import settings, { watchTowerLength } from './settings';
 import { choreographBody } from './choreograph';
+import { createAdornedHead } from './meshes/adornedHead';
 import { createFrameCaptureComponent } from './frameCapture';
-import { createHead } from './meshes/head';
 import { createLetteringComponent } from './lettering';
 import { createMainComponent } from './components/main';
 import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer';
@@ -27,7 +27,7 @@ const hueAdjustments = {
 
 const run = async () => {
   const [head, bodyGeometry] = await Promise.all([
-    createHead(skin),
+    createAdornedHead(skin),
     loadGeometry('bodyGeometry.json'),
   ]);
 

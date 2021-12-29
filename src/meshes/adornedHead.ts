@@ -6,7 +6,7 @@ import { createFace } from './face';
 import { linearMap } from '../common/maps';
 import { loadGeometry } from '../common/deprecated';
 
-export const createHead = async (
+export const createAdornedHead = async (
   skin: THREE.Material
 ): Promise<THREE.Group> => {
   //
