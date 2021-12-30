@@ -112,7 +112,9 @@ export const createLetteringComponent = async (): Promise<{
 
   const { render, domElement } = await createLetteringComponentWithCallbacks(
     () => {
-      resolveFrame();
+      if (resolveFrame) {
+        resolveFrame();
+      }
     }
   );
 
