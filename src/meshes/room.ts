@@ -1,5 +1,6 @@
 import * as THREE from 'three';
 
+import { altarMaterial, floorMaterial } from '../materials';
 import { floorLevel } from '../floorLevel';
 
 const createBox = (
@@ -14,16 +15,6 @@ const createBox = (
 
   return group;
 };
-
-const floorMaterial = new THREE.MeshBasicMaterial({
-  color: 0xcccccc,
-  side: THREE.DoubleSide,
-});
-
-const altarMaterial = new THREE.MeshBasicMaterial({
-  color: 0x888888,
-  side: THREE.DoubleSide,
-});
 
 const floorThickness = 0.1;
 const floor = createBox(5, floorThickness, 5, floorMaterial);

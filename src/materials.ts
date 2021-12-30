@@ -14,3 +14,13 @@ export const skin = new THREE.MeshBasicMaterial({
   color: 0x444444,
   side: THREE.DoubleSide,
 });
+
+export const floorMaterial = new THREE.MeshBasicMaterial({
+  color: 0xcccccc,
+  side: THREE.DoubleSide,
+});
+
+export const altarMaterial = new THREE.MeshBasicMaterial({
+  color: 0x888888,
+  side: THREE.DoubleSide,
+});
