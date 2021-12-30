@@ -7,8 +7,10 @@ const mtimePromise = (filename: string): Promise<number | null> =>
     .then((stat) => stat.mtime.valueOf())
     .catch(() => null);
 
-const createMtimeReducer = (fn) => {
-  return (acc, mtime): number | null =>
+type NumericalReduce = (a: number | null, b: number) => number | null;
+
+const createMtimeReducer = (fn: NumericalReduce) => {
+  return (acc: number | null, mtime: number | null): number | null =>
     acc === null || mtime === null ? null : fn(acc, mtime);
 };
 
@@ -22,9 +24,9 @@ export const newer = async (
     Promise.all(dests.map(mtimePromise)),
   ]);
 
-  const srcMtime = srcsMtime.reduce(createMtimeReducer(Math.max), 0);
+  const srcMtime = srcsMtime.reduce(createMtimeReducer(Math.max as NumericalReduce), 0);
   const destMtime = destsMtime.reduce(
-    createMtimeReducer(Math.min),
+    createMtimeReducer(Math.min as NumericalReduce),
     Number.MAX_SAFE_INTEGER
   );
   if (srcMtime !== null) {

@@ -11,7 +11,7 @@ import settings from './src/settings';
 
 const execNoLog = promisify(execOrig);
 
-const exec = async (cmd) => {
+const exec = async (cmd: string) => {
   console.log(`\n${cmd}`);
   return execNoLog(cmd).then((result) => {
     console.log(result.stdout + result.stderr);
