@@ -75,6 +75,7 @@ const run = async () => {
   };
 
   const changeHueShader = createShaderPass(shaders.changeHue);
+  const detectEdgesShader = createShaderPass(shaders.detectEdges);
 
   const flamesBehindRenderer = createRenderer();
   const flamesBehindComposer = new EffectComposer(flamesBehindRenderer);
@@ -84,6 +85,7 @@ const run = async () => {
   const mainRenderer = createRenderer();
   const mainComposer = new EffectComposer(mainRenderer);
   mainComposer.addPass(createRenderPass(Layer.main));
+  mainComposer.addPass(detectEdgesShader);
 
   const flamesInfrontRenderer = createRenderer();
   const flamesInfrontComposer = new EffectComposer(flamesInfrontRenderer);
