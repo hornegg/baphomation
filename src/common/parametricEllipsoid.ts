@@ -1,5 +1,6 @@
 import * as THREE from 'three';
 import { linearMap, segmentedMap } from '../common/maps';
+import { ParametricGeometry } from 'three/examples/jsm/geometries/ParametricGeometry';
 import { TWO_PI } from '../common/constants';
 
 const parametricEllipsoid = ({
@@ -55,7 +56,7 @@ export const createParametricEllipsoidMesh = (
   material: THREE.Material
 ): THREE.Mesh =>
   new THREE.Mesh(
-    new THREE.ParametricGeometry(
+    new ParametricGeometry(
       parametricEllipsoid({ start, end, maxGirth }),
       20,
       20

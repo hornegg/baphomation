@@ -1,3 +1,4 @@
+/* eslint-disable functional/no-expression-statement */
 import * as THREE from 'three';
 import { blackMaterial, redMaterial } from '../materials';
 import { ellipticalToCartesian, headHeight } from '../headHelpers';
@@ -5,6 +6,7 @@ import { HALF_PI, PI, TWO_PI } from '../common/constants';
 import { createFace } from './face';
 import { createHead } from './head';
 import { linearMap } from '../common/maps';
+import { ParametricGeometry } from 'three/examples/jsm/geometries/ParametricGeometry';
 
 export const createAdornedHead = (skin: THREE.Material): THREE.Group => {
   //
@@ -41,7 +43,7 @@ export const createAdornedHead = (skin: THREE.Material): THREE.Group => {
       );
     };
 
-    const horn = new THREE.ParametricGeometry(openHorn, 10, 10);
+    const horn = new ParametricGeometry(openHorn, 10, 10);
 
     return horn;
   };
@@ -77,26 +79,25 @@ export const createAdornedHead = (skin: THREE.Material): THREE.Group => {
     middle: THREE.Vector3,
     end: THREE.Vector3,
     width: number
-  ): THREE.TubeGeometry => {
-    class Tube extends THREE.Curve<THREE.Vector3> {
-      getPoint(t): THREE.Vector3 {
-        if (t < 0.5) {
-          return new THREE.Vector3(
-            linearMap(t, 0, 0.5, beginning.x, middle.x),
-            linearMap(t, 0, 0.5, beginning.y, middle.y),
-            linearMap(t, 0, 0.5, beginning.z, middle.z)
-          );
-        } else {
-          return new THREE.Vector3(
-            linearMap(t, 0.5, 1, middle.x, end.x),
-            linearMap(t, 0.5, 1, middle.y, end.y),
-            linearMap(t, 0.5, 1, middle.z, end.z)
-          );
-        }
+  ) => {
+    const tubePath = new THREE.Curve<THREE.Vector3>();
+    tubePath.getPoint = (t): THREE.Vector3 => {
+      if (t < 0.5) {
+        return new THREE.Vector3(
+          linearMap(t, 0, 0.5, beginning.x, middle.x),
+          linearMap(t, 0, 0.5, beginning.y, middle.y),
+          linearMap(t, 0, 0.5, beginning.z, middle.z)
+        );
+      } else {
+        return new THREE.Vector3(
+          linearMap(t, 0.5, 1, middle.x, end.x),
+          linearMap(t, 0.5, 1, middle.y, end.y),
+          linearMap(t, 0.5, 1, middle.z, end.z)
+        );
       }
-    }
+    };
 
-    return new THREE.TubeGeometry(new Tube(), 20, width);
+    return new THREE.TubeGeometry(tubePath, 20, width).clone();
   };
 
   const antennaPosition = new THREE.Vector3(1, headHeight + 0.8, 0);
