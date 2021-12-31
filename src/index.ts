@@ -25,6 +25,9 @@ const hueAdjustments = {
   red: -30,
 };
 
+const renderWidth = settings.width * 2;
+const renderHeight = settings.height * 2;
+
 const run = async () => {
   const main = createMainComponent({
     head: createAdornedHead(skin),
@@ -55,7 +58,7 @@ const run = async () => {
       antialias: true,
       alpha: true,
     });
-    renderer.setSize(settings.width, settings.height);
+    renderer.setSize(renderWidth, renderHeight);
     parentDiv.appendChild(renderer.domElement);
     return renderer;
   };
@@ -132,14 +135,32 @@ const run = async () => {
 
     const context = canvas.getContext('2d');
     context.clearRect(0, 0, canvas.width, canvas.height);
-    context.drawImage(flamesBehindRenderer.domElement, 0, 0);
-    context.drawImage(mainRenderer.domElement, 0, 0);
-    context.drawImage(flamesInfrontRenderer.domElement, 0, 0);
-    context.drawImage(
-      lettering.domElement,
-      -0.5 * settings.width,
-      -0.1 * settings.height
-    );
+
+    const drawParams: [
+      number,
+      number,
+      number,
+      number,
+      number,
+      number,
+      number,
+      number
+    ] = [
+      0,
+      0,
+      renderWidth,
+      renderHeight,
+      0,
+      0,
+      settings.width,
+      settings.height,
+    ];
+
+    context.drawImage(flamesBehindRenderer.domElement, ...drawParams);
+    context.drawImage(mainRenderer.domElement, ...drawParams);
+    context.drawImage(flamesInfrontRenderer.domElement, ...drawParams);
+
+    context.drawImage(lettering.domElement, ...drawParams);
 
     if (settings.frameCapture) {
       frameCapture({
