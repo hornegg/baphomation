@@ -16,6 +16,7 @@ import { Layer } from './layers';
 import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass';
 import { ShaderPass } from 'three/examples/jsm/postprocessing/ShaderPass';
 import shaders from './shaders';
+import { Surface } from './materials';
 
 const hueAdjustments = {
   blue: 128,
@@ -81,7 +82,8 @@ const run = async () => {
     new THREE.Vector4(0, 0, 0, 1)
   );
 
-  detectEdgesShader.uniforms.radius = new THREE.Uniform(0.005);
+  detectEdgesShader.uniforms.radius = new THREE.Uniform(0.003);
+  detectEdgesShader.uniforms.skipAlpha = new THREE.Uniform(Surface.skip);
 
   const flamesBehindRenderer = createRenderer();
   const flamesBehindComposer = new EffectComposer(flamesBehindRenderer);
