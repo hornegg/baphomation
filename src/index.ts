@@ -16,7 +16,6 @@ import { Layer } from './layers';
 import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass';
 import { ShaderPass } from 'three/examples/jsm/postprocessing/ShaderPass';
 import shaders from './shaders';
-import { skin } from './materials';
 
 const hueAdjustments = {
   blue: 128,
@@ -30,9 +29,8 @@ const renderHeight = settings.height * 2;
 
 const run = async () => {
   const main = createMainComponent({
-    head: createAdornedHead(skin),
+    head: createAdornedHead(),
     body: createBody(),
-    skin,
   });
 
   const frameCapture = createFrameCaptureComponent();

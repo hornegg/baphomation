@@ -1,9 +1,9 @@
 /* eslint-disable functional/no-expression-statement */
 import * as THREE from 'three';
 import { createCylinder, createEllipsoid } from '../common/geometry';
+import { skin, Surface } from '../materials';
 import { QUARTER_PI } from '../common/constants';
 import settings from '../settings';
-import { skin } from '../materials';
 
 export const createBody = (): THREE.Group => {
   const createWing = (sign: 1 | -1): THREE.ExtrudeGeometry => {
@@ -87,13 +87,15 @@ export const createBody = (): THREE.Group => {
       .translate(...translation);
 
     return group
-      .add(new THREE.Mesh(leftBreast, skin))
-      .add(new THREE.Mesh(rightBreast, skin))
-      .add(new THREE.Mesh(cylinder, skin))
-      .add(new THREE.Mesh(sphere, skin));
+      .add(new THREE.Mesh(leftBreast, skin(Surface.leftBreast)))
+      .add(new THREE.Mesh(rightBreast, skin(Surface.rightBreast)))
+      .add(new THREE.Mesh(cylinder, skin(Surface.cylinder)))
+      .add(new THREE.Mesh(sphere, skin(Surface.sphere)));
   };
 
-  const bodyGroup = new THREE.Group().add(new THREE.Mesh(bodyEllipsoid, skin));
+  const bodyGroup = new THREE.Group().add(
+    new THREE.Mesh(bodyEllipsoid, skin(Surface.body))
+  );
 
   if (settings.nsfw) {
     nsfw(bodyGroup);
@@ -102,6 +104,6 @@ export const createBody = (): THREE.Group => {
   // Combine
 
   return bodyGroup
-    .add(new THREE.Mesh(createWing(1), skin))
-    .add(new THREE.Mesh(createWing(-1), skin));
+    .add(new THREE.Mesh(createWing(1), skin(Surface.leftWing)))
+    .add(new THREE.Mesh(createWing(-1), skin(Surface.rightWing)));
 };

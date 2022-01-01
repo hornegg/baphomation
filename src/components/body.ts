@@ -1,6 +1,7 @@
 /* eslint-disable functional/no-expression-statement */
 import * as THREE from 'three';
 import { choreographArm, stillArm } from '../choreograph';
+import { skin, Surface } from '../materials';
 import { AnimationLoopComponent } from './AnimationLoopComponent';
 import { arm } from '../meshes/arm';
 
@@ -8,7 +9,6 @@ interface BodyProps {
   bodyAngle: number;
   head: THREE.Group;
   body: THREE.Group;
-  skin: THREE.Material;
   watchTowerFrame: number;
 }
 
@@ -19,12 +19,12 @@ export const createBodyComponent = (): AnimationLoopComponent<BodyProps> => {
     group
       .add(props.head)
       .add(props.body)
-      .add(arm({ sign: 1, pointAt: stillArm, skin: props.skin }))
+      .add(arm({ sign: 1, pointAt: stillArm, skin: skin(Surface.leftArm) }))
       .add(
         arm({
           sign: -1,
           pointAt: choreographArm(props.watchTowerFrame),
-          skin: props.skin,
+          skin: skin(Surface.rightArm),
         })
       );
     return group;

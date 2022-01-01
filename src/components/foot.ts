@@ -13,7 +13,7 @@ export const createFootComponent = (): AnimationLoopComponent<FootProps> => {
   return (props: FootProps) => {
     const group = new THREE.Group();
     group.setRotationFromEuler(new THREE.Euler(0, props.footAngle, 0));
-    group.add(createFoot(props.left));
+    group.add(createFoot(props.left, props.skin));
     return group;
   };
 };

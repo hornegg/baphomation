@@ -1,6 +1,6 @@
 /* eslint-disable functional/no-expression-statement */
 import * as THREE from 'three';
-import { blackMaterial, redMaterial } from '../materials';
+import { blackMaterial, redMaterial, skin, Surface } from '../materials';
 import { ellipticalToCartesian, headHeight } from '../headHelpers';
 import { HALF_PI, PI, TWO_PI } from '../common/constants';
 import { createFace } from './face';
@@ -8,7 +8,7 @@ import { createHead } from './head';
 import { linearMap } from '../common/maps';
 import { ParametricGeometry } from 'three/examples/jsm/geometries/ParametricGeometry';
 
-export const createAdornedHead = (skin: THREE.Material): THREE.Group => {
+export const createAdornedHead = (): THREE.Group => {
   //
   // Horns
   //
@@ -57,7 +57,7 @@ export const createAdornedHead = (skin: THREE.Material): THREE.Group => {
     bend: 0.2,
   };
 
-  const leftHorn = new THREE.Mesh(createHorn(horn), skin);
+  const leftHorn = new THREE.Mesh(createHorn(horn), skin(Surface.leftHorn));
 
   const rightHorn = new THREE.Mesh(
     createHorn({
@@ -65,7 +65,7 @@ export const createAdornedHead = (skin: THREE.Material): THREE.Group => {
       phi: (3 / 8) * PI,
       bend: -horn.bend,
     }),
-    skin
+    skin(Surface.rightHorn)
   );
 
   const hornGroup = new THREE.Group().add(leftHorn).add(rightHorn);
@@ -117,8 +117,8 @@ export const createAdornedHead = (skin: THREE.Material): THREE.Group => {
   );
 
   const antenna = new THREE.Group()
-    .add(new THREE.Mesh(antennaPole, blackMaterial))
-    .add(new THREE.Mesh(antennaDot, redMaterial));
+    .add(new THREE.Mesh(antennaPole, blackMaterial(Surface.skip)))
+    .add(new THREE.Mesh(antennaDot, redMaterial(Surface.skip)));
 
   //
   // Create the face then return the finished head

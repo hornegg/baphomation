@@ -1,27 +1,60 @@
 import * as THREE from 'three';
 
-export const blackMaterial = new THREE.MeshBasicMaterial({
-  color: 'black',
-  side: THREE.DoubleSide,
-});
+export enum Surface {
+  skip = 1,
+  body,
+  leftFoot,
+  rightFoot,
+  sphere,
+  cylinder,
+  leftBreast,
+  rightBreast,
+  leftWing,
+  rightWing,
+  leftArm,
+  rightArm,
+  head,
+  leftEar,
+  rightEar,
+  leftHorn,
+  rightHorn,
+  floor,
+  altar,
+}
 
-export const redMaterial = new THREE.MeshBasicMaterial({
-  color: 'red',
-  side: THREE.DoubleSide,
-});
+const opacity = (surface: Surface) => {
+  return surface / 255;
+};
 
-export const skin = new THREE.MeshBasicMaterial({
-  color: 0x444444,
-  side: THREE.DoubleSide,
-  opacity: 0.5,
-});
+export const blackMaterial = (surface: Surface) =>
+  new THREE.MeshBasicMaterial({
+    color: 'black',
+    opacity: opacity(surface),
+    side: THREE.DoubleSide,
+  });
+
+export const redMaterial = (surface: Surface) =>
+  new THREE.MeshBasicMaterial({
+    color: 'red',
+    opacity: opacity(surface),
+    side: THREE.DoubleSide,
+  });
+
+export const skin = (surface: Surface) =>
+  new THREE.MeshBasicMaterial({
+    color: 0x444444,
+    opacity: opacity(surface),
+    side: THREE.DoubleSide,
+  });
 
 export const floorMaterial = new THREE.MeshBasicMaterial({
   color: 0xcccccc,
+  opacity: opacity(Surface.floor),
   side: THREE.DoubleSide,
 });
 
 export const altarMaterial = new THREE.MeshBasicMaterial({
   color: 0x888888,
+  opacity: opacity(Surface.altar),
   side: THREE.DoubleSide,
 });

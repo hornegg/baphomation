@@ -12,7 +12,6 @@ import { watchTowerLength } from '../settings';
 export interface MainProps {
   head: THREE.Group;
   body: THREE.Group;
-  skin: THREE.Material;
 }
 
 export interface MainState {

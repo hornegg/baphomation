@@ -1,6 +1,6 @@
 import * as THREE from 'three';
+import { skin, Surface } from '../materials';
 import { createEllipsoid } from '../common/geometry';
-import { skin } from '../materials';
 
 export const createHead = (): THREE.Group => {
   const head = createEllipsoid(1.5, 1.0, 1.0);
@@ -15,7 +15,7 @@ export const createHead = (): THREE.Group => {
   const rightEar = createEllipsoid(...earParams).translate(-x, y, z);
 
   return new THREE.Group()
-    .add(new THREE.Mesh(head, skin))
-    .add(new THREE.Mesh(leftEar, skin))
-    .add(new THREE.Mesh(rightEar, skin));
+    .add(new THREE.Mesh(head, skin(Surface.head)))
+    .add(new THREE.Mesh(leftEar, skin(Surface.leftEar)))
+    .add(new THREE.Mesh(rightEar, skin(Surface.rightEar)));
 };

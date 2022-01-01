@@ -2,9 +2,8 @@
 import * as THREE from 'three';
 import { createParametricEllipsoidMesh } from '../common/parametricEllipsoid';
 import { floorLevel } from '../floorLevel';
-import { skin } from '../materials';
 
-export const createFoot = (left: boolean): THREE.Mesh => {
+export const createFoot = (left: boolean, skin: THREE.Material): THREE.Mesh => {
   const radius = 0.5;
 
   const footRatio = 1.75;
