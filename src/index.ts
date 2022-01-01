@@ -55,7 +55,6 @@ const run = async () => {
 
   const createRenderer = (): THREE.WebGLRenderer => {
     const renderer = new THREE.WebGLRenderer({
-      antialias: true,
       alpha: true,
     });
     renderer.setSize(renderWidth, renderHeight);
@@ -79,6 +78,12 @@ const run = async () => {
 
   const changeHueShader = createShaderPass(shaders.changeHue);
   const detectEdgesShader = createShaderPass(shaders.detectEdges);
+
+  detectEdgesShader.uniforms.outlineColor = new THREE.Uniform(
+    new THREE.Vector4(0, 0, 0, 1)
+  );
+
+  detectEdgesShader.uniforms.radius = new THREE.Uniform(0.005);
 
   const flamesBehindRenderer = createRenderer();
   const flamesBehindComposer = new EffectComposer(flamesBehindRenderer);
