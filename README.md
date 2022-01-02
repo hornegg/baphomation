@@ -40,6 +40,9 @@ Set frameCapture to true, and run the animation as usual.  Once the first cycle 
 `frames.zip` simply contains a .png file for each frame of the animation.  Any approach for converting this to a video file is
 fine, but the one provided is to place `frames.zip` in the `dist` directory, then run `npm run ffmpeg`.  This generates a `baphomation.mp4` video file from the frames.
 
+For some weird reason this file does not work universally on all media players.  Fortunately [VLC](https://www.videolan.org/) is
+able to play it, and convert it to a file does appear to work properly on other players.
+
 # Package dependencies
 
 In the hope of making them slightly easier to understand, the package dependencies in [package.json](./package.json) are listed here by category.
