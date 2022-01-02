@@ -1,0 +1,1 @@
+{"mappings":"AAAA;AACA;AACA;AACA;AACA;AACA;AACA;AACA","sources":["src/styles.css"],"sourcesContent":[".border {\r\n  padding: 50px;\r\n}\r\n\r\ncanvas {\r\n  border: 1px black solid;\r\n}\r\n\r\n"],"names":[],"version":3,"file":"index.be5cf2f4.css.map","sourceRoot":"/__parcel_source_root/"}
