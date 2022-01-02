@@ -169,8 +169,8 @@ const run = async () => {
 
     if (settings.frameCapture) {
       frameCapture({
-        startFrame: 0,
-        endFrame: settings.cycleLength,
+        startFrame: 1,
+        endFrame: settings.cycleLength + 1,
         filename: 'frames.zip',
         getCanvas: () => canvas,
       });
