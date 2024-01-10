@@ -37,7 +37,7 @@
     "parcel": "^2.11.0",
     "prettier": "^3.1.1",
     "rimraf": "^5.0.5",
-    "three": "0.144.0",
+    "three": "0.145.0",
     "ts-node": "^10.9.2",
     "typescript": "^5.3.3"
   },
