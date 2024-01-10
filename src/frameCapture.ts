@@ -28,16 +28,18 @@ export const createFrameCaptureComponent =
       if (state.frame >= props.startFrame && state.frame < props.endFrame) {
         const frameString = state.frame.toString().padStart(6, '0');
 
-        props.getCanvas().toBlob((blob: Blob) => {
-          state.zip.file(`f${frameString}.png`, blob);
-          const captureCount = props.endFrame - props.startFrame;
+        props.getCanvas().toBlob((blob: Blob | null) => {
+          if (blob) {
+            state.zip.file(`f${frameString}.png`, blob);
+            const captureCount = props.endFrame - props.startFrame;
 
-          if (Object.keys(state.zip.files).length >= captureCount) {
-            console.log(`Generating ${props.filename}`);
-            state.zip.generateAsync({ type: 'blob' }).then((content) => {
-              console.log('Frame capture complete');
-              saveAs(content, props.filename);
-            });
+            if (Object.keys(state.zip.files).length >= captureCount) {
+              console.log(`Generating ${props.filename}`);
+              state.zip.generateAsync({ type: 'blob' }).then((content) => {
+                console.log('Frame capture complete');
+                saveAs(content, props.filename);
+              });
+            }
           }
         });
       }

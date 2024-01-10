@@ -22,7 +22,7 @@ const createLetteringComponentWithCallbacks = (
 ): Promise<{ render: () => void; domElement: HTMLCanvasElement }> =>
   new Promise((resolve) => {
     new p5((p: p5) => {
-      let backgroundPixels: number[] = null;
+      let backgroundPixels: number[] | null = null;
 
       const render = () => {
         p.loop();
@@ -107,7 +107,7 @@ export const createLetteringComponent = async (): Promise<{
   render: () => Promise<void>;
   domElement: HTMLCanvasElement;
 }> => {
-  let resolveFrame = null;
+  let resolveFrame: (() => void) | null = null;
 
   const { render, domElement } = await createLetteringComponentWithCallbacks(
     () => {

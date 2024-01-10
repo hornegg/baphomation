@@ -137,7 +137,7 @@ const run = async () => {
     flamesInfrontComposer.render();
     await lettering.render();
 
-    const context = canvas.getContext('2d');
+    const context = canvas.getContext('2d')!;
     context.clearRect(0, 0, canvas.width, canvas.height);
 
     const drawParams: [
