@@ -42,19 +42,19 @@ export const redMaterial = (surface: Surface) =>
 
 export const skin = (surface: Surface) =>
   new THREE.MeshBasicMaterial({
-    color: 0x444444,
+    color: 0x777777,
     opacity: opacity(surface),
     side: THREE.DoubleSide,
   });
 
 export const floorMaterial = new THREE.MeshBasicMaterial({
-  color: 0xcccccc,
+  color: 0xdddddd,
   opacity: opacity(Surface.floor),
   side: THREE.DoubleSide,
 });
 
 export const altarMaterial = new THREE.MeshBasicMaterial({
-  color: 0x888888,
+  color: 0xbbbbbb,
   opacity: opacity(Surface.altar),
   side: THREE.DoubleSide,
 });
