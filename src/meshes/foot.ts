@@ -1,4 +1,3 @@
-/* eslint-disable functional/no-expression-statement */
 import * as THREE from 'three';
 import { createParametricEllipsoidMesh } from '../common/parametricEllipsoid';
 import { floorLevel } from '../floorLevel';

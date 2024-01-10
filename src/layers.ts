@@ -1,4 +1,3 @@
-/* eslint-disable functional/no-expression-statement */
 import * as THREE from 'three';
 
 export enum Layer {

@@ -1,4 +1,3 @@
-/* eslint-disable functional/no-expression-statement */
 import * as THREE from 'three';
 import { createFire, Fire } from '../meshes/fire';
 import { HALF_PI, PI } from '../common/constants';
@@ -54,7 +53,6 @@ export const createPentagram = (): AnimationLoopComponent<PentagramProps> => {
   };
 
   return (props: PentagramProps): THREE.Object3D => {
-    // eslint-disable-next-line functional/no-expression-statement
     state.fires.forEach((fire, index) => {
       const allFlamesCompleteFrame = linearMap(
         0.5,

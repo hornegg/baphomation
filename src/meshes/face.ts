@@ -1,4 +1,3 @@
-/* eslint-disable functional/no-expression-statement */
 import * as THREE from 'three';
 import { blackMaterial, redMaterial, Surface } from '../materials';
 import { createArc, createTube } from '../headHelpers';

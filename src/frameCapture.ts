@@ -1,5 +1,4 @@
 /* eslint-disable immutable/no-let */
-/* eslint-disable functional/no-expression-statement */
 import * as THREE from 'three';
 
 import { AnimationLoopComponent } from './components/AnimationLoopComponent';

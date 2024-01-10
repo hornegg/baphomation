@@ -1,4 +1,3 @@
-/* eslint-disable functional/no-expression-statement */
 import * as THREE from 'three';
 import { createPentagram, PentagramProps } from './pentagram';
 import { Layer, setLayerRecursive } from '../layers';

@@ -1,5 +1,3 @@
-/* eslint-disable functional/no-expression-statement */
-
 import * as fs from 'fs/promises';
 import * as path from 'path';
 

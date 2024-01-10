@@ -1,4 +1,3 @@
-/* eslint-disable functional/no-expression-statement */
 import * as THREE from 'three';
 import { choreographArm, stillArm } from '../choreograph';
 import { skin, Surface } from '../materials';

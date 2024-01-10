@@ -34,7 +34,6 @@ const parametricEllipsoid = ({
     const component1 = perp1.clone().multiplyScalar(girth * Math.cos(angle));
     const component2 = perp2.clone().multiplyScalar(girth * Math.sin(angle));
 
-    // eslint-disable-next-line functional/no-expression-statement
     dest
       .set(
         linearMap(u, 0, 1, start.x, end.x),

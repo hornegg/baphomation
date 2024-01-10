@@ -27,7 +27,6 @@
     "@typescript-eslint/eslint-plugin": "^5.8.1",
     "@typescript-eslint/parser": "^5.8.1",
     "eslint": "^8.56.0",
-    "eslint-plugin-functional": "^4.0.2",
     "eslint-plugin-immutable": "^1.0.0",
     "eslint-plugin-no-mixed-operators": "^1.1.1",
     "extract-zip": "^2.0.1",

@@ -1,5 +1,4 @@
 /* eslint-disable immutable/no-let */
-/* eslint-disable functional/no-expression-statement */
 import { linearMap, segmentedMap } from './common/maps';
 import settings, { watchTowerLength } from './settings';
 import p5 from 'p5';

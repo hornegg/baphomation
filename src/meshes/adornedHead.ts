@@ -1,4 +1,3 @@
-/* eslint-disable functional/no-expression-statement */
 import * as THREE from 'three';
 import { blackMaterial, redMaterial, skin, Surface } from '../materials';
 import { ellipticalToCartesian, headHeight } from '../headHelpers';
@@ -28,7 +27,6 @@ export const createAdornedHead = (): THREE.Group => {
       const depth = param.maxDepth * (1 - u);
       const angle = TWO_PI * v;
 
-      // eslint-disable-next-line functional/no-expression-statement
       ellipticalToCartesian(
         1 + (param.length * u),
         param.theta + (width * Math.sin(angle)),
@@ -36,7 +34,6 @@ export const createAdornedHead = (): THREE.Group => {
         vec,
       );
 
-      // eslint-disable-next-line functional/no-expression-statement
       vec = vec.applyAxisAngle(
         new THREE.Vector3(0, 0, 1),
         param.bend * param.length * u,

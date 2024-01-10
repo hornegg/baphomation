@@ -1,4 +1,3 @@
-/* eslint-disable functional/no-expression-statement */
 import * as THREE from 'three';
 import { createCylinder, createEllipsoid } from '../common/geometry';
 import { skin, Surface } from '../materials';
