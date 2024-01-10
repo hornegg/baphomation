@@ -40,7 +40,7 @@ export const createMainComponent = (props: MainProps) => {
       const position = new THREE.Vector3().setFromCylindricalCoords(
         0.5,
         angle - HALF_PI,
-        0
+        0,
       );
       const startFrame = watchTowerIndex * watchTowerLength;
       const endFrame = startFrame + pentagramLength;
@@ -70,7 +70,7 @@ export const createMainComponent = (props: MainProps) => {
         bodyAngle: state.bodyAngle,
         leftFootAngle: state.leftFootAngle,
         rightFootAngle: state.rightFootAngle,
-      })
+      }),
     );
 
     positionedPentagrams.forEach((pp) => mainGroup.add(pp));

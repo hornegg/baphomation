@@ -25,7 +25,7 @@ export const createBodyComponent = (): AnimationLoopComponent<BodyProps> => {
           sign: -1,
           pointAt: choreographArm(props.watchTowerFrame),
           skin: skin(Surface.rightArm),
-        })
+        }),
       );
     return group;
   };

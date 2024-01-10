@@ -70,7 +70,7 @@ const run = async () => {
         uniforms: {
           tDiffuse: { value: null },
         },
-      })
+      }),
     );
     return pass;
   };
@@ -79,7 +79,7 @@ const run = async () => {
   const detectEdgesShader = createShaderPass(shaders.detectEdges);
 
   detectEdgesShader.uniforms.outlineColor = new THREE.Uniform(
-    new THREE.Vector4(0, 0, 0, 1)
+    new THREE.Vector4(0, 0, 0, 1),
   );
 
   detectEdgesShader.uniforms.radius = new THREE.Uniform(0.003);
@@ -124,11 +124,11 @@ const run = async () => {
     scene.add(main(state));
 
     const watchTowerIndex = Math.floor(
-      (state.frame % settings.cycleLength) / watchTowerLength
+      (state.frame % settings.cycleLength) / watchTowerLength,
     );
     const watchTowerColor = settings.watchTowers.color[watchTowerIndex];
     changeHueShader.uniforms.hueAdjustment = new THREE.Uniform(
-      hueAdjustments[watchTowerColor] / 255
+      hueAdjustments[watchTowerColor] / 255,
     );
 
     scene.background = new THREE.Color('white');
@@ -149,7 +149,7 @@ const run = async () => {
       number,
       number,
       number,
-      number
+      number,
     ] = [
       0,
       0,

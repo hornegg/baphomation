@@ -41,8 +41,8 @@ const parametricEllipsoid = ({
         linearMap(u, 0, 1, start.y, end.y),
         Math.max(
           linearMap(u, 0, 1, start.z, end.z),
-          minZ ?? Number.MIN_SAFE_INTEGER
-        )
+          minZ ?? Number.MIN_SAFE_INTEGER,
+        ),
       )
       .add(component1)
       .add(component2);
@@ -53,13 +53,13 @@ export const createParametricEllipsoidMesh = (
   start: THREE.Vector3,
   end: THREE.Vector3,
   maxGirth: number,
-  material: THREE.Material
+  material: THREE.Material,
 ): THREE.Mesh =>
   new THREE.Mesh(
     new ParametricGeometry(
       parametricEllipsoid({ start, end, maxGirth }),
       20,
-      20
+      20,
     ),
-    material
+    material,
   );

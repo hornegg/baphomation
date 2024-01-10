@@ -33,13 +33,13 @@ export const createAdornedHead = (): THREE.Group => {
         1 + (param.length * u),
         param.theta + (width * Math.sin(angle)),
         param.phi + (depth * Math.cos(angle)),
-        vec
+        vec,
       );
 
       // eslint-disable-next-line functional/no-expression-statement
       vec = vec.applyAxisAngle(
         new THREE.Vector3(0, 0, 1),
-        param.bend * param.length * u
+        param.bend * param.length * u,
       );
     };
 
@@ -65,7 +65,7 @@ export const createAdornedHead = (): THREE.Group => {
       phi: (3 / 8) * PI,
       bend: -horn.bend,
     }),
-    skin(Surface.rightHorn)
+    skin(Surface.rightHorn),
   );
 
   const hornGroup = new THREE.Group().add(leftHorn).add(rightHorn);
@@ -78,7 +78,7 @@ export const createAdornedHead = (): THREE.Group => {
     beginning: THREE.Vector3,
     middle: THREE.Vector3,
     end: THREE.Vector3,
-    width: number
+    width: number,
   ) => {
     const tubePath = new THREE.Curve<THREE.Vector3>();
     tubePath.getPoint = (t): THREE.Vector3 => {
@@ -86,13 +86,13 @@ export const createAdornedHead = (): THREE.Group => {
         return new THREE.Vector3(
           linearMap(t, 0, 0.5, beginning.x, middle.x),
           linearMap(t, 0, 0.5, beginning.y, middle.y),
-          linearMap(t, 0, 0.5, beginning.z, middle.z)
+          linearMap(t, 0, 0.5, beginning.z, middle.z),
         );
       } else {
         return new THREE.Vector3(
           linearMap(t, 0.5, 1, middle.x, end.x),
           linearMap(t, 0.5, 1, middle.y, end.y),
-          linearMap(t, 0.5, 1, middle.z, end.z)
+          linearMap(t, 0.5, 1, middle.z, end.z),
         );
       }
     };
@@ -107,13 +107,13 @@ export const createAdornedHead = (): THREE.Group => {
     new THREE.Vector3(0, headHeight, 0),
     new THREE.Vector3(0.3, headHeight + 1, 0),
     antennaPosition,
-    0.05
+    0.05,
   );
 
   const antennaDot = new THREE.SphereGeometry(antennaSize, 12, 12).translate(
     antennaPosition.x,
     antennaPosition.y,
-    antennaPosition.z
+    antennaPosition.z,
   );
 
   const antenna = new THREE.Group()

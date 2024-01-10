@@ -20,7 +20,7 @@ export const getPointOnPentagon = (pt: number): THREE.Vector3 => {
   return new THREE.Vector3(
     -2,
     radius * Math.sin(angle),
-    radius * Math.cos(angle)
+    radius * Math.cos(angle),
   );
 };
 
@@ -61,7 +61,7 @@ export const createPentagram = (): AnimationLoopComponent<PentagramProps> => {
         0,
         1,
         props.startFrame,
-        props.endFrame
+        props.endFrame,
       );
 
       const flameStartFrame = linearMap(
@@ -69,7 +69,7 @@ export const createPentagram = (): AnimationLoopComponent<PentagramProps> => {
         0,
         state.fires.length,
         props.startFrame,
-        allFlamesCompleteFrame
+        allFlamesCompleteFrame,
       );
 
       const flameCompleteFrame =
@@ -80,7 +80,7 @@ export const createPentagram = (): AnimationLoopComponent<PentagramProps> => {
         0,
         1,
         props.startFrame,
-        props.endFrame
+        props.endFrame,
       );
 
       const flareEndFrame = linearMap(
@@ -88,7 +88,7 @@ export const createPentagram = (): AnimationLoopComponent<PentagramProps> => {
         0,
         1,
         props.startFrame,
-        props.endFrame
+        props.endFrame,
       );
 
       const flareMagnitude = 1;
@@ -119,14 +119,14 @@ export const createPentagram = (): AnimationLoopComponent<PentagramProps> => {
           flareMagnitude,
           flameOffMagnitude,
         ],
-        maps
+        maps,
       );
 
       fire.material.uniforms.gain.value = segmentedMap(
         state.frame,
         frameSegments,
         [flameOffGain, flameOnGain, flameOnGain, flareGain, flameOffGain],
-        maps
+        maps,
       );
 
       if (state.frame >= props.startFrame && state.frame <= props.endFrame) {
@@ -147,7 +147,7 @@ export const createPentagram = (): AnimationLoopComponent<PentagramProps> => {
         const subGroup = new THREE.Group();
         subGroup.add(fire);
         subGroup.position.set(
-          ...getPointOnPentagram((5 * index) / state.fires.length).toArray()
+          ...getPointOnPentagram((5 * index) / state.fires.length).toArray(),
         );
         subGroup.scale.set(scale, scale, scale);
         group.add(subGroup);

@@ -29,7 +29,7 @@ const task = async () => {
   await exec(`extract-zip ${zipFilename} ${framesPath}`);
 
   await exec(
-    `${ffmpegPath} -framerate ${settings.fps} -i ${framesParam} ${videoPath} -y`
+    `${ffmpegPath} -framerate ${settings.fps} -i ${framesParam} ${videoPath} -y`,
   );
 };
 

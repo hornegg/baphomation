@@ -15,6 +15,6 @@ export const createFoot = (left: boolean, skin: THREE.Material): THREE.Mesh => {
     new THREE.Vector3(footCenterX, floorLevel, z + (footRatio * radius)),
     new THREE.Vector3(footCenterX, floorLevel, z - (footRatio * radius)),
     radius,
-    skin
+    skin,
   );
 };

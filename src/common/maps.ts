@@ -5,7 +5,7 @@ export type IMap = (
   range1start: number,
   range1end: number,
   range2start: number,
-  range2end: number
+  range2end: number,
 ) => number;
 
 export const linearMap = (
@@ -13,7 +13,7 @@ export const linearMap = (
   range1start: number,
   range1end: number,
   range2start: number,
-  range2end: number
+  range2end: number,
 ): number => {
   return (
     range2start +
@@ -28,7 +28,7 @@ export const powerMap = (power: number): IMap => {
     range1start: number,
     range1end: number,
     range2start: number,
-    range2end: number
+    range2end: number,
   ): number => {
     const linearRatio = (value - range1start) / (range1end - range1start);
     const ratio = Math.pow(linearRatio, power);
@@ -40,7 +40,7 @@ export const segmentedMap = (
   value: number,
   range1: number[],
   range2: number[],
-  _maps?: IMap[]
+  _maps?: IMap[],
 ): number => {
   if (range1.length !== range2.length) {
     throw new Error('segmentedMap range arrays not equal');
@@ -50,7 +50,7 @@ export const segmentedMap = (
 
   if (maps.length !== range1.length - 1) {
     throw new Error(
-      'segmentedMap maps array length must be one less that ranges length'
+      'segmentedMap maps array length must be one less that ranges length',
     );
   }
 
@@ -66,7 +66,7 @@ export const segmentedMap = (
         range1[n - 1],
         range1[n],
         range2[n - 1],
-        range2[n]
+        range2[n],
       );
   }
 };
@@ -76,36 +76,36 @@ export const linearMap3 = (
   range1start: number,
   range1end: number,
   range2start: THREE.Vector3,
-  range2end: THREE.Vector3
+  range2end: THREE.Vector3,
 ): THREE.Vector3 => {
   return new THREE.Vector3(
     linearMap(value, range1start, range1end, range2start.x, range2end.x),
     linearMap(value, range1start, range1end, range2start.y, range2end.y),
-    linearMap(value, range1start, range1end, range2start.z, range2end.z)
+    linearMap(value, range1start, range1end, range2start.z, range2end.z),
   );
 };
 
 export const segmentedLinearMap3 = (
   value: number,
   range1: number[],
-  range2: THREE.Vector3[]
+  range2: THREE.Vector3[],
 ): THREE.Vector3 => {
   const result = new THREE.Vector3(
     segmentedMap(
       value,
       range1,
-      range2.map((v) => v.x)
+      range2.map((v) => v.x),
     ),
     segmentedMap(
       value,
       range1,
-      range2.map((v) => v.y)
+      range2.map((v) => v.y),
     ),
     segmentedMap(
       value,
       range1,
-      range2.map((v) => v.z)
-    )
+      range2.map((v) => v.z),
+    ),
   );
   return result;
 };

@@ -50,7 +50,7 @@ const getCameraPosition = (frame: number): THREE.Vector3 => {
   return new THREE.Vector3().setFromSphericalCoords(
     6,
     segmentedMap(frame % settings.cycleLength, frameSegments, ySegments),
-    segmentedMap(frame % settings.cycleLength, frameSegments, xSegments)
+    segmentedMap(frame % settings.cycleLength, frameSegments, xSegments),
   );
 };
 

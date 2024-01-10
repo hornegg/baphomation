@@ -9,7 +9,7 @@ export const createBody = (): THREE.Group => {
   const createWing = (sign: 1 | -1): THREE.ExtrudeGeometry => {
     const quadParams = (
       p1: [number, number],
-      p2: [number, number]
+      p2: [number, number],
     ): [number, number, number, number] => {
       const perp = [p1[1] - p2[1], p2[0] - p1[0]].map((n) => 0.7 * n);
       const mid = [0.5 * (p1[0] + p2[0]), 0.5 * (p1[1] + p2[1])];
@@ -39,7 +39,7 @@ export const createBody = (): THREE.Group => {
         sign * bladeEndX,
         bladeEndY - 0.4,
         sign * bladeEndX,
-        bladeEndY
+        bladeEndY,
       )
       .quadraticCurveTo(...quadParams(a, b))
       .quadraticCurveTo(...quadParams(b, c))
@@ -64,13 +64,13 @@ export const createBody = (): THREE.Group => {
     const leftBreast = createEllipsoid(0.25, 0.25, 0.25).translate(
       -params[0],
       params[1],
-      params[2]
+      params[2],
     );
 
     const rightBreast = createEllipsoid(0.25, 0.25, 0.25).translate(
       params[0],
       params[1],
-      params[2]
+      params[2],
     );
 
     const height = 1;
@@ -94,7 +94,7 @@ export const createBody = (): THREE.Group => {
   };
 
   const bodyGroup = new THREE.Group().add(
-    new THREE.Mesh(bodyEllipsoid, skin(Surface.body))
+    new THREE.Mesh(bodyEllipsoid, skin(Surface.body)),
   );
 
   if (settings.nsfw) {

@@ -7,10 +7,10 @@ const createBox = (
   width: number,
   height: number,
   depth: number,
-  material: THREE.Material
+  material: THREE.Material,
 ): THREE.Group => {
   const group = new THREE.Group().add(
-    new THREE.Mesh(new THREE.BoxGeometry(width, height, depth), material)
+    new THREE.Mesh(new THREE.BoxGeometry(width, height, depth), material),
   );
 
   return group;

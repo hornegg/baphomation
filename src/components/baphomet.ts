@@ -34,20 +34,20 @@ export const createBaphometComponent =
             head,
             body,
             watchTowerFrame,
-          })
+          }),
         )
         .add(
           leftFoot({
             footAngle: leftFootAngle,
             left: true,
             skin: skin(Surface.leftFoot),
-          })
+          }),
         )
         .add(
           rightFoot({
             footAngle: rightFootAngle,
             left: false,
             skin: skin(Surface.rightFoot),
-          })
+          }),
         );
   };

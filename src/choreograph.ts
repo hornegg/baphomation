@@ -18,19 +18,19 @@ export const choreographBody = (frame: number): MainState => {
   const bodyAngle = segmentedMap(
     watchTowerFrame,
     [pentagramLength, watchTowerLength],
-    [watchTower * HALF_PI, (watchTower - 1) * HALF_PI]
+    [watchTower * HALF_PI, (watchTower - 1) * HALF_PI],
   );
 
   const leftFootAngle = segmentedMap(
     watchTowerFrame,
     [pentagramLength, midStepLength],
-    [watchTower * HALF_PI, (watchTower - 1) * HALF_PI]
+    [watchTower * HALF_PI, (watchTower - 1) * HALF_PI],
   );
 
   const rightFootAngle = segmentedMap(
     watchTowerFrame,
     [midStepLength, watchTowerLength],
-    [watchTower * HALF_PI, (watchTower - 1) * HALF_PI]
+    [watchTower * HALF_PI, (watchTower - 1) * HALF_PI],
   );
 
   const layer = Math.floor(frame / settings.cycleLength) % 3;
@@ -71,7 +71,7 @@ export const choreographArm = (watchTowerFrame: number): THREE.Vector3 => {
   const frameSegments = [
     0,
     ...[0, 1, 2, 3, 4, 5].map((v) =>
-      linearMap(v, 0, 5, pentagramStart, pentagramEnd)
+      linearMap(v, 0, 5, pentagramStart, pentagramEnd),
     ),
     centreStart,
     centreEnd,
@@ -89,7 +89,7 @@ export const choreographArm = (watchTowerFrame: number): THREE.Vector3 => {
   const pointAt = segmentedLinearMap3(
     watchTowerFrame,
     frameSegments,
-    positionSegments
+    positionSegments,
   );
 
   return pointAt;

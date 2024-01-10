@@ -10,14 +10,14 @@ export const ellipticalToCartesian = (
   r: number,
   theta: number,
   phi: number,
-  _vec?: THREE.Vector3
+  _vec?: THREE.Vector3,
 ): THREE.Vector3 => {
   const vec = _vec ? _vec : new THREE.Vector3();
 
   return vec.set(
     r * headWidth * Math.sin(theta) * Math.cos(phi),
     r * headHeight * Math.sin(theta) * Math.sin(phi),
-    r * headDepth * Math.cos(theta)
+    r * headDepth * Math.cos(theta),
   );
 };
 
@@ -61,7 +61,7 @@ export const createArc = (param: ArcParameters): THREE.TubeGeometry => {
     return ellipticalToCartesian(
       1,
       param.centerTheta + (param.thetaRadius * Math.cos(angle)),
-      param.centerPhi + (param.phiRadius * Math.sin(angle))
+      param.centerPhi + (param.phiRadius * Math.sin(angle)),
     );
   };
 

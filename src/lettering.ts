@@ -19,7 +19,7 @@ const frameSegments = [
 ];
 
 const createLetteringComponentWithCallbacks = (
-  frameRendered: () => void
+  frameRendered: () => void,
 ): Promise<{ render: () => void; domElement: HTMLCanvasElement }> =>
   new Promise((resolve) => {
     new p5((p: p5) => {
@@ -57,13 +57,13 @@ const createLetteringComponentWithCallbacks = (
         const textWidthExtra = 50;
         const gText = p.createGraphics(
           p.textWidth(text) + textWidthExtra,
-          textHeight
+          textHeight,
         );
 
         const alpha = segmentedMap(
           watchTowerFrame,
           frameSegments,
-          [0, 255, 255, 0]
+          [0, 255, 255, 0],
         );
 
         const color: [number, number, number] = colors[watchTowerColor];
@@ -73,7 +73,7 @@ const createLetteringComponentWithCallbacks = (
         const textSize = segmentedMap(
           watchTowerFrame,
           frameSegments,
-          [0, 1, 1, 2]
+          [0, 1, 1, 2],
         );
 
         gText.text(text, 0, gText.height);
@@ -95,7 +95,7 @@ const createLetteringComponentWithCallbacks = (
           0.5 * (p.width - textWidth + textWidthExtra),
           y,
           textWidth,
-          gText.height * textSize
+          gText.height * textSize,
         );
 
         p.noLoop();
@@ -115,7 +115,7 @@ export const createLetteringComponent = async (): Promise<{
       if (resolveFrame) {
         resolveFrame();
       }
-    }
+    },
   );
 
   return {
