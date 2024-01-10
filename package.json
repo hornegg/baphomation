@@ -20,7 +20,7 @@
   "dependencies": {
     "@parcel/transformer-glsl": "^2.11.0",
     "@parcel/transformer-image": "^2.0.0-beta.2",
-    "@types/file-saver": "^2.0.2",
+    "@types/file-saver": "^2.0.7",
     "@types/node": "^20.10.8",
     "@types/p5": "^1.7.6",
     "@types/three": "^0.135.0",
@@ -46,7 +46,7 @@
     "trailingComma": "all"
   },
   "devDependencies": {
-    "buffer": "^5.7.1",
+    "buffer": "^6.0.3",
     "process": "^0.11.10"
   }
 }
