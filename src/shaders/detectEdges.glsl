@@ -1,6 +1,9 @@
 #define PI 3.1415926538
 #define tolerance 0.0001
 
+#define nearZero 0.15
+#define nearOne 0.85
+
 uniform sampler2D tDiffuse;
 varying vec2 vUv;
 
@@ -8,10 +11,10 @@ uniform float radius;
 uniform vec4 outlineColor;
 
 bool skip(vec4 skipColor) {
-	if (skipColor.r > 0.85 && skipColor.g <= 0.15 && skipColor.b <= 0.15 && skipColor.a > 0.85) {
+	if (skipColor.r > nearOne && skipColor.g <= nearZero && skipColor.b <= nearZero && skipColor.a > nearOne) {
 		// Skip red
 		return true;
-	} else if (skipColor.r <= 0.15 && skipColor.g <= 0.15 && skipColor.b <= 0.15 && skipColor.a > 0.85) {
+	} else if (skipColor.r <= nearZero && skipColor.g <= nearZero && skipColor.b <= nearZero && skipColor.a > nearOne) {
 		// Skip black
 		return true;
 	}
