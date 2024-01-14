@@ -6,7 +6,17 @@ varying vec2 vUv;
 
 uniform float radius;
 uniform vec4 outlineColor;
-uniform float skipAlpha;
+
+bool skip(vec4 skipColor) {
+	if (skipColor.r == 1.0 && skipColor.g == 0.0 && skipColor.b == 0.0 && skipColor.a == 1.0) {
+		// Skip red
+		return true;
+	} else if (skipColor.r == 0.0 && skipColor.g == 0.0 && skipColor.b == 0.0 && skipColor.a == 1.0) {
+		// Skip black
+		return true;
+	}
+	return false;
+}
 
 void main() {
 	vec4 color = texture2D(tDiffuse, vUv);
@@ -16,7 +26,12 @@ void main() {
 		vec2 comparePt = vUv + vec2(radius * cos(angle), radius * sin(angle));
 		vec4 compareColor = texture2D(tDiffuse, comparePt);
 
-		if (color.a != skipAlpha && compareColor.a != skipAlpha && abs(color.a - compareColor.a) > tolerance) {
+		if (skip(color) || skip(compareColor) ) {
+			// Skipped
+		} else if (abs(color.r - compareColor.r) > tolerance
+		|| abs(color.g - compareColor.g) > tolerance
+		|| abs(color.b - compareColor.b) > tolerance
+		|| abs(color.a - compareColor.a) > tolerance) {
 			gl_FragColor = outlineColor;
 			return;
 		}

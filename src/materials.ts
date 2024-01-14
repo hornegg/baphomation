@@ -1,60 +1,61 @@
 import * as THREE from 'three';
 
+const skinColor = 0x777777;
+
+const r0 = -0x010000;
+const r1 = 0;
+
+const g0 = -0x000100;
+const g1 = 0;
+const g2 = 0x000100;
+
+const b0 = -0x000001;
+const b1 = 0;
+const b2 = 0x000001;
+
 export enum Surface {
-  skip = 1,
-  body,
-  leftFoot,
-  rightFoot,
-  sphere,
-  cylinder,
-  leftBreast,
-  rightBreast,
-  leftWing,
-  rightWing,
-  leftArm,
-  rightArm,
-  head,
-  leftEar,
-  rightEar,
-  leftHorn,
-  rightHorn,
-  floor,
-  altar,
+  body = skinColor + r0 + g0 + b0,
+  leftFoot = skinColor  + r0 + g0 + b1,
+  rightFoot = skinColor  + r0 + g0 + b2,
+  sphere = skinColor  + r0 + g1 + b0,
+  cylinder = skinColor  + r0 + g1 + b1,
+  leftBreast =skinColor  + r0 + g1 + b2,
+  rightBreast = skinColor  + r0 + g2 + b0,
+  leftWing = skinColor  + r0 + g2 + b1,
+  rightWing = skinColor  + r0 + g2 + b2,
+  leftArm = skinColor  + r1 + g0 + b0,
+  rightArm = skinColor  + r1 + g0 + b1,
+  head = skinColor  + r1 + g0 + b2,
+  leftEar = skinColor  + r1 + g1 + b0,
+  rightEar = skinColor  + r1 + g1 + b1,
+  leftHorn = skinColor  + r1 + g1 + b2,
+  rightHorn = skinColor  + r1 + g2 + b0,
 }
 
-const opacity = (surface: Surface) => {
-  return surface / 255;
-};
-
-export const blackMaterial = (surface: Surface) =>
+export const blackMaterial = () =>
   new THREE.MeshBasicMaterial({
     color: 'black',
-    opacity: opacity(surface),
     side: THREE.DoubleSide,
   });
 
-export const redMaterial = (surface: Surface) =>
+export const redMaterial = () =>
   new THREE.MeshBasicMaterial({
     color: 'red',
-    opacity: opacity(surface),
     side: THREE.DoubleSide,
   });
 
 export const skin = (surface: Surface) =>
   new THREE.MeshBasicMaterial({
-    color: 0x777777,
-    opacity: opacity(surface),
+    color: surface,
     side: THREE.DoubleSide,
   });
 
 export const floorMaterial = new THREE.MeshBasicMaterial({
   color: 0xdddddd,
-  opacity: opacity(Surface.floor),
   side: THREE.DoubleSide,
 });
 
 export const altarMaterial = new THREE.MeshBasicMaterial({
   color: 0xbbbbbb,
-  opacity: opacity(Surface.altar),
   side: THREE.DoubleSide,
 });
