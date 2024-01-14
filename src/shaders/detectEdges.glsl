@@ -8,10 +8,10 @@ uniform float radius;
 uniform vec4 outlineColor;
 
 bool skip(vec4 skipColor) {
-	if (skipColor.r == 1.0 && skipColor.g == 0.0 && skipColor.b == 0.0 && skipColor.a == 1.0) {
+	if (skipColor.r > 0.85 && skipColor.g <= 0.15 && skipColor.b <= 0.15 && skipColor.a > 0.85) {
 		// Skip red
 		return true;
-	} else if (skipColor.r == 0.0 && skipColor.g == 0.0 && skipColor.b == 0.0 && skipColor.a == 1.0) {
+	} else if (skipColor.r <= 0.15 && skipColor.g <= 0.15 && skipColor.b <= 0.15 && skipColor.a > 0.85) {
 		// Skip black
 		return true;
 	}
