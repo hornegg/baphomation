@@ -1,5 +1,5 @@
 import * as THREE from 'three';
-import { blackMaterial, redMaterial, Surface } from '../materials';
+import { blackMaterial, redMaterial } from '../materials';
 import { createArc, createTube } from '../headHelpers';
 import { Layer, setLayerRecursive } from '../layers';
 import { linearMap } from '../common/maps';
@@ -37,7 +37,7 @@ export const createFace = (): THREE.Group => {
           radius: 0.02,
         });
       })
-      .map((geom) => new THREE.Mesh(geom, blackMaterial(Surface.head))),
+      .map((geom) => new THREE.Mesh(geom, blackMaterial())),
   );
 
   //
@@ -82,12 +82,12 @@ export const createFace = (): THREE.Group => {
   const eyesGroup = new THREE.Group()
     .add(
       ...[topLidLeft, topLidRight, bottomLidLeft, bottomLidRight].map(
-        (geom) => new THREE.Mesh(geom, blackMaterial(Surface.head)),
+        (geom) => new THREE.Mesh(geom, blackMaterial()),
       ),
     )
     .add(
       ...[eyeballLeft, eyeballRight].map(
-        (geom) => new THREE.Mesh(geom, redMaterial(Surface.head)),
+        (geom) => new THREE.Mesh(geom, redMaterial()),
       ),
     );
 
@@ -113,7 +113,7 @@ export const createFace = (): THREE.Group => {
 
   const nose = new THREE.Group().add(
     ...[noseLeft, noseRight].map(
-      (geom) => new THREE.Mesh(geom, blackMaterial(Surface.head)),
+      (geom) => new THREE.Mesh(geom, blackMaterial()),
     ),
   );
 
@@ -131,7 +131,7 @@ export const createFace = (): THREE.Group => {
       startAngle: -0.9,
       finishAngle: 0.9,
     }),
-    blackMaterial(Surface.head),
+    blackMaterial(),
   );
 
   const face = new THREE.Group()

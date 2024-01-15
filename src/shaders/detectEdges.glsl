@@ -1,12 +1,25 @@
 #define PI 3.1415926538
 #define tolerance 0.0001
 
+#define nearZero 0.15
+#define nearOne 0.85
+
 uniform sampler2D tDiffuse;
 varying vec2 vUv;
 
 uniform float radius;
 uniform vec4 outlineColor;
-uniform float skipAlpha;
+
+bool skip(vec4 skipColor) {
+	if (skipColor.r > nearOne && skipColor.g <= nearZero && skipColor.b <= nearZero && skipColor.a > nearOne) {
+		// Skip red
+		return true;
+	} else if (skipColor.r <= nearZero && skipColor.g <= nearZero && skipColor.b <= nearZero && skipColor.a > nearOne) {
+		// Skip black
+		return true;
+	}
+	return false;
+}
 
 void main() {
 	vec4 color = texture2D(tDiffuse, vUv);
@@ -16,7 +29,12 @@ void main() {
 		vec2 comparePt = vUv + vec2(radius * cos(angle), radius * sin(angle));
 		vec4 compareColor = texture2D(tDiffuse, comparePt);
 
-		if (color.a != skipAlpha && compareColor.a != skipAlpha && abs(color.a - compareColor.a) > tolerance) {
+		if (skip(color) || skip(compareColor) ) {
+			// Skipped
+		} else if (abs(color.r - compareColor.r) > tolerance
+		|| abs(color.g - compareColor.g) > tolerance
+		|| abs(color.b - compareColor.b) > tolerance
+		|| abs(color.a - compareColor.a) > tolerance) {
 			gl_FragColor = outlineColor;
 			return;
 		}

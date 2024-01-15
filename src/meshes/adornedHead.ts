@@ -114,8 +114,8 @@ export const createAdornedHead = (): THREE.Group => {
   );
 
   const antenna = new THREE.Group()
-    .add(new THREE.Mesh(antennaPole, blackMaterial(Surface.skip)))
-    .add(new THREE.Mesh(antennaDot, redMaterial(Surface.skip)));
+    .add(new THREE.Mesh(antennaPole, blackMaterial()))
+    .add(new THREE.Mesh(antennaDot, redMaterial()));
 
   //
   // Create the face then return the finished head
